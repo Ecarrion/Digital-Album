@@ -25,6 +25,11 @@
 		260B42EE18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E618B254FC00ABCC6A /* temp */; };
 		260B42EF18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E818B254FC00ABCC6A /* temp */; };
 		260B42F018B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42EA18B254FC00ABCC6A /* temp */; };
+		260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F218B2556700ABCC6A /* AlbumsViewController.m */; };
+		260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B42F318B2556700ABCC6A /* AlbumsViewController.xib */; };
+		260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F718B25C7100ABCC6A /* ImageManager.m */; };
+		260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FA18B25DA400ABCC6A /* DAImage.m */; };
+		260B42FD18B260E700ABCC6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42FC18B260E700ABCC6A /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +65,14 @@
 		260B42E618B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
 		260B42E818B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
 		260B42EA18B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42F118B2556700ABCC6A /* AlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumsViewController.h; sourceTree = "<group>"; };
+		260B42F218B2556700ABCC6A /* AlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumsViewController.m; sourceTree = "<group>"; };
+		260B42F318B2556700ABCC6A /* AlbumsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumsViewController.xib; sourceTree = "<group>"; };
+		260B42F618B25C7100ABCC6A /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
+		260B42F718B25C7100ABCC6A /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
+		260B42F918B25DA400ABCC6A /* DAImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAImage.h; sourceTree = "<group>"; };
+		260B42FA18B25DA400ABCC6A /* DAImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAImage.m; sourceTree = "<group>"; };
+		260B42FC18B260E700ABCC6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +80,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260B42FD18B260E700ABCC6A /* CoreLocation.framework in Frameworks */,
 				260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */,
 				260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */,
 				260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */,
@@ -108,6 +122,7 @@
 		260B42AE18B2503300ABCC6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				260B42FC18B260E700ABCC6A /* CoreLocation.framework */,
 				260B42AF18B2503300ABCC6A /* Foundation.framework */,
 				260B42B118B2503300ABCC6A /* CoreGraphics.framework */,
 				260B42B318B2503300ABCC6A /* UIKit.framework */,
@@ -160,10 +175,10 @@
 		260B42DE18B254FC00ABCC6A /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				260B42E418B254FC00ABCC6A /* Utils */,
 				260B42DF18B254FC00ABCC6A /* Albums */,
 				260B42E118B254FC00ABCC6A /* Models */,
 				260B42E318B254FC00ABCC6A /* temp */,
-				260B42E418B254FC00ABCC6A /* Utils */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -172,6 +187,9 @@
 			isa = PBXGroup;
 			children = (
 				260B42E018B254FC00ABCC6A /* temp */,
+				260B42F118B2556700ABCC6A /* AlbumsViewController.h */,
+				260B42F218B2556700ABCC6A /* AlbumsViewController.m */,
+				260B42F318B2556700ABCC6A /* AlbumsViewController.xib */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -180,6 +198,10 @@
 			isa = PBXGroup;
 			children = (
 				260B42E218B254FC00ABCC6A /* temp */,
+				260B42F618B25C7100ABCC6A /* ImageManager.h */,
+				260B42F718B25C7100ABCC6A /* ImageManager.m */,
+				260B42F918B25DA400ABCC6A /* DAImage.h */,
+				260B42FA18B25DA400ABCC6A /* DAImage.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -300,6 +322,7 @@
 				260B42EC18B254FC00ABCC6A /* temp in Resources */,
 				260B42EF18B254FC00ABCC6A /* temp in Resources */,
 				260B42C218B2503300ABCC6A /* Images.xcassets in Resources */,
+				260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */,
 				260B42ED18B254FC00ABCC6A /* temp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -319,8 +342,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */,
+				260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */,
 				260B42C018B2503300ABCC6A /* AppDelegate.m in Sources */,
 				260B42BC18B2503300ABCC6A /* main.m in Sources */,
+				260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
