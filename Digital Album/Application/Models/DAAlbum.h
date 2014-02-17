@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSArray * images;
 
 +(DAAlbum *)AlbumWithGroup:(ALAssetsGroup *)group;
+-(DAImage *)topImage;
 
 
 @end

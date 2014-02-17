@@ -15,7 +15,7 @@ typedef void (^completionGeocodeBlock)();
 
 @property (atomic, copy) completionGeocodeBlock completionBlock;
 
-@end
+@end 
 
 
 

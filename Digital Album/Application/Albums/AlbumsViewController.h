@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlbumsViewController : UIViewController
+@interface AlbumsViewController : UIViewController {
+    
+    
+    __weak IBOutlet UICollectionView *albumsCollectionView;
+    
+}
 
 @end

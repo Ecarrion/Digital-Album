@@ -21,4 +21,9 @@
     return album;
 }
 
+-(DAImage *)topImage {
+    
+    return [self.images firstObject];
+}
+
 @end

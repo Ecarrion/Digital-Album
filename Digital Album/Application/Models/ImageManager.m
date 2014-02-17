@@ -16,9 +16,20 @@
 @implementation ImageManager
 
 
++ (ALAssetsLibrary *) defaultAssetsLibrary {
+    
+    static dispatch_once_t pred = 0;
+    static ALAssetsLibrary *library = nil;
+    dispatch_once(&pred, ^{
+        library = [[ALAssetsLibrary alloc] init];
+    });
+    return library;
+}
+
+
 +(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
-    ALAssetsLibrary *lib = [[ALAssetsLibrary alloc] init];
+    ALAssetsLibrary *lib = [ImageManager defaultAssetsLibrary];
     __block NSMutableArray * albumsArray = [NSMutableArray array];
     
     [lib enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
@@ -41,6 +52,7 @@
             }];
             
             album.images = [imagesArray copy];
+            [albumsArray addObject:album];
             imagesArray = nil;
             
         } else {
