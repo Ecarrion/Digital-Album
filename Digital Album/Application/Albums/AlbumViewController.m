@@ -7,6 +7,7 @@
 //
 
 #import "AlbumViewController.h"
+#import "AlbumPageViewController.h"
 
 @interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -42,6 +43,22 @@
     [self.pageViewController didMoveToParentViewController:self];
     
     //[self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+}
+
+-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    
+}
+
+-(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    
+}
+
+-
+
+-(AlbumPageViewController *)pageControllerAtIndex:(int)index {
+    
+    AlbumPageViewController * page = [[AlbumPageViewController alloc] initWithImage:self.album.images[index]];
+    return page;
 }
 
 -(void)viewWillAppear:(BOOL)animated {

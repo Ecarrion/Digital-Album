@@ -40,10 +40,21 @@
     imageView.image = [self.image localImage];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    if ([self isViewLoaded] && self.view.window == nil) {
+        
+        self.view = nil;
+    }
+    
+    if (![self isViewLoaded]) {
+        
+        //Clean outlets here
+    }
+    
+    //Clean rest of resources here eg:arrays, maps, dictionaries, etc
 }
 
 @end

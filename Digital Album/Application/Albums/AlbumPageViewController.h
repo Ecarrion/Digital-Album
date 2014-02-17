@@ -16,4 +16,6 @@
 
 @property (strong, nonatomic)  DAImage * image;
 
+-(id)initWithImage:(DAImage *)image
+
 @end
