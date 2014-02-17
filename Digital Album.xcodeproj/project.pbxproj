@@ -19,6 +19,12 @@
 		260B42CB18B2503300ABCC6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B318B2503300ABCC6A /* UIKit.framework */; };
 		260B42D318B2503300ABCC6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 260B42D118B2503300ABCC6A /* InfoPlist.strings */; };
 		260B42D518B2503400ABCC6A /* Digital_AlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42D418B2503400ABCC6A /* Digital_AlbumTests.m */; };
+		260B42EB18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E018B254FC00ABCC6A /* temp */; };
+		260B42EC18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E218B254FC00ABCC6A /* temp */; };
+		260B42ED18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E318B254FC00ABCC6A /* temp */; };
+		260B42EE18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E618B254FC00ABCC6A /* temp */; };
+		260B42EF18B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42E818B254FC00ABCC6A /* temp */; };
+		260B42F018B254FC00ABCC6A /* temp in Resources */ = {isa = PBXBuildFile; fileRef = 260B42EA18B254FC00ABCC6A /* temp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +54,12 @@
 		260B42D018B2503300ABCC6A /* Digital AlbumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Digital AlbumTests-Info.plist"; sourceTree = "<group>"; };
 		260B42D218B2503300ABCC6A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		260B42D418B2503400ABCC6A /* Digital_AlbumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Digital_AlbumTests.m; sourceTree = "<group>"; };
+		260B42E018B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42E218B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42E318B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42E618B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42E818B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
+		260B42EA18B254FC00ABCC6A /* temp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = temp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,8 +121,9 @@
 			children = (
 				260B42BE18B2503300ABCC6A /* AppDelegate.h */,
 				260B42BF18B2503300ABCC6A /* AppDelegate.m */,
-				260B42C118B2503300ABCC6A /* Images.xcassets */,
+				260B42DE18B254FC00ABCC6A /* Application */,
 				260B42B618B2503300ABCC6A /* Supporting Files */,
+				260B42C118B2503300ABCC6A /* Images.xcassets */,
 			);
 			path = "Digital Album";
 			sourceTree = "<group>";
@@ -142,6 +155,67 @@
 				260B42D118B2503300ABCC6A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		260B42DE18B254FC00ABCC6A /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				260B42DF18B254FC00ABCC6A /* Albums */,
+				260B42E118B254FC00ABCC6A /* Models */,
+				260B42E318B254FC00ABCC6A /* temp */,
+				260B42E418B254FC00ABCC6A /* Utils */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		260B42DF18B254FC00ABCC6A /* Albums */ = {
+			isa = PBXGroup;
+			children = (
+				260B42E018B254FC00ABCC6A /* temp */,
+			);
+			path = Albums;
+			sourceTree = "<group>";
+		};
+		260B42E118B254FC00ABCC6A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				260B42E218B254FC00ABCC6A /* temp */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		260B42E418B254FC00ABCC6A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				260B42E518B254FC00ABCC6A /* Categories */,
+				260B42E718B254FC00ABCC6A /* CustomView */,
+				260B42E918B254FC00ABCC6A /* Helpers */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		260B42E518B254FC00ABCC6A /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				260B42E618B254FC00ABCC6A /* temp */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		260B42E718B254FC00ABCC6A /* CustomView */ = {
+			isa = PBXGroup;
+			children = (
+				260B42E818B254FC00ABCC6A /* temp */,
+			);
+			path = CustomView;
+			sourceTree = "<group>";
+		};
+		260B42E918B254FC00ABCC6A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				260B42EA18B254FC00ABCC6A /* temp */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,8 +293,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260B42EE18B254FC00ABCC6A /* temp in Resources */,
+				260B42EB18B254FC00ABCC6A /* temp in Resources */,
+				260B42F018B254FC00ABCC6A /* temp in Resources */,
 				260B42BA18B2503300ABCC6A /* InfoPlist.strings in Resources */,
+				260B42EC18B254FC00ABCC6A /* temp in Resources */,
+				260B42EF18B254FC00ABCC6A /* temp in Resources */,
 				260B42C218B2503300ABCC6A /* Images.xcassets in Resources */,
+				260B42ED18B254FC00ABCC6A /* temp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -443,6 +523,7 @@
 				260B42DA18B2503400ABCC6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		260B42DB18B2503400ABCC6A /* Build configuration list for PBXNativeTarget "Digital AlbumTests" */ = {
 			isa = XCConfigurationList;
@@ -451,6 +532,7 @@
 				260B42DD18B2503400ABCC6A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
