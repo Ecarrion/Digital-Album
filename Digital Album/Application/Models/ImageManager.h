@@ -11,6 +11,6 @@
 
 @interface ImageManager : NSObject
 
-+(void)phoneImagesWithBlock:(void(^)(NSArray * photos, NSError * error))block;
++(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
 
 @end

@@ -14,6 +14,7 @@
 @property (nonatomic, strong) __block NSString * locationDescription;
 @property (nonatomic, strong) NSDate * date;
 @property(nonatomic, strong) ALAsset * localAsset;
+@property(nonatomic, assign) ALAssetsGroupType groupType;
 
 
 +(DAImage *)imageWithLocalAsset:(ALAsset *)asset;

@@ -7,8 +7,12 @@
 //
 
 #import "AlbumsViewController.h"
+#import "ImageManager.h"
 
-@interface AlbumsViewController ()
+@interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+
+@property (nonatomic, strong) NSArray * photos;
+@property (nonatomic, strong) NSArray * Albums;
 
 @end
 
@@ -19,6 +23,8 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        self.title = @"Albums";
     }
     return self;
 }
@@ -28,6 +34,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
 }
+
+
+#pragma mark - CollectionView
+
+
 
 #pragma mark - Memory
 

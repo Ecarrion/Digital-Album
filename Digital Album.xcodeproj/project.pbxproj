@@ -30,6 +30,7 @@
 		260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F718B25C7100ABCC6A /* ImageManager.m */; };
 		260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FA18B25DA400ABCC6A /* DAImage.m */; };
 		260B42FD18B260E700ABCC6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42FC18B260E700ABCC6A /* CoreLocation.framework */; };
+		260B430018B2647700ABCC6A /* DAAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FF18B2647700ABCC6A /* DAAlbum.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,8 @@
 		260B42F918B25DA400ABCC6A /* DAImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAImage.h; sourceTree = "<group>"; };
 		260B42FA18B25DA400ABCC6A /* DAImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAImage.m; sourceTree = "<group>"; };
 		260B42FC18B260E700ABCC6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		260B42FE18B2647700ABCC6A /* DAAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAAlbum.h; sourceTree = "<group>"; };
+		260B42FF18B2647700ABCC6A /* DAAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAAlbum.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -202,6 +205,8 @@
 				260B42F718B25C7100ABCC6A /* ImageManager.m */,
 				260B42F918B25DA400ABCC6A /* DAImage.h */,
 				260B42FA18B25DA400ABCC6A /* DAImage.m */,
+				260B42FE18B2647700ABCC6A /* DAAlbum.h */,
+				260B42FF18B2647700ABCC6A /* DAAlbum.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -342,6 +347,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				260B430018B2647700ABCC6A /* DAAlbum.m in Sources */,
 				260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */,
 				260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */,
 				260B42C018B2503300ABCC6A /* AppDelegate.m in Sources */,
