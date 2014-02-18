@@ -15,6 +15,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
+    UIImage * navImage = [UIImage imageNamed:@"nav-background.png"];
+    [[UINavigationBar appearance] setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
     
     AlbumsViewController * avc = [[AlbumsViewController alloc] init];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:avc];

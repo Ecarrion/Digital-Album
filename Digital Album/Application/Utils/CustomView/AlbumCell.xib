@@ -13,7 +13,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="105" height="149"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="purple-cover" id="tuB-89-uYW">
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black-cover" id="tuB-89-uYW">
                         <rect key="frame" x="0.0" y="0.0" width="105" height="149"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     </imageView>
@@ -22,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <string key="text">Album
 Name</string>
-                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="24"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -38,6 +38,6 @@ Name</string>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="purple-cover" width="105" height="149"/>
+        <image name="black-cover" width="105" height="149"/>
     </resources>
 </document>

@@ -13,7 +13,6 @@
 		260B42BA18B2503300ABCC6A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 260B42B818B2503300ABCC6A /* InfoPlist.strings */; };
 		260B42BC18B2503300ABCC6A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42BB18B2503300ABCC6A /* main.m */; };
 		260B42C018B2503300ABCC6A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42BF18B2503300ABCC6A /* AppDelegate.m */; };
-		260B42C218B2503300ABCC6A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 260B42C118B2503300ABCC6A /* Images.xcassets */; };
 		260B42C918B2503300ABCC6A /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42C818B2503300ABCC6A /* XCTest.framework */; };
 		260B42CA18B2503300ABCC6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42AF18B2503300ABCC6A /* Foundation.framework */; };
 		260B42CB18B2503300ABCC6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B318B2503300ABCC6A /* UIKit.framework */; };
@@ -37,6 +36,7 @@
 		260B430F18B27A4800ABCC6A /* AlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B430D18B27A4800ABCC6A /* AlbumViewController.xib */; };
 		260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B431118B27DE400ABCC6A /* AlbumPageViewController.m */; };
 		260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */; };
+		262739EB18B3080900441831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262739EA18B3080900441831 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,7 +60,6 @@
 		260B42BD18B2503300ABCC6A /* Digital Album-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Digital Album-Prefix.pch"; sourceTree = "<group>"; };
 		260B42BE18B2503300ABCC6A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		260B42BF18B2503300ABCC6A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		260B42C118B2503300ABCC6A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		260B42C718B2503300ABCC6A /* Digital AlbumTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Digital AlbumTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		260B42C818B2503300ABCC6A /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		260B42D018B2503300ABCC6A /* Digital AlbumTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Digital AlbumTests-Info.plist"; sourceTree = "<group>"; };
@@ -91,6 +90,7 @@
 		260B431018B27DE400ABCC6A /* AlbumPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumPageViewController.h; sourceTree = "<group>"; };
 		260B431118B27DE400ABCC6A /* AlbumPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumPageViewController.m; sourceTree = "<group>"; };
 		260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumPageViewController.xib; sourceTree = "<group>"; };
+		262739EA18B3080900441831 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -155,8 +155,8 @@
 				260B42BE18B2503300ABCC6A /* AppDelegate.h */,
 				260B42BF18B2503300ABCC6A /* AppDelegate.m */,
 				260B42DE18B254FC00ABCC6A /* Application */,
+				262739EA18B3080900441831 /* Images.xcassets */,
 				260B42B618B2503300ABCC6A /* Supporting Files */,
-				260B42C118B2503300ABCC6A /* Images.xcassets */,
 			);
 			path = "Digital Album";
 			sourceTree = "<group>";
@@ -352,8 +352,8 @@
 				260B42EC18B254FC00ABCC6A /* temp in Resources */,
 				260B42EF18B254FC00ABCC6A /* temp in Resources */,
 				260B430518B26E5D00ABCC6A /* AlbumCell.xib in Resources */,
-				260B42C218B2503300ABCC6A /* Images.xcassets in Resources */,
 				260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */,
+				262739EB18B3080900441831 /* Images.xcassets in Resources */,
 				260B430F18B27A4800ABCC6A /* AlbumViewController.xib in Resources */,
 				260B42ED18B254FC00ABCC6A /* temp in Resources */,
 			);
