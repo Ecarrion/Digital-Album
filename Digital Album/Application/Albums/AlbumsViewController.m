@@ -17,6 +17,7 @@
 @interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) NSArray * albums;
+@property (nonatomic, strong) NSArray * covers;
 
 @end
 
@@ -29,6 +30,7 @@
         // Custom initialization
         
         self.title = @"Albums";
+        self.covers = @[@"black-cover.png", @"wood-cover.png", @"darkBlue-cover.png", @"lightBlue-cover.png", @"green-cover.png", @"purple-cover.png", @"red-cover.png"];
     }
     return self;
 }
@@ -85,6 +87,9 @@
     
     AlbumCell * cell = [collectionView  dequeueReusableCellWithReuseIdentifier:@"AlbumCell" forIndexPath:indexPath];
     cell.nameLabel.text = album.name;
+    
+    int index = indexPath.row % self.covers.count;
+    cell.thumbImageView.image = [UIImage imageNamed:self.covers[index]];
     
     return cell;
 }

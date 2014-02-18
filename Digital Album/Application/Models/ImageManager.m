@@ -51,8 +51,11 @@
                 }
             }];
             
-            album.images = [imagesArray copy];
-            [albumsArray addObject:album];
+            
+            if (imagesArray.count > 0) {
+                album.images = [imagesArray copy];
+                [albumsArray addObject:album];
+            }
             imagesArray = nil;
             
         } else {

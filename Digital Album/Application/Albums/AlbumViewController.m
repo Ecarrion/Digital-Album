@@ -77,7 +77,7 @@
     
     AlbumPageViewController * pageController = (AlbumPageViewController *)self.pageViewController.viewControllers[0];
     DAImage * image = pageController.image;
-    return  [self.album.images indexOfObject:image];
+    return  (int)[self.album.images indexOfObject:image];
     
 }
 

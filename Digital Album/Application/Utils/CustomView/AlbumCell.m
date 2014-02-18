@@ -32,7 +32,6 @@
 
 -(void)prepareForReuse {
     
-    self.thumbImageView.image = nil;
     self.nameLabel.text = @"";
 }
 

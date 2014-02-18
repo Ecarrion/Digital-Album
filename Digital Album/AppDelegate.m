@@ -13,9 +13,10 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UIImage * navImage = [UIImage imageNamed:@"nav-background.png"];
+    UIImage * navImage = [UIImage imageNamed:@"nav2-background.png"];
     [[UINavigationBar appearance] setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
     
     AlbumsViewController * avc = [[AlbumsViewController alloc] init];
@@ -24,6 +25,7 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
