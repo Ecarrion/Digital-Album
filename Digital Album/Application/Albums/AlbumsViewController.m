@@ -8,6 +8,7 @@
 
 #import "AlbumsViewController.h"
 #import "AlbumViewController.h"
+#import "NewAlbumViewController.h"
 
 #import "AlbumCell.h"
 
@@ -31,6 +32,9 @@
         
         self.title = @"Albums";
         self.covers = @[@"black-cover.png", @"wood-cover.png", @"darkBlue-cover.png", @"lightBlue-cover.png", @"green-cover.png", @"purple-cover.png", @"red-cover.png"];
+        
+        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlbumPressed)];
+        [self.navigationItem setRightBarButtonItem:item];
     }
     return self;
 }
@@ -63,6 +67,14 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
+
+-(void)addAlbumPressed {
+    
+    NewAlbumViewController * navc = [[NewAlbumViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:navc];
+    [self presentViewController:nav animated:YES completion:nil];
+    
+}
 
 #pragma mark - CollectionView
 

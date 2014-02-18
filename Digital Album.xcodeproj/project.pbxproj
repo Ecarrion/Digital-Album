@@ -13,6 +13,8 @@
 		2602202418B3B2D900EBB269 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602202318B3B2D900EBB269 /* GalleryCell.xib */; };
 		2602202718B3C84300EBB269 /* UIImageView+AspectSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202618B3C84300EBB269 /* UIImageView+AspectSize.m */; };
 		2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202C18B3E3EC00EBB269 /* GalleryFlowLayout.m */; };
+		2602203118B4069C00EBB269 /* NewAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202F18B4069C00EBB269 /* NewAlbumViewController.m */; };
+		2602203218B4069C00EBB269 /* NewAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203018B4069C00EBB269 /* NewAlbumViewController.xib */; };
 		260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42AF18B2503300ABCC6A /* Foundation.framework */; };
 		260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B118B2503300ABCC6A /* CoreGraphics.framework */; };
 		260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B318B2503300ABCC6A /* UIKit.framework */; };
@@ -59,6 +61,9 @@
 		2602202618B3C84300EBB269 /* UIImageView+AspectSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AspectSize.m"; sourceTree = "<group>"; };
 		2602202B18B3E3EC00EBB269 /* GalleryFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryFlowLayout.h; path = Gallery/GalleryFlowLayout.h; sourceTree = "<group>"; };
 		2602202C18B3E3EC00EBB269 /* GalleryFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryFlowLayout.m; path = Gallery/GalleryFlowLayout.m; sourceTree = "<group>"; };
+		2602202E18B4069C00EBB269 /* NewAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewAlbumViewController.h; sourceTree = "<group>"; };
+		2602202F18B4069C00EBB269 /* NewAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewAlbumViewController.m; sourceTree = "<group>"; };
+		2602203018B4069C00EBB269 /* NewAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewAlbumViewController.xib; sourceTree = "<group>"; };
 		260B42AC18B2503300ABCC6A /* Digital Album.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Album.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		260B42AF18B2503300ABCC6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		260B42B118B2503300ABCC6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -227,6 +232,9 @@
 				260B431018B27DE400ABCC6A /* AlbumPageViewController.h */,
 				260B431118B27DE400ABCC6A /* AlbumPageViewController.m */,
 				260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */,
+				2602202E18B4069C00EBB269 /* NewAlbumViewController.h */,
+				2602202F18B4069C00EBB269 /* NewAlbumViewController.m */,
+				2602203018B4069C00EBB269 /* NewAlbumViewController.xib */,
 			);
 			path = Albums;
 			sourceTree = "<group>";
@@ -359,6 +367,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2602202418B3B2D900EBB269 /* GalleryCell.xib in Resources */,
+				2602203218B4069C00EBB269 /* NewAlbumViewController.xib in Resources */,
 				260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */,
 				260B42BA18B2503300ABCC6A /* InfoPlist.strings in Resources */,
 				260B430518B26E5D00ABCC6A /* AlbumCell.xib in Resources */,
@@ -389,6 +398,7 @@
 				260B430018B2647700ABCC6A /* DAAlbum.m in Sources */,
 				260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */,
 				2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */,
+				2602203118B4069C00EBB269 /* NewAlbumViewController.m in Sources */,
 				260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */,
 				260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */,
 				260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */,
