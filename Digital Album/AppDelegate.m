@@ -16,19 +16,37 @@
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    UIImage * navImage = [UIImage imageNamed:@"nav2-background.png"];
-    [[UINavigationBar appearance] setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
     AlbumsViewController * avc = [[AlbumsViewController alloc] init];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:avc];
     self.window.rootViewController = nav;
+    [self styleNavigationBars];
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
     
     return YES;
+}
+
+
+-(void)styleNavigationBars {
+    
+    UIImage * navImage = [UIImage imageNamed:@"nav2-background.png"];
+    [[UINavigationBar appearance] setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
+    
+    NSShadow *shadow = [NSShadow.alloc init];
+    shadow.shadowColor = [UIColor blackColor];
+    shadow.shadowOffset = CGSizeMake(1, 0);
+    
+    UIColor * color = [UIColor colorWithRed:73.0/255.0 green:47.0/255.0 blue:14.0/255.0 alpha:1];
+    UIFont * font = [UIFont fontWithName:@"Noteworthy-Bold" size:22];
+    [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : color, NSFontAttributeName : font}];
+    [[UINavigationBar appearance] setTintColor:color];
+    
+    font = [UIFont fontWithName:@"Noteworthy-Bold" size:18];
+    [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes: @{NSFontAttributeName : font } forState:UIControlStateNormal];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

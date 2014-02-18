@@ -38,6 +38,6 @@ Name</string>
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="wood-cover" width="211" height="299"/>
+        <image name="wood-cover" width="105" height="149"/>
     </resources>
 </document>
