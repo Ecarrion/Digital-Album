@@ -16,7 +16,7 @@
 }
 
 @property (nonatomic, strong) DAAlbum * album;
-@property (nonatomic, assign) int startingIndex;
+@property (nonatomic, assign) NSUInteger startingIndex;
 
 -(void)toggleNavControls;
 

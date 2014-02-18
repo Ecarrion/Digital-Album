@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewAlbumViewController : UIViewController
+@interface NewAlbumViewController : UIViewController {
+    
+    
+    __weak IBOutlet UITextField *albumNametextField;
+    __weak IBOutlet UIScrollView *coversScrollView;
+    
+}
 
 @end

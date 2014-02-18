@@ -31,7 +31,7 @@
         // Custom initialization
         
         self.title = @"Albums";
-        self.covers = @[@"black-cover.png", @"wood-cover.png", @"darkBlue-cover.png", @"lightBlue-cover.png", @"green-cover.png", @"purple-cover.png", @"red-cover.png"];
+        self.covers = COVERS();
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlbumPressed)];
         [self.navigationItem setRightBarButtonItem:item];

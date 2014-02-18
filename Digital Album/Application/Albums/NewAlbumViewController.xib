@@ -6,6 +6,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewAlbumViewController">
             <connections>
+                <outlet property="albumNametextField" destination="nQL-3M-ZCE" id="Xz0-ik-eFx"/>
+                <outlet property="coversScrollView" destination="0ND-Xi-DES" id="rys-AH-nBw"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -13,6 +15,28 @@
         <view contentMode="scaleToFill" id="1">
             <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Album Name" textAlignment="center" minimumFontSize="17" id="nQL-3M-ZCE">
+                    <rect key="frame" x="67" y="83" width="187" height="34"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="19"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="yes"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="oyq-f6-AUa"/>
+                    </connections>
+                </textField>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="0ND-Xi-DES">
+                    <rect key="frame" x="1" y="167" width="318" height="139"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </scrollView>
+                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Select your cover" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KW2-cq-gGJ">
+                    <rect key="frame" x="76" y="125" width="168" height="38"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Noteworthy-Light" family="Noteworthy" pointSize="21"/>
+                    <color key="textColor" red="0.28627450980392155" green="0.18431372549019609" blue="0.054901960784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
