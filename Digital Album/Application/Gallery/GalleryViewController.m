@@ -41,11 +41,14 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    [self hideNavControls:NO];
     
     if (self.startingIndex != NSNotFound) {
-        //[imagesCollectionView setContentOffset:CGPointMake(self.startingIndex * imagesCollectionView.frame.size.width, 0) animated:NO];
+        [imagesCollectionView setContentOffset:CGPointMake(self.startingIndex * imagesCollectionView.frame.size.width, 0) animated:NO];
         self.startingIndex = NSNotFound;
+        
+    } else {
+        
+        [self hideNavControls:NO];
     }
 }
 

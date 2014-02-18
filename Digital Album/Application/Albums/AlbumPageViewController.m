@@ -39,18 +39,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    imageView.image = [self.image localImage];
+    self.imageView.image = [self.image localImage];
     
     self.tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];
     self.tapGestureRecornizer.numberOfTapsRequired = 1;
-    [imageView addGestureRecognizer:self.tapGestureRecornizer];
+    [self.imageView addGestureRecognizer:self.tapGestureRecornizer];
 }
 
 -(void)imageTapped {
     
-    if ([self.delegate respondsToSelector:@selector(imageTapped:)]) {
+    if ([self.delegate respondsToSelector:@selector(pageController:imageTapped:)]) {
         
-        [self.delegate imageTapped:self.image];
+        [self.delegate pageController:self imageTapped:self.image];
     }
 }
 

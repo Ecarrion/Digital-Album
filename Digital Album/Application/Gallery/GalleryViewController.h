@@ -18,4 +18,6 @@
 @property (nonatomic, strong) DAAlbum * album;
 @property (nonatomic, assign) int startingIndex;
 
+-(void)toggleNavControls;
+
 @end

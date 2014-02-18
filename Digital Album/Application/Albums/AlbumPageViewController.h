@@ -9,17 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "DAImage.h"
 
+@class AlbumPageViewController;
 @protocol AlbumPageDelegate <NSObject>
 
--(void)imageTapped:(DAImage *)image;
+-(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image;
 
 @end
 
 @interface AlbumPageViewController : UIViewController {
     
-    __weak IBOutlet UIImageView *imageView;
 }
 
+@property (nonatomic, weak) UIImageView *imageView;
 @property (strong, nonatomic)  DAImage * image;
 @property (nonatomic, weak) id<AlbumPageDelegate> delegate;
 

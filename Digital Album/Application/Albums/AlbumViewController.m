@@ -100,12 +100,45 @@
     return page;
 }
 
--(void)imageTapped:(DAImage *)image {
+-(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image {
     
-    GalleryViewController * gvc = [[GalleryViewController alloc] init];
-    gvc.album = self.album;
-    gvc.startingIndex = (int)[self.album.images indexOfObject:image];
-    [self.navigationController pushViewController:gvc animated:YES];
+    
+    UIView  * blackOverlay = [[UIView alloc] initWithFrame:self.view.window.bounds];
+    blackOverlay.backgroundColor = [UIColor blackColor];
+    blackOverlay.alpha = 0;
+    [self.view.window addSubview:blackOverlay];
+    
+    UIImageView * imgvToZoom = [[UIImageView alloc] initWithImage:image.localImage];
+    imgvToZoom.contentMode = page.imageView.contentMode;
+    imgvToZoom.frame = [self.view.window convertRect:page.imageView.frame fromView:page.view];
+    [self.view.window addSubview:imgvToZoom];
+    
+    
+    [UIView animateWithDuration:0.2 animations:^{
+       
+        blackOverlay.alpha = 1;
+        imgvToZoom.frame = self.view.window.bounds;
+        
+    } completion:^(BOOL finished) {
+        
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        GalleryViewController * gvc = [[GalleryViewController alloc] init];
+        gvc.album = self.album;
+        gvc.startingIndex = (int)[self.album.images indexOfObject:image];
+        [self.navigationController pushViewController:gvc animated:NO];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            blackOverlay.alpha = 0;
+            
+        } completion:^(BOOL finished) {
+            
+            [self.navigationController setNavigationBarHidden:NO animated:YES];
+            [blackOverlay removeFromSuperview];
+            [imgvToZoom removeFromSuperview];
+        }];
+        
+    }];
 }
 
 #pragma mark - Memory
