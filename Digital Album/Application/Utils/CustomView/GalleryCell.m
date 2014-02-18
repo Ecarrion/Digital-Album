@@ -15,6 +15,10 @@
     __weak IBOutlet UIScrollView *zoomScrollView;
 }
 
+-(void)awakeFromNib {
+    
+    zoomScrollView.decelerationRate = UIScrollViewDecelerationRateFast;
+}
 
 -(UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
     
@@ -60,5 +64,6 @@
     
     return frameToCenter;
 }
+
 
 @end

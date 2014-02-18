@@ -9,6 +9,7 @@
 #import "GalleryViewController.h"
 
 #import "GalleryCell.h"
+#import "GalleryFlowLayout.h"
 
 @interface GalleryViewController ()
 
@@ -29,7 +30,12 @@
 {
     [super viewDidLoad];
     [imagesCollectionView registerNib:[UINib nibWithNibName:@"GalleryCell" bundle:nil] forCellWithReuseIdentifier:@"GalleryCell"];
+    [(GalleryFlowLayout *)imagesCollectionView.collectionViewLayout reloadLayout];
     self.automaticallyAdjustsScrollViewInsets = NO;
+    
+    UITapGestureRecognizer * gestureR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavControls)];
+    gestureR.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:gestureR];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -38,10 +44,11 @@
     [self hideNavControls:NO];
     
     if (self.startingIndex != NSNotFound) {
-        [imagesCollectionView setContentOffset:CGPointMake(self.startingIndex * imagesCollectionView.frame.size.width, 0) animated:NO];
+        //[imagesCollectionView setContentOffset:CGPointMake(self.startingIndex * imagesCollectionView.frame.size.width, 0) animated:NO];
         self.startingIndex = NSNotFound;
     }
 }
+
 
 -(void)viewWillDisappear:(BOOL)animated {
     
@@ -62,11 +69,6 @@
 }
 
 
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return collectionView.bounds.size;
-}
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     DAImage * image = self.album.images[indexPath.row];
@@ -76,12 +78,6 @@
     [cell resizeImageView];
     
     return cell;
-}
-
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    [self toggleNavControls];
-    
 }
 
 -(void)toggleNavControls {

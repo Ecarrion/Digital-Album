@@ -45,6 +45,7 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shrinked-paper2.png"]];
     [albumsCollectionView registerNib:[UINib nibWithNibName:@"AlbumCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumCell"];
+    
     [ImageManager phoneAlbumsWithBlock:^(NSArray *albums, NSError *error) {
         
         if (!error) {
