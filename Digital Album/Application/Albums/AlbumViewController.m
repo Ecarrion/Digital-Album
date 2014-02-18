@@ -8,8 +8,9 @@
 
 #import "AlbumViewController.h"
 #import "AlbumPageViewController.h"
+#import "GalleryViewController.h"
 
-@interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate> {
+@interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AlbumPageDelegate> {
     
     __weak IBOutlet UIView *pageControlerHolder;
     
@@ -95,7 +96,16 @@
 -(AlbumPageViewController *)pageControllerAtIndex:(int)index {
     
     AlbumPageViewController * page = [[AlbumPageViewController alloc] initWithImage:self.album.images[index]];
+    page.delegate = self;
     return page;
+}
+
+-(void)imageTapped:(DAImage *)image {
+    
+    GalleryViewController * gvc = [[GalleryViewController alloc] init];
+    gvc.album = self.album;
+    gvc.startingIndex = (int)[self.album.images indexOfObject:image];
+    [self.navigationController pushViewController:gvc animated:YES];
 }
 
 #pragma mark - Memory

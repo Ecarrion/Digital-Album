@@ -10,6 +10,8 @@
 
 @interface AlbumPageViewController ()
 
+@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecornizer;
+
 @end
 
 @implementation AlbumPageViewController
@@ -38,6 +40,18 @@
 {
     [super viewDidLoad];
     imageView.image = [self.image localImage];
+    
+    self.tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];
+    self.tapGestureRecornizer.numberOfTapsRequired = 1;
+    [imageView addGestureRecognizer:self.tapGestureRecornizer];
+}
+
+-(void)imageTapped {
+    
+    if ([self.delegate respondsToSelector:@selector(imageTapped:)]) {
+        
+        [self.delegate imageTapped:self.image];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -55,6 +69,11 @@
     }
     
     //Clean rest of resources here eg:arrays, maps, dictionaries, etc
+}
+
+-(void)dealloc {
+    
+    self.tapGestureRecornizer = nil;
 }
 
 @end
