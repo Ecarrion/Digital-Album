@@ -21,7 +21,7 @@
 
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio;
 -(UIImage *)localImage;
--(void)locationDescriptionWithBlock:(void(^)(NSString * locationString, NSError * error))block;
+//-(void)locationDescriptionWithBlock:(void(^)(NSString * locationString, NSError * error))block;
 
 
 @end

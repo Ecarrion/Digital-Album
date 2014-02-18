@@ -28,7 +28,6 @@
 		260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B42F318B2556700ABCC6A /* AlbumsViewController.xib */; };
 		260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F718B25C7100ABCC6A /* ImageManager.m */; };
 		260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FA18B25DA400ABCC6A /* DAImage.m */; };
-		260B42FD18B260E700ABCC6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42FC18B260E700ABCC6A /* CoreLocation.framework */; };
 		260B430018B2647700ABCC6A /* DAAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FF18B2647700ABCC6A /* DAAlbum.m */; };
 		260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B430218B26E4800ABCC6A /* AlbumCell.m */; };
 		260B430518B26E5D00ABCC6A /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B430418B26E5D00ABCC6A /* AlbumCell.xib */; };
@@ -98,7 +97,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				260B42FD18B260E700ABCC6A /* CoreLocation.framework in Frameworks */,
 				260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */,
 				260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */,
 				260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */,

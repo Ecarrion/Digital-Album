@@ -13,7 +13,7 @@ typedef void (^completionGeocodeBlock)();
 
 @interface DAImage ()
 
-@property (atomic, copy) completionGeocodeBlock completionBlock;
+//@property (atomic, copy) completionGeocodeBlock completionBlock;
 
 @end 
 
@@ -49,7 +49,7 @@ typedef void (^completionGeocodeBlock)();
 }
 
 
-
+/*
 -(void)locationDescriptionWithBlock:(void (^)(NSString *, NSError *))block {
     
     self.completionBlock = block;
@@ -101,5 +101,6 @@ typedef void (^completionGeocodeBlock)();
         
     }];
 }
+ */
 
 @end
