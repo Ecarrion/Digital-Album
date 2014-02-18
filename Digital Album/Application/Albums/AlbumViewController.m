@@ -43,6 +43,7 @@
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
     self.pageViewController.view.frame = pageControlerHolder.frame;
+    [self removeTapGestureRecognizer];
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
@@ -58,8 +59,20 @@
 -(void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
-    //[self.navigationController setNavigationBarHidden:YES animated:YES];
 }
+
+-(void)removeTapGestureRecognizer {
+    
+    [self.pageViewController.gestureRecognizers enumerateObjectsUsingBlock:^(UIGestureRecognizer * recog, NSUInteger idx, BOOL *stop) {
+        
+        if ([recog isKindOfClass:[UITapGestureRecognizer class]]) {
+            
+            [(UITapGestureRecognizer *)recog setEnabled:NO];
+        }
+        
+    }];
+}
+
 
 #pragma mark - PageViewController
 
@@ -113,18 +126,18 @@
     imgvToZoom.frame = [self.view.window convertRect:page.imageView.frame fromView:page.view];
     [self.view.window addSubview:imgvToZoom];
     
-    
-    [UIView animateWithDuration:0.2 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
        
         blackOverlay.alpha = 1;
         imgvToZoom.frame = self.view.window.bounds;
         
     } completion:^(BOOL finished) {
         
-        [self.navigationController setNavigationBarHidden:YES animated:NO];
         GalleryViewController * gvc = [[GalleryViewController alloc] init];
         gvc.album = self.album;
         gvc.startingIndex = (int)[self.album.images indexOfObject:image];
+        
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
         [self.navigationController pushViewController:gvc animated:NO];
         
         [UIView animateWithDuration:0.3 animations:^{
