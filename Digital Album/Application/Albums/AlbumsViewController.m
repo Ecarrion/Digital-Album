@@ -80,7 +80,6 @@
     
     AlbumCell * cell = [collectionView  dequeueReusableCellWithReuseIdentifier:@"AlbumCell" forIndexPath:indexPath];
     cell.nameLabel.text = album.name;
-    cell.thumbImageView.image = [[album topImage] localThumbnailPreservingAspectRatio:YES];
     
     return cell;
 }

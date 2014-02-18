@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#define ALBUM_CELL_SIZE CGSizeMake(100, 145)
+#define ALBUM_CELL_SIZE CGSizeMake(105, 149)
 
 @interface AlbumCell : UICollectionViewCell
 

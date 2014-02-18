@@ -42,18 +42,44 @@
     [[self view] addSubview:[self.pageViewController view]];
     [self.pageViewController didMoveToParentViewController:self];
     
-    //[self.pageController setViewControllers:viewControllers direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    NSArray * array = @[[self pageControllerAtIndex:0]];
+    [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
     
+    int currentIndex = [self currentIndex];
+    currentIndex++;
+    
+    if (currentIndex < self.album.images.count) {
+        
+        return [self pageControllerAtIndex:currentIndex];
+    }
+    
+    return nil;
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
     
+    int currentIndex = [self currentIndex];
+    currentIndex--;
+    
+    if (currentIndex >= 0) {
+     
+        return [self pageControllerAtIndex:currentIndex];
+    }
+    
+    return nil;
 }
 
--
+-(int)currentIndex {
+    
+    AlbumPageViewController * pageController = (AlbumPageViewController *)self.pageViewController.viewControllers[0];
+    DAImage * image = pageController.image;
+    return  [self.album.images indexOfObject:image];
+    
+}
 
 -(AlbumPageViewController *)pageControllerAtIndex:(int)index {
     

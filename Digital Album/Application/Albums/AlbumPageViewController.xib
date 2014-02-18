@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumPageViewController">
             <connections>
-                <outlet property="ImageView" destination="XO5-JL-mP4" id="ox7-Dg-tah"/>
+                <outlet property="imageView" destination="XO5-JL-mP4" id="y2O-Gv-Fh7"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
