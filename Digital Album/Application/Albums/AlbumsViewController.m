@@ -88,7 +88,7 @@
     AlbumCell * cell = [collectionView  dequeueReusableCellWithReuseIdentifier:@"AlbumCell" forIndexPath:indexPath];
     cell.nameLabel.text = album.name;
     
-    int index = indexPath.row % self.covers.count;
+    int index = (int)indexPath.row % (int)self.covers.count;
     cell.thumbImageView.image = [UIImage imageNamed:self.covers[index]];
     
     return cell;

@@ -38,7 +38,6 @@
 {
     [super viewDidLoad];
     imageView.image = [self.image localImage];
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shrinked-paper2.png"]];
 }
 
 - (void)didReceiveMemoryWarning {
