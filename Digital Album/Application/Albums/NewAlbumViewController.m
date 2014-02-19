@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) NSArray * coverNames;
 @property (nonatomic, strong) NSArray * coverImages;
+@property (nonatomic, strong) UIImageView * checkBoxImageView;
 
 @end
 
@@ -44,8 +45,15 @@
     
     albumNametextField.layer.borderColor = [UIColor colorWithRed:73.0/255.0 green:47.0/255.0 blue:14.0/255.0 alpha:1].CGColor;
     albumNametextField.layer.borderWidth = 2.f;
-    
     [albumNametextField becomeFirstResponder];
+    
+    self.checkBoxImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected.png"]];
+    float distance = 500;
+    CATransform3D basicTrans = CATransform3DIdentity;
+    basicTrans.m34 = 1.0 / -distance;
+    basicTrans = CATransform3DRotate(basicTrans, 25 * M_PI / 180, 0.0f, 1.0f, 0.0f);
+    self.checkBoxImageView.layer.transform = basicTrans;
+    self.checkBoxImageView.layer.zPosition = 20;
 }
 
 -(void)setUpScrollView {
@@ -55,6 +63,8 @@
     float y = 6;
     float w = 79;
     float h = 127;
+    
+    //49 //77
     
     self.coverNames = COVERS();
     NSMutableArray * coversImages = [NSMutableArray array];
@@ -78,14 +88,8 @@
 
 -(void)coverPressed:(UIButton *)tappedCoverImage {
     
-    for (UIButton * coverImages in self.coverImages) {
-        coverImages.highlighted = NO;
-    }
-    
-    dispatch_async(dispatch_get_main_queue(), ^{
-        tappedCoverImage.highlighted = YES;
-    });
-    
+    self.checkBoxImageView.center = CGPointMake(tappedCoverImage.center.x + 7, tappedCoverImage.center.y);
+    [coversScrollView addSubview:self.checkBoxImageView];
 }
 
 -(void)cancelPressed {

@@ -36,10 +36,6 @@
     UIImage * navImage = [UIImage imageNamed:@"nav2-background.png"];
     [[UINavigationBar appearance] setBackgroundImage:navImage forBarMetrics:UIBarMetricsDefault];
     
-    NSShadow *shadow = [NSShadow.alloc init];
-    shadow.shadowColor = [UIColor blackColor];
-    shadow.shadowOffset = CGSizeMake(1, 0);
-    
     UIColor * color = [UIColor colorWithRed:73.0/255.0 green:47.0/255.0 blue:14.0/255.0 alpha:1];
     UIFont * font = [UIFont fontWithName:@"Noteworthy-Bold" size:22];
     [[UINavigationBar appearance] setTitleTextAttributes:@{NSForegroundColorAttributeName : color, NSFontAttributeName : font}];

@@ -550,6 +550,7 @@
 				INFOPLIST_FILE = "Digital Album/Digital Album-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "E586A3DF-EB2D-4E49-B0CC-0FAE1E215742";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -565,6 +566,7 @@
 				INFOPLIST_FILE = "Digital Album/Digital Album-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "4F571495-5D61-47AC-AB6C-C0EC512E297D";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
