@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AssetPickerViewController : UIViewController
+@interface AssetPickerViewController : UIViewController {
+    
+    __weak IBOutlet UICollectionView *imagesCollectionView;
+    
+}
+
+@property (nonatomic, strong) NSArray * phoneAlbums;
 
 @end

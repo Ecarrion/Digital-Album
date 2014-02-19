@@ -9,6 +9,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 #import "SelectCoverViewController.h"
+#import "AssetPickerViewController.h"
 
 @interface SelectCoverViewController () <UITextFieldDelegate>
 
@@ -107,7 +108,8 @@
 
 -(void)addPhotosPressed {
     
-    [self dismissViewControllerAnimated:YES completion:nil];
+    AssetPickerViewController * apc = [[AssetPickerViewController alloc] init];
+    [self.navigationController pushViewController:apc animated:YES];
 }
 
 #pragma mark - UITextFieldDelegate 

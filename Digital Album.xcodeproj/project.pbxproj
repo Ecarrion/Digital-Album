@@ -34,12 +34,13 @@
 		260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FA18B25DA400ABCC6A /* DAImage.m */; };
 		260B430018B2647700ABCC6A /* DAAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FF18B2647700ABCC6A /* DAAlbum.m */; };
 		260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B430218B26E4800ABCC6A /* AlbumCell.m */; };
-		260B430518B26E5D00ABCC6A /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B430418B26E5D00ABCC6A /* AlbumCell.xib */; };
 		260B430E18B27A4800ABCC6A /* AlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B430C18B27A4800ABCC6A /* AlbumViewController.m */; };
 		260B430F18B27A4800ABCC6A /* AlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B430D18B27A4800ABCC6A /* AlbumViewController.xib */; };
 		260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B431118B27DE400ABCC6A /* AlbumPageViewController.m */; };
 		260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */; };
 		262739EB18B3080900441831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262739EA18B3080900441831 /* Images.xcassets */; };
+		267F102F18B51BB200922EBC /* AssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 267F102E18B51BB200922EBC /* AssetCell.m */; };
+		267F103118B51BFC00922EBC /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 267F103018B51BFC00922EBC /* AssetCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,7 +97,6 @@
 		260B42FF18B2647700ABCC6A /* DAAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAAlbum.m; sourceTree = "<group>"; };
 		260B430118B26E4800ABCC6A /* AlbumCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumCell.h; sourceTree = "<group>"; };
 		260B430218B26E4800ABCC6A /* AlbumCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumCell.m; sourceTree = "<group>"; };
-		260B430418B26E5D00ABCC6A /* AlbumCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumCell.xib; sourceTree = "<group>"; };
 		260B430B18B27A4800ABCC6A /* AlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumViewController.h; sourceTree = "<group>"; };
 		260B430C18B27A4800ABCC6A /* AlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumViewController.m; sourceTree = "<group>"; };
 		260B430D18B27A4800ABCC6A /* AlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumViewController.xib; sourceTree = "<group>"; };
@@ -104,6 +104,9 @@
 		260B431118B27DE400ABCC6A /* AlbumPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumPageViewController.m; sourceTree = "<group>"; };
 		260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumPageViewController.xib; sourceTree = "<group>"; };
 		262739EA18B3080900441831 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		267F102D18B51BB200922EBC /* AssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetCell.h; sourceTree = "<group>"; };
+		267F102E18B51BB200922EBC /* AssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetCell.m; sourceTree = "<group>"; };
+		267F103018B51BFC00922EBC /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,10 +293,12 @@
 			children = (
 				260B430118B26E4800ABCC6A /* AlbumCell.h */,
 				260B430218B26E4800ABCC6A /* AlbumCell.m */,
-				260B430418B26E5D00ABCC6A /* AlbumCell.xib */,
 				2602202018B3B2CB00EBB269 /* GalleryCell.h */,
 				2602202118B3B2CB00EBB269 /* GalleryCell.m */,
 				2602202318B3B2D900EBB269 /* GalleryCell.xib */,
+				267F102D18B51BB200922EBC /* AssetCell.h */,
+				267F102E18B51BB200922EBC /* AssetCell.m */,
+				267F103018B51BFC00922EBC /* AssetCell.xib */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -394,10 +399,10 @@
 				2602203218B4069C00EBB269 /* SelectCoverViewController.xib in Resources */,
 				260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */,
 				260B42BA18B2503300ABCC6A /* InfoPlist.strings in Resources */,
-				260B430518B26E5D00ABCC6A /* AlbumCell.xib in Resources */,
 				260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */,
 				262739EB18B3080900441831 /* Images.xcassets in Resources */,
 				2602203718B41B9D00EBB269 /* AssetPickerViewController.xib in Resources */,
+				267F103118B51BFC00922EBC /* AssetCell.xib in Resources */,
 				260B430F18B27A4800ABCC6A /* AlbumViewController.xib in Resources */,
 				2602201E18B3AFBD00EBB269 /* GalleryViewController.xib in Resources */,
 			);
@@ -424,6 +429,7 @@
 				260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */,
 				2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */,
 				2602203118B4069C00EBB269 /* SelectCoverViewController.m in Sources */,
+				267F102F18B51BB200922EBC /* AssetCell.m in Sources */,
 				2602203618B41B9D00EBB269 /* AssetPickerViewController.m in Sources */,
 				260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */,
 				260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */,
