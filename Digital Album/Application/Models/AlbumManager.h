@@ -10,7 +10,7 @@
 #import "DAImage.h"
 #import "DAAlbum.h"
 
-@interface ImageManager : NSObject
+@interface AlbumManager : NSObject
 
 +(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
 

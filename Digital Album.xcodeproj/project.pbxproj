@@ -30,7 +30,7 @@
 		260B42D518B2503400ABCC6A /* Digital_AlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42D418B2503400ABCC6A /* Digital_AlbumTests.m */; };
 		260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F218B2556700ABCC6A /* AlbumsViewController.m */; };
 		260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B42F318B2556700ABCC6A /* AlbumsViewController.xib */; };
-		260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F718B25C7100ABCC6A /* ImageManager.m */; };
+		260B42F818B25C7100ABCC6A /* AlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42F718B25C7100ABCC6A /* AlbumManager.m */; };
 		260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FA18B25DA400ABCC6A /* DAImage.m */; };
 		260B430018B2647700ABCC6A /* DAAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B42FF18B2647700ABCC6A /* DAAlbum.m */; };
 		260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B430218B26E4800ABCC6A /* AlbumCell.m */; };
@@ -87,8 +87,8 @@
 		260B42F118B2556700ABCC6A /* AlbumsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumsViewController.h; sourceTree = "<group>"; };
 		260B42F218B2556700ABCC6A /* AlbumsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumsViewController.m; sourceTree = "<group>"; };
 		260B42F318B2556700ABCC6A /* AlbumsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumsViewController.xib; sourceTree = "<group>"; };
-		260B42F618B25C7100ABCC6A /* ImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageManager.h; sourceTree = "<group>"; };
-		260B42F718B25C7100ABCC6A /* ImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageManager.m; sourceTree = "<group>"; };
+		260B42F618B25C7100ABCC6A /* AlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumManager.h; sourceTree = "<group>"; };
+		260B42F718B25C7100ABCC6A /* AlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumManager.m; sourceTree = "<group>"; };
 		260B42F918B25DA400ABCC6A /* DAImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAImage.h; sourceTree = "<group>"; };
 		260B42FA18B25DA400ABCC6A /* DAImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAImage.m; sourceTree = "<group>"; };
 		260B42FC18B260E700ABCC6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -256,8 +256,8 @@
 		260B42E118B254FC00ABCC6A /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				260B42F618B25C7100ABCC6A /* ImageManager.h */,
-				260B42F718B25C7100ABCC6A /* ImageManager.m */,
+				260B42F618B25C7100ABCC6A /* AlbumManager.h */,
+				260B42F718B25C7100ABCC6A /* AlbumManager.m */,
 				260B42FE18B2647700ABCC6A /* DAAlbum.h */,
 				260B42FF18B2647700ABCC6A /* DAAlbum.m */,
 				260B42F918B25DA400ABCC6A /* DAImage.h */,
@@ -431,7 +431,7 @@
 				260B42C018B2503300ABCC6A /* AppDelegate.m in Sources */,
 				2602202218B3B2CB00EBB269 /* GalleryCell.m in Sources */,
 				260B42BC18B2503300ABCC6A /* main.m in Sources */,
-				260B42F818B25C7100ABCC6A /* ImageManager.m in Sources */,
+				260B42F818B25C7100ABCC6A /* AlbumManager.m in Sources */,
 				2602201D18B3AFBD00EBB269 /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

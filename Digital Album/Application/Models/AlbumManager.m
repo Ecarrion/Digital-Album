@@ -8,12 +8,12 @@
 
 #import <AssetsLibrary/AssetsLibrary.h>
 
-#import "ImageManager.h"
+#import "AlbumManager.h"
 #import "DAImage.h"
 #import "DAAlbum.h"
 
 
-@implementation ImageManager
+@implementation AlbumManager
 
 
 + (ALAssetsLibrary *) defaultAssetsLibrary {
@@ -29,7 +29,7 @@
 
 +(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
-    ALAssetsLibrary *lib = [ImageManager defaultAssetsLibrary];
+    ALAssetsLibrary *lib = [AlbumManager defaultAssetsLibrary];
     __block NSMutableArray * albumsArray = [NSMutableArray array];
     
     [lib enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
