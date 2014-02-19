@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NewAlbumViewController : UIViewController {
+@interface SelectCoverViewController : UIViewController {
     
     
     __weak IBOutlet UITextField *albumNametextField;

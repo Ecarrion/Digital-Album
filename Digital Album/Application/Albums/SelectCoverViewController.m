@@ -8,9 +8,9 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "NewAlbumViewController.h"
+#import "SelectCoverViewController.h"
 
-@interface NewAlbumViewController () <UITextFieldDelegate>
+@interface SelectCoverViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSArray * coverNames;
 @property (nonatomic, strong) NSArray * coverImages;
@@ -18,7 +18,7 @@
 
 @end
 
-@implementation NewAlbumViewController
+@implementation SelectCoverViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -64,7 +64,15 @@
     float w = 79;
     float h = 127;
     
-    //49 //77
+    if ([[UIScreen mainScreen] bounds].size.height <= 480) {
+        
+        w = 49;
+        h = 77;
+        
+        CGRect frame = coversScrollView.frame;
+        frame.size.height = 89;
+        coversScrollView.frame = frame;
+    }
     
     self.coverNames = COVERS();
     NSMutableArray * coversImages = [NSMutableArray array];

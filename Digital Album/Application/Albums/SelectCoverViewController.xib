@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="NewAlbumViewController">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectCoverViewController">
             <connections>
                 <outlet property="albumNametextField" destination="nQL-3M-ZCE" id="Xz0-ik-eFx"/>
                 <outlet property="coversScrollView" destination="0ND-Xi-DES" id="rys-AH-nBw"/>

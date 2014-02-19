@@ -8,7 +8,7 @@
 
 #import "AlbumsViewController.h"
 #import "AlbumViewController.h"
-#import "NewAlbumViewController.h"
+#import "SelectCoverViewController.h"
 
 #import "AlbumCell.h"
 
@@ -70,7 +70,7 @@
 
 -(void)addAlbumPressed {
     
-    NewAlbumViewController * navc = [[NewAlbumViewController alloc] init];
+    SelectCoverViewController * navc = [[SelectCoverViewController alloc] init];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:navc];
     [self presentViewController:nav animated:YES completion:nil];
     
