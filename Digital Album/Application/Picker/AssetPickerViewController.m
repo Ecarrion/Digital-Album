@@ -18,6 +18,7 @@
 
 @property (nonatomic, strong) DAAlbum * selectedAlbum;
 @property (nonatomic, strong) SelectAlbumViewController * albumController;
+@property (nonatomic, strong) NSMutableOrderedSet * selectedImages;
 
 @end
 
@@ -31,6 +32,8 @@
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:nil action:nil];
         self.navigationItem.rightBarButtonItem = item;
+        
+        self.selectedImages = [[NSMutableOrderedSet alloc] init];
     }
     return self;
 }
@@ -132,11 +135,27 @@
     AssetCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AssetCell" forIndexPath:indexPath];
     cell.thumbImageView.image = [image localThumbnailPreservingAspectRatio:YES];
     
+    if ([self.selectedImages containsObject:image]) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+           [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone]; 
+        });
+    }
+    
     return cell;
 }
 
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+    DAImage * image = self.selectedAlbum.images[indexPath.row];
+    [self.selectedImages addObject:image];
+    
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
+    
+    DAImage * image = self.selectedAlbum.images[indexPath.row];
+    [self.selectedImages removeObject:image];
 }
 
 #pragma mark - Memory
