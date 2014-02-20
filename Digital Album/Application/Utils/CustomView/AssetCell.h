@@ -13,5 +13,9 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *thumbImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *selectionImageView;
+@property (weak, nonatomic) IBOutlet UILabel *counterLabel;
+
+-(void)setCounterNumber:(int)counter;
+
 
 @end

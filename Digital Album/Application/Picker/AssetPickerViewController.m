@@ -54,7 +54,7 @@
             
             self.phoneAlbums = albums;
             self.selectedAlbum = [self.phoneAlbums lastObject];
-            [imagesCollectionView reloadData];
+            [self reloadCollectionView];
             
             self.navigationItem.titleView = titleButtonView;
             [self setTitleButtonViewText];
@@ -106,9 +106,8 @@
 -(void)didSelectAlbum:(DAAlbum *)album {
     
     self.selectedAlbum = album;
-    [imagesCollectionView reloadData];
+    [self reloadCollectionView];
     [self setTitleButtonViewText];
-    
     [self removeSelectAlbumController];
 }
 
@@ -135,10 +134,9 @@
     AssetCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AssetCell" forIndexPath:indexPath];
     cell.thumbImageView.image = [image localThumbnailPreservingAspectRatio:YES];
     
-    if ([self.selectedImages containsObject:image]) {
-        dispatch_async(dispatch_get_main_queue(), ^{
-           [collectionView selectItemAtIndexPath:indexPath animated:NO scrollPosition:UICollectionViewScrollPositionNone]; 
-        });
+    NSUInteger index = [self.selectedImages indexOfObject:image];
+    if (index != NSNotFound) {
+        [cell setCounterNumber:(int)index + 1];
     }
     
     return cell;
@@ -149,13 +147,32 @@
     
     DAImage * image = self.selectedAlbum.images[indexPath.row];
     [self.selectedImages addObject:image];
-    
+    [self reloadCollectionView];
 }
 
 -(void)collectionView:(UICollectionView *)collectionView didDeselectItemAtIndexPath:(NSIndexPath *)indexPath {
     
     DAImage * image = self.selectedAlbum.images[indexPath.row];
     [self.selectedImages removeObject:image];
+    [self reloadCollectionView];
+}
+
+
+-(void)reloadCollectionView {
+    
+    [imagesCollectionView reloadData];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        
+        for (int i = 0; i < self.selectedAlbum.images.count; i++) {
+            DAImage * img = self.selectedAlbum.images[i];
+            if ([self.selectedImages containsObject:img]) {
+                NSIndexPath * ip =  [NSIndexPath indexPathForRow:i inSection:0];
+                [imagesCollectionView selectItemAtIndexPath:ip animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+            }
+        }
+        
+    });
 }
 
 #pragma mark - Memory
