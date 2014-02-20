@@ -7,15 +7,17 @@
 //
 
 #import "AssetPickerViewController.h"
+#import "SelectAlbumViewController.h"
 
 #import "AssetCell.h"
 
 #import "AlbumManager.h"
 #import "DAAlbum.h"
 
-@interface AssetPickerViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
+@interface AssetPickerViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SelectAlbumDelegate>
 
 @property (nonatomic, strong) DAAlbum * selectedAlbum;
+@property (nonatomic, strong) SelectAlbumViewController * albumController;
 
 @end
 
@@ -57,6 +59,61 @@
     }];
 }
 
+-(void)setTitleButtonViewText {
+    
+    NSString * title = self.selectedAlbum.name;
+    [titleButtonView setTitle:title forState:UIControlStateNormal];
+    UIFont * font = titleButtonView.titleLabel.font;
+    CGSize size = [title boundingRectWithSize: titleButtonView.frame.size
+                                      options: NSStringDrawingUsesLineFragmentOrigin
+                                   attributes: @{ NSFontAttributeName: font }
+                                      context: nil].size;
+    
+    int leftInset = (titleButtonView.frame.size.width / 2.0) + (size.width / 2.0);
+    titleButtonView.imageEdgeInsets = UIEdgeInsetsMake(8., leftInset, 0., 0.);
+    titleButtonView.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0., 0.);
+}
+
+-(IBAction)presetAlbumSelectController {
+    
+    self.albumController = [[SelectAlbumViewController alloc] init];
+    self.albumController.delegate = self;
+    self.albumController.albums = self.phoneAlbums;
+    
+    [self.navigationController addChildViewController:self.albumController];
+    [self.navigationController.view addSubview:self.albumController.view];
+    [self.albumController didMoveToParentViewController:self.navigationController];
+    
+    [self.albumController showTableViewWithAnimationOnCompletion:nil];
+}
+
+-(void)removeSelectAlbumController {
+    
+    [self.albumController hideTableViewWithAnimationOnCompletion:^{
+        
+        [self.albumController.view removeFromSuperview];
+        [self.albumController removeFromParentViewController];
+        self.albumController = nil;
+        
+    }];
+}
+
+#pragma mark - Selection Album Delegate
+
+-(void)didSelectAlbum:(DAAlbum *)album {
+    
+    self.selectedAlbum = album;
+    [imagesCollectionView reloadData];
+    [self setTitleButtonViewText];
+    
+    [self removeSelectAlbumController];
+}
+
+-(void)didCancelSelection {
+    
+    [self removeSelectAlbumController];
+}
+
 #pragma mark - CollectionView
 
 -(NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
@@ -69,13 +126,6 @@
     return [self.selectedAlbum.images count];
 }
 
-/*
--(CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return ALBUM_CELL_SIZE;
-}
- */
-
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
     DAImage * image = self.selectedAlbum.images[indexPath.row];
@@ -87,20 +137,6 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
-}
-
--(void)setTitleButtonViewText {
-    
-    NSString * title = self.selectedAlbum.name;
-    [titleButtonView setTitle:title forState:UIControlStateNormal];
-    UIFont * font = titleButtonView.titleLabel.font;
-    CGSize size = [title boundingRectWithSize: titleButtonView.frame.size
-                                      options: NSStringDrawingUsesLineFragmentOrigin
-                                   attributes: @{ NSFontAttributeName: font }
-                                      context: nil].size;
-    
-    titleButtonView.imageEdgeInsets = UIEdgeInsetsMake(8., size.width + 35, 0., 0.);
-    titleButtonView.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0., 0.);
 }
 
 #pragma mark - Memory
