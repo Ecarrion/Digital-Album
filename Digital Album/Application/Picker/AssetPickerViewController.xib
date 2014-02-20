@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AssetPickerViewController">
             <connections>
                 <outlet property="imagesCollectionView" destination="tBq-iy-Kj9" id="Wli-pg-cRq"/>
+                <outlet property="titleButtonView" destination="udJ-oR-vqN" id="fqF-6X-7f3"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -36,5 +37,17 @@
             <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" id="udJ-oR-vqN">
+            <rect key="frame" x="0.0" y="0.0" width="204" height="36"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <fontDescription key="fontDescription" name="Noteworthy-Bold" family="Noteworthy" pointSize="22"/>
+            <state key="normal" title="Saved Photos" image="triangle">
+                <color key="titleColor" red="0.28627450980392155" green="0.18431372549019609" blue="0.054901960784313725" alpha="1" colorSpace="deviceRGB"/>
+                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+            </state>
+        </button>
     </objects>
+    <resources>
+        <image name="triangle" width="12" height="10"/>
+    </resources>
 </document>

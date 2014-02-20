@@ -26,6 +26,9 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:nil action:nil];
+        self.navigationItem.rightBarButtonItem = item;
     }
     return self;
 }
@@ -33,8 +36,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [imagesCollectionView registerNib:[UINib nibWithNibName:@"AssetCell" bundle:nil] forCellWithReuseIdentifier:@"AssetCell"];
     imagesCollectionView.allowsMultipleSelection = YES;
+    
+    self.navigationItem.titleView = titleButtonView;
+    [self setTitleButtonViewText];
     
     [AlbumManager phoneAlbumsWithBlock:^(NSArray *albums, NSError *error) {
         
@@ -43,6 +50,9 @@
             self.phoneAlbums = albums;
             self.selectedAlbum = [self.phoneAlbums lastObject];
             [imagesCollectionView reloadData];
+            
+            self.navigationItem.titleView = titleButtonView;
+            [self setTitleButtonViewText];
         }
     }];
 }
@@ -77,6 +87,20 @@
 
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     
+}
+
+-(void)setTitleButtonViewText {
+    
+    NSString * title = self.selectedAlbum.name;
+    [titleButtonView setTitle:title forState:UIControlStateNormal];
+    UIFont * font = titleButtonView.titleLabel.font;
+    CGSize size = [title boundingRectWithSize: titleButtonView.frame.size
+                                      options: NSStringDrawingUsesLineFragmentOrigin
+                                   attributes: @{ NSFontAttributeName: font }
+                                      context: nil].size;
+    
+    titleButtonView.imageEdgeInsets = UIEdgeInsetsMake(8., size.width + 35, 0., 0.);
+    titleButtonView.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0., 0.);
 }
 
 #pragma mark - Memory

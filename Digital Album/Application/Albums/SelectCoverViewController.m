@@ -33,6 +33,8 @@
         
         item = [[UIBarButtonItem alloc] initWithTitle:@"Add Photos" style:UIBarButtonItemStylePlain target:self action:@selector(addPhotosPressed)];
         self.navigationItem.rightBarButtonItem = item;
+        
+        self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
     }
     return self;
 }

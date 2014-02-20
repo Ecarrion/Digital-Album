@@ -12,6 +12,8 @@
     
     __weak IBOutlet UICollectionView *imagesCollectionView;
     
+    IBOutlet UIButton *titleButtonView;
+    
 }
 
 @property (nonatomic, strong) NSArray * phoneAlbums;
