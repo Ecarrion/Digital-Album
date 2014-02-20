@@ -11,11 +11,15 @@
 #import "SelectCoverViewController.h"
 #import "AssetPickerViewController.h"
 
+
 @interface SelectCoverViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSArray * coverNames;
 @property (nonatomic, strong) NSArray * coverImages;
 @property (nonatomic, strong) UIImageView * checkBoxImageView;
+@property (nonatomic, strong) DAAlbum * albumToCreate;
+@property (nonatomic, strong) NSString * selectedImageCoverName;
+
 
 @end
 
@@ -35,6 +39,8 @@
         self.navigationItem.rightBarButtonItem = item;
         
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
+        
+        self.albumToCreate = [[DAAlbum alloc] init];
     }
     return self;
 }
@@ -48,7 +54,6 @@
     
     albumNametextField.layer.borderColor = [UIColor colorWithRed:73.0/255.0 green:47.0/255.0 blue:14.0/255.0 alpha:1].CGColor;
     albumNametextField.layer.borderWidth = 2.f;
-    [albumNametextField becomeFirstResponder];
     
     self.checkBoxImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"selected.png"]];
     float distance = 500;
@@ -57,6 +62,12 @@
     basicTrans = CATransform3DRotate(basicTrans, 25 * M_PI / 180, 0.0f, 1.0f, 0.0f);
     self.checkBoxImageView.layer.transform = basicTrans;
     self.checkBoxImageView.layer.zPosition = 20;
+}
+
+-(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    [albumNametextField becomeFirstResponder];
 }
 
 -(void)setUpScrollView {
@@ -101,6 +112,9 @@
     
     self.checkBoxImageView.center = CGPointMake(tappedCoverImage.center.x + 7, tappedCoverImage.center.y);
     [coversScrollView addSubview:self.checkBoxImageView];
+    
+    int index = (int)[self.coverImages indexOfObject:tappedCoverImage];
+    self.selectedImageCoverName = self.coverNames[index];
 }
 
 -(void)cancelPressed {
@@ -110,8 +124,33 @@
 
 -(void)addPhotosPressed {
     
-    AssetPickerViewController * apc = [[AssetPickerViewController alloc] init];
-    [self.navigationController pushViewController:apc animated:YES];
+    self.albumToCreate.name = albumNametextField.text;
+    self.albumToCreate.coverImageName = self.selectedImageCoverName;
+    
+    if ([self validateAlbum]) {
+        
+        AssetPickerViewController * apc = [[AssetPickerViewController alloc] init];
+        apc.delegate = self.delegate;
+        apc.albumToCreate = self.albumToCreate;
+        [self.navigationController pushViewController:apc animated:YES];
+    }
+}
+
+-(BOOL)validateAlbum {
+    
+    if (self.albumToCreate.name.length <= 0) {
+        
+        showAlert(nil, @"Please enter the album name", @"OK");
+        return NO;
+    }
+    
+    if (!self.albumToCreate.coverImageName) {
+        
+        showAlert(nil, @"Please select a cover for your album", @"OK");
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark - UITextFieldDelegate 

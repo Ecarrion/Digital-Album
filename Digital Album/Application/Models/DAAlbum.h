@@ -12,6 +12,7 @@
 @interface DAAlbum : NSObject
 
 @property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * coverImageName;
 @property (nonatomic, strong) NSString * id;
 @property (nonatomic, strong) NSArray * images;
 

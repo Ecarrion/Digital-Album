@@ -30,7 +30,7 @@
     if (self) {
         // Custom initialization
         
-        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:nil action:nil];
+        UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:self action:@selector(finishPressed)];
         self.navigationItem.rightBarButtonItem = item;
         
         self.selectedImages = [[NSMutableOrderedSet alloc] init];
@@ -99,6 +99,29 @@
         self.albumController = nil;
         
     }];
+}
+
+-(void)finishPressed {
+    
+    self.albumToCreate.images = self.selectedImages.array;
+    if ([self validateAlbum]) {
+        
+        if ([self.delegate respondsToSelector:@selector(albumCreated:)]) {
+            [self.delegate albumCreated:self.albumToCreate];
+        }
+    }
+}
+
+
+-(BOOL)validateAlbum {
+    
+    if (self.albumToCreate.images.count <= 0) {
+        
+        showAlert(nil, @"Please add at least one image to your album", @"OK");
+        return NO;
+    }
+    
+    return YES;
 }
 
 #pragma mark - Selection Album Delegate

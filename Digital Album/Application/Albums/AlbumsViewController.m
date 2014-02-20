@@ -15,7 +15,7 @@
 #import "AlbumManager.h"
 
 
-@interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CreateAlbumDelegate>
 
 @property (nonatomic, strong) NSArray * albums;
 @property (nonatomic, strong) NSArray * covers;
@@ -57,7 +57,6 @@
             self.albums = albums;
             [albumsCollectionView reloadData];
         }
-        
     }];
 }
 
@@ -71,9 +70,21 @@
 -(void)addAlbumPressed {
     
     SelectCoverViewController * navc = [[SelectCoverViewController alloc] init];
+    navc.delegate = self;
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:navc];
     [self presentViewController:nav animated:YES completion:nil];
     
+}
+
+#pragma mark - Create Album Delegate
+
+-(void)albumCreated:(DAAlbum *)album {
+    
+    puts("created album");
+    self.albums = [self.albums arrayByAddingObject:album];
+    [albumsCollectionView reloadData];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - CollectionView

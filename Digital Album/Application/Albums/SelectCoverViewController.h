@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DAAlbum.h"
+
+@protocol CreateAlbumDelegate <NSObject>
+
+-(void)albumCreated:(DAAlbum *)album;
+
+@end
 
 @interface SelectCoverViewController : UIViewController {
     
     
     __weak IBOutlet UITextField *albumNametextField;
     __weak IBOutlet UIScrollView *coversScrollView;
-    
 }
+
+@property (nonatomic, weak) id<CreateAlbumDelegate> delegate;
 
 @end

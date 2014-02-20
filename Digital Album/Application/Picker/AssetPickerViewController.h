@@ -7,15 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SelectCoverViewController.h"
+
 
 @interface AssetPickerViewController : UIViewController {
     
     __weak IBOutlet UICollectionView *imagesCollectionView;
-    
     IBOutlet UIButton *titleButtonView;
     
 }
 
 @property (nonatomic, strong) NSArray * phoneAlbums;
+@property (nonatomic, weak) id<CreateAlbumDelegate> delegate;
+@property (nonatomic, strong) DAAlbum * albumToCreate;
 
 @end
