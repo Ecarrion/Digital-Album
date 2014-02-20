@@ -113,7 +113,10 @@
     cell.nameLabel.text = album.name;
     
     int index = (int)indexPath.row % (int)self.covers.count;
-    cell.thumbImageView.image = [UIImage imageNamed:self.covers[index]];
+    if (album.coverImageName)
+        cell.thumbImageView.image = [UIImage imageNamed:album.coverImageName];
+    else
+        cell.thumbImageView.image = [UIImage imageNamed:self.covers[index]];
     
     return cell;
 }
