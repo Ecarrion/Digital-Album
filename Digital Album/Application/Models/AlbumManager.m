@@ -41,7 +41,7 @@
     
     NSString * albumPath = [self pathForAlbum:album];
     int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
-    NSString * imagePath = [albumPath stringByAppendingPathExtension:[NSString stringWithFormat:@"image-%d.jpg", count]];
+    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count]];
     
     return imagePath;
 }
@@ -137,7 +137,7 @@
 
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath {
     
-    if (!image.modifiedImage || image.imagePath.length <= 0) {
+    if (!image.modifiedImage || imagePath <= 0) {
         return NO;
     }
     
