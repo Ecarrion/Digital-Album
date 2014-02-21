@@ -7,6 +7,7 @@
 //
 
 #import "DAImage.h"
+#import "AlbumManager.h"
 
 @interface DAImage ()
 
@@ -18,15 +19,27 @@
 
 #pragma mark - Digital Album Image
 
--(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset {
++(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset {
     
     DAImage * image  = [[DAImage alloc] init];
+    image.modifiedImage = [UIImage imageWithCGImage:[[imageAsset defaultRepresentation] fullScreenImage]];
     return image;
 }
 
 -(UIImage *)image {
     
-    return nil;
+    UIImage * image = nil;
+    if (self.imagePath) {
+        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
+        image = [[UIImage alloc] initWithData:data scale:1];
+    }
+    
+    return image;
+}
+
+-(BOOL)saveModifiedImage {
+    
+    return [[AlbumManager manager] saveImage:self atPath:self.imagePath];
 }
 
 #pragma mark - Phone Image

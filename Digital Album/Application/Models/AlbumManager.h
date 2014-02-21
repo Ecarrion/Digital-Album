@@ -17,6 +17,6 @@
 
 -(BOOL)saveAlbum:(DAAlbum *)album;
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
--(BOOL)saveImage:(DAImage *)image atURL:(NSURL *)imageUrl;
+-(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath;
 
 @end

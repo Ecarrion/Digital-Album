@@ -14,11 +14,10 @@
 @property (nonatomic, strong) NSDate * date;
 
 //Digital Album Image
-@property (nonatomic, strong) NSString * name;
-@property (nonatomic, strong) NSString * url;
+@property (nonatomic, strong) NSString * imagePath;
 @property (nonatomic, strong) UIImage * modifiedImage;
 
--(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset;
++(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset;
 -(UIImage *)image;
 -(BOOL)saveModifiedImage;
 

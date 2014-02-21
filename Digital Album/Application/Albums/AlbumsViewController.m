@@ -81,8 +81,13 @@
 -(void)albumCreated:(DAAlbum *)album {
     
     puts("created album");
+    
+    [[AlbumManager manager] saveAlbum:album];
+    
+    /*
     self.albums = [self.albums arrayByAddingObject:album];
     [albumsCollectionView reloadData];
+     */
     
     [self dismissViewControllerAnimated:YES completion:nil];
 }

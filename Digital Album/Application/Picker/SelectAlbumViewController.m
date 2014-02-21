@@ -119,7 +119,7 @@
     cell.textLabel.text = album.name;
     
     if (album.images.count > 1) {
-        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d photos", album.images.count];
+        cell.detailTextLabel.text = [NSString stringWithFormat:@"%d photos", (int)album.images.count];
         
     } else {
         cell.detailTextLabel.text = @"1 photo";

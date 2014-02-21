@@ -28,6 +28,25 @@
     return manager;
 }
 
+-(NSString *)pathForAlbum:(DAAlbum *)album {
+    
+    return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+}
+
+-(NSString *)pathForImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+    
+    if (image.imagePath) {
+        return image.imagePath;
+    }
+    
+    NSString * albumPath = [self pathForAlbum:album];
+    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
+    NSString * imagePath = [albumPath stringByAppendingPathExtension:[NSString stringWithFormat:@"image-%d.jpg", count]];
+    
+    return imagePath;
+}
+
+
 - (id)init
 {
     self = [super init];
@@ -93,17 +112,43 @@
 
 -(BOOL)saveAlbum:(DAAlbum *)album {
     
-    return NO;
+    for (DAImage * image in album.images) {
+        
+        [self saveImage:image inAlbum:album];
+    }
+    
+    return YES;
 }
 
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
     
-    return NO;
+    BOOL result = NO;
+    if ([self createFolderForAlbumIfNecesary:album]) {
+    
+        @autoreleasepool {
+            
+            NSString * imagePath = [self pathForImage:image inAlbum:album];
+            result = [self saveImage:image atPath:imagePath];
+        }
+    }
+    
+    return result;
 }
 
--(BOOL)saveImage:(DAImage *)image atURL:(NSURL *)imageUrl {
+-(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath {
     
-    return NO;
+    if (!image.modifiedImage || image.imagePath.length <= 0) {
+        return NO;
+    }
+    
+    BOOL result = [UIImageJPEGRepresentation(image.modifiedImage, 1.0) writeToFile:imagePath atomically:YES];
+    if (result) {
+        
+        image.modifiedImage = nil;
+        image.imagePath = imagePath;
+    }
+    
+    return result;
 }
 
 
@@ -111,7 +156,7 @@
     
     NSString * path = [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
     NSFileManager * fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:path isDirectory:YES]) {
+    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
         return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
