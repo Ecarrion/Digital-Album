@@ -11,17 +11,24 @@
 
 @interface DAImage : NSObject
 
-@property (nonatomic, strong) __block NSString * locationDescription;
 @property (nonatomic, strong) NSDate * date;
+
+//Digital Album Image
+@property (nonatomic, strong) NSString * name;
+@property (nonatomic, strong) NSString * url;
+@property (nonatomic, strong) UIImage * modifiedImage;
+
+-(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset;
+-(UIImage *)image;
+-(BOOL)saveModifiedImage;
+
+//Phone Image
 @property(nonatomic, strong) ALAsset * localAsset;
 @property(nonatomic, assign) ALAssetsGroupType groupType;
 
-
 +(DAImage *)imageWithLocalAsset:(ALAsset *)asset;
-
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio;
 -(UIImage *)localImage;
-//-(void)locationDescriptionWithBlock:(void(^)(NSString * locationString, NSError * error))block;
 
 
 @end

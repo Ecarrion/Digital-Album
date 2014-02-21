@@ -12,6 +12,11 @@
 
 @interface AlbumManager : NSObject
 
-+(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
++(AlbumManager *)manager;
+-(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
+
+-(BOOL)saveAlbum:(DAAlbum *)album;
+-(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
+-(BOOL)saveImage:(DAImage *)image atURL:(NSURL *)imageUrl;
 
 @end

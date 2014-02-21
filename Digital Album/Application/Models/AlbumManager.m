@@ -7,32 +7,47 @@
 //
 
 #import <AssetsLibrary/AssetsLibrary.h>
-
 #import "AlbumManager.h"
-#import "DAImage.h"
-#import "DAAlbum.h"
 
+@interface AlbumManager ()
+
+@property (nonatomic, strong) ALAssetsLibrary * lib;
+@property (nonatomic, strong) NSString * documentsDirectoryPath;
+@end
 
 @implementation AlbumManager
 
-
-+ (ALAssetsLibrary *) defaultAssetsLibrary {
++(AlbumManager *)manager {
     
-    static dispatch_once_t pred = 0;
-    static ALAssetsLibrary *library = nil;
-    dispatch_once(&pred, ^{
-        library = [[ALAssetsLibrary alloc] init];
+    static AlbumManager * manager = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        manager = [[AlbumManager alloc] init];
     });
-    return library;
+    
+    return manager;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+        NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        NSString * basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
+        self.documentsDirectoryPath = basePath;
+    }
+    return self;
+}
 
-+(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
+-(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
-    ALAssetsLibrary *lib = [AlbumManager defaultAssetsLibrary];
+    if (!self.lib) {
+        self.lib = [[ALAssetsLibrary alloc] init];
+    }
     __block NSMutableArray * albumsArray = [NSMutableArray array];
     
-    [lib enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
+    [self.lib enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
         
         if (group) {
         
@@ -74,6 +89,33 @@
             block(nil, error);
     }];
     
+}
+
+-(BOOL)saveAlbum:(DAAlbum *)album {
+    
+    return NO;
+}
+
+-(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+    
+    return NO;
+}
+
+-(BOOL)saveImage:(DAImage *)image atURL:(NSURL *)imageUrl {
+    
+    return NO;
+}
+
+
+-(BOOL)createFolderForAlbumIfNecesary:(DAAlbum *)album {
+    
+    NSString * path = [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+    NSFileManager * fileManager = [NSFileManager defaultManager];
+    if (![fileManager fileExistsAtPath:path isDirectory:YES]) {
+        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+    
+    return YES;
 }
 
 

@@ -48,7 +48,7 @@
     self.navigationItem.titleView = titleButtonView;
     [self setTitleButtonViewText];
     
-    [AlbumManager phoneAlbumsWithBlock:^(NSArray *albums, NSError *error) {
+    [[AlbumManager manager] phoneAlbumsWithBlock:^(NSArray *albums, NSError *error) {
         
         if (!error) {
             
