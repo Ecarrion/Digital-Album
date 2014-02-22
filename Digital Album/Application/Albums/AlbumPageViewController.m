@@ -7,6 +7,7 @@
 //
 
 #import "AlbumPageViewController.h"
+#import "UIImageView+AspectSize.h"
 
 @interface AlbumPageViewController () <UIGestureRecognizerDelegate> {
     
@@ -45,8 +46,33 @@
     [super viewDidLoad];
     self.imageView.image = [self.image localImage];
     
-    [self setUpReadGesturesRecognizers];
+    CGPoint center = self.imageView.center;
+    self.imageView.frame = [self.imageView contentModetRect];
+    self.imageView.center = center;
+    self.imageView.layer.allowsEdgeAntialiasing = YES;
+    
+    self.imageView.layer.borderWidth = 3;
+    [self enableEditMode:NO];
 }
+
+-(void)enableEditMode:(BOOL)edit {
+    
+    if (edit) {
+        
+        [self setUpEditionImageGestureRecognizers];
+        
+    } else {
+        
+        [self setUpReadOnlyGesturesRecognizers];
+        
+    }
+    
+    UIColor * color = edit ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
+    self.imageView.layer.borderColor = color.CGColor;
+    
+}
+
+#pragma mark - Gestures Recognizers
 
 -(void)removeGesturesRecognizers {
     
@@ -59,7 +85,7 @@
     }
 }
 
--(void)setUpReadGesturesRecognizers {
+-(void)setUpReadOnlyGesturesRecognizers {
     
     [self removeGesturesRecognizers];
     
@@ -140,6 +166,8 @@
     translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
     [self.imageView setCenter:translatedPoint];
 }
+
+#pragma mark - Memory
 
 - (void)didReceiveMemoryWarning {
     

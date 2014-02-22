@@ -25,5 +25,6 @@
 @property (nonatomic, weak) id<AlbumPageDelegate> delegate;
 
 -(id)initWithImage:(DAImage *)image;
+-(void)enableEditMode:(BOOL)edit;
 
 @end

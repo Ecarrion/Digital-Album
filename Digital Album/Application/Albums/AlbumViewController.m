@@ -91,12 +91,18 @@
     
     [self setReadOnlyBarButtonItems];
     inEditMode = NO;
+    
+    AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
+    [apvc enableEditMode:inEditMode];
 }
 
 -(void)editPressed {
     
     [self setEditionBarButtonItems];
     inEditMode = YES;
+    
+    AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
+    [apvc enableEditMode:inEditMode];
 }
 
 #pragma mark - PageViewController
