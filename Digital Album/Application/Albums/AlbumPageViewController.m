@@ -8,9 +8,13 @@
 
 #import "AlbumPageViewController.h"
 
-@interface AlbumPageViewController ()
-
-@property (nonatomic, strong) UITapGestureRecognizer * tapGestureRecornizer;
+@interface AlbumPageViewController () <UIGestureRecognizerDelegate> {
+    
+    double lastScale;
+    double lastRotation;
+    double firstX;
+    double firstY;
+}
 
 @end
 
@@ -41,17 +45,102 @@
     [super viewDidLoad];
     self.imageView.image = [self.image localImage];
     
-    self.tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped)];
-    self.tapGestureRecornizer.numberOfTapsRequired = 1;
-    [self.imageView addGestureRecognizer:self.tapGestureRecornizer];
+    
+    [self setUpEditionImageGestureRecognizers];
+    
 }
 
--(void)imageTapped {
+-(void)removeGesturesRecognizers {
+    
+    for (UIGestureRecognizer * gr in self.view.gestureRecognizers) {
+        [self.view removeGestureRecognizer:gr];
+    }
+    
+    for (UIGestureRecognizer * gr in self.imageView.gestureRecognizers) {
+        [self.imageView removeGestureRecognizer:gr];
+    }
+}
+
+-(void)setUpReadGesturesRecognizers {
+    
+    [self removeGesturesRecognizers];
+    
+    UITapGestureRecognizer * tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
+    tapGestureRecornizer.numberOfTapsRequired = 1;
+    [self.view addGestureRecognizer:tapGestureRecornizer];
+}
+
+-(void)setUpEditionImageGestureRecognizers {
+    
+    [self removeGesturesRecognizers];
+    
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
+	[pinchRecognizer setDelegate:self];
+	[self.view addGestureRecognizer:pinchRecognizer];
+    
+	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
+	[rotationRecognizer setDelegate:self];
+	[self.view addGestureRecognizer:rotationRecognizer];
+    
+	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
+	[panRecognizer setMinimumNumberOfTouches:1];
+	[panRecognizer setMaximumNumberOfTouches:1];
+	[panRecognizer setDelegate:self];
+	[self.imageView addGestureRecognizer:panRecognizer];
+}
+
+-(void)imageTapped:(UITapGestureRecognizer *)gestureRecognizer {
     
     if ([self.delegate respondsToSelector:@selector(pageController:imageTapped:)]) {
         
         [self.delegate pageController:self imageTapped:self.image];
     }
+}
+
+-(void)scale:(UIPinchGestureRecognizer *)gestureRecognizer {
+    
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        lastScale = 1.0;
+    }
+    
+    CGFloat scale = 1.0 - (lastScale - [gestureRecognizer scale]);
+    
+    CGAffineTransform currentTransform = self.imageView.transform;
+    CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
+    
+    [self.imageView setTransform:newTransform];
+    
+    lastScale = [gestureRecognizer scale];
+}
+
+-(void)rotate:(UIRotationGestureRecognizer *)gestureRecognizer {
+    
+    if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+        
+        lastRotation = 0.0;
+        return;
+    }
+    
+    CGFloat rotation = 0.0 - (lastRotation - [gestureRecognizer rotation]);
+    
+    CGAffineTransform currentTransform = self.imageView.transform;
+    CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,rotation);
+    
+    [self.imageView setTransform:newTransform];
+    lastRotation = [gestureRecognizer rotation];
+}
+
+-(void)move:(UIPanGestureRecognizer *)gestureRecognizer {
+    
+    CGPoint translatedPoint = [gestureRecognizer translationInView:self.view];
+    
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        firstX = [self.imageView center].x;
+        firstY = [self.imageView center].y;
+    }
+    
+    translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
+    [self.imageView setCenter:translatedPoint];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -71,9 +160,5 @@
     //Clean rest of resources here eg:arrays, maps, dictionaries, etc
 }
 
--(void)dealloc {
-    
-    self.tapGestureRecornizer = nil;
-}
 
 @end
