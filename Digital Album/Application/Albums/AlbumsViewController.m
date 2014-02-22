@@ -52,6 +52,9 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shrinked-paper2.png"]];
     [albumsCollectionView registerNib:[UINib nibWithNibName:@"AlbumCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumCell"];
     
+    NSArray * savedAlbums = [[AlbumManager manager] savedAlbums];
+    self.albums = [self.albums arrayByAddingObjectsFromArray:savedAlbums];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -94,6 +97,7 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
+    noAlbumsImageView.hidden = (self.albums.count > 0);
     return [self.albums count];
 }
 

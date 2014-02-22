@@ -9,6 +9,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "AlbumManager.h"
 
+#define ALBUMS_OBJ_PATH @"albums.array"
+
 @interface AlbumManager ()
 
 @property (nonatomic, strong) ALAssetsLibrary * lib;
@@ -28,27 +30,8 @@
     return manager;
 }
 
--(NSString *)pathForAlbum:(DAAlbum *)album {
+- (id)init {
     
-    return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
-}
-
--(NSString *)pathForImage:(DAImage *)image inAlbum:(DAAlbum *)album {
-    
-    if (image.imagePath) {
-        return image.imagePath;
-    }
-    
-    NSString * albumPath = [self pathForAlbum:album];
-    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
-    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
-    
-    return imagePath;
-}
-
-
-- (id)init
-{
     self = [super init];
     if (self) {
         
@@ -58,6 +41,8 @@
     }
     return self;
 }
+
+#pragma mark - Get
 
 -(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
@@ -107,8 +92,21 @@
         if (block)
             block(nil, error);
     }];
-    
 }
+
+
+-(NSArray *)savedAlbums {
+    
+    NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
+    NSArray * savedAlbums = [NSKeyedUnarchiver unarchiveObjectWithFile:savedAlbumsPath];
+    if (!savedAlbums)
+        savedAlbums = [NSArray array];
+    
+    return savedAlbums;
+}
+
+
+#pragma mark - Save
 
 -(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block {
     
@@ -116,11 +114,16 @@
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
         for (DAImage * image in album.images) {
-            
             BOOL result = [self saveImage:image inAlbum:album];
-            
             if (success)
                 success = result;
+        }
+        
+        if (success) {
+            
+            NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
+            NSArray * savedAlbums = [[self savedAlbums] arrayByAddingObject:album];
+            success = [NSKeyedArchiver archiveRootObject:savedAlbums toFile:savedAlbumsPath];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -175,6 +178,30 @@
     
     return result;
 }
+
+#pragma mark - Delete
+
+
+#pragma mark - Utilities
+
+-(NSString *)pathForAlbum:(DAAlbum *)album {
+    
+    return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+}
+
+-(NSString *)pathForImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+    
+    if (image.imagePath) {
+        return image.imagePath;
+    }
+    
+    NSString * albumPath = [self pathForAlbum:album];
+    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
+    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
+    
+    return imagePath;
+}
+
 
 
 -(BOOL)createFolderForAlbumIfNecesary:(DAAlbum *)album {
