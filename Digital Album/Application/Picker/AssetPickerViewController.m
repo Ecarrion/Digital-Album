@@ -103,13 +103,7 @@
 
 -(void)finishPressed {
     
-    NSMutableArray * images = [NSMutableArray array];
-    for (DAImage * image in self.selectedImages) {
-        [images addObject:[DAImage imageByCopyingLocalAsset:image.localAsset]];
-    }
-    self.albumToCreate.images = images.copy;
-    
-    
+    self.albumToCreate.images = self.selectedImages.array;
     if ([self validateAlbum]) {
         
         if ([self.delegate respondsToSelector:@selector(albumCreated:)]) {

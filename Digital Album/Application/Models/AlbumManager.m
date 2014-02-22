@@ -41,7 +41,7 @@
     
     NSString * albumPath = [self pathForAlbum:album];
     int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
-    NSString * imagePath = [albumPath stringByAppendingPathExtension:[NSString stringWithFormat:@"image-%d.jpg", count]];
+    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
     
     return imagePath;
 }
@@ -137,15 +137,27 @@
 
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath {
     
-    if (!image.modifiedImage || image.imagePath.length <= 0) {
+    if ((!image.modifiedImage || !image.localAsset) && imagePath.length <= 0) {
         return NO;
     }
     
-    BOOL result = [UIImageJPEGRepresentation(image.modifiedImage, 1.0) writeToFile:imagePath atomically:YES];
+    NSData * imageData = nil;
+    if (image.modifiedImage) {
+        imageData = UIImageJPEGRepresentation(image.modifiedImage, 1.0);
+    }
+    else if (image.localAsset) {
+        imageData = UIImageJPEGRepresentation([image localImage], 1.0);
+    }
+    
+    BOOL result = [imageData writeToFile:imagePath atomically:YES];
+    imageData = nil;
+    
     if (result) {
         
         image.modifiedImage = nil;
+        image.localAsset = nil;
         image.imagePath = imagePath;
+        
     }
     
     return result;

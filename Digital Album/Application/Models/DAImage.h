@@ -17,7 +17,6 @@
 @property (nonatomic, strong) NSString * imagePath;
 @property (nonatomic, strong) UIImage * modifiedImage;
 
-+(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset;
 -(UIImage *)image;
 -(BOOL)saveModifiedImage;
 

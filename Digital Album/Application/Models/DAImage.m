@@ -13,18 +13,9 @@
 
 @end 
 
-
-
 @implementation DAImage
 
 #pragma mark - Digital Album Image
-
-+(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset {
-    
-    DAImage * image  = [[DAImage alloc] init];
-    image.modifiedImage = [UIImage imageWithCGImage:[[imageAsset defaultRepresentation] fullScreenImage]];
-    return image;
-}
 
 -(UIImage *)image {
     
