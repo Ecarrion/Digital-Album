@@ -110,14 +110,27 @@
     
 }
 
--(BOOL)saveAlbum:(DAAlbum *)album {
+-(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block {
     
-    for (DAImage * image in album.images) {
+    __block BOOL success = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [self saveImage:image inAlbum:album];
-    }
-    
-    return YES;
+        for (DAImage * image in album.images) {
+            
+            BOOL result = [self saveImage:image inAlbum:album];
+            
+            if (success)
+                success = result;
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if (block) {
+                block(success);
+            }
+            
+        });
+    });
 }
 
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {

@@ -8,8 +8,30 @@
 
 #import "DAAlbum.h"
 
+#define kAlbumNameKey @"kAlbumNameKey"
+#define kAlbumCoverImageNameKey @"kAlbumCoverImageNameKey"
+#define kAlbumImagesKey @"kAlbumImagesKey"
+
 
 @implementation DAAlbum
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    
+    DAAlbum * album = [[DAAlbum alloc] init];
+    album.name = [aDecoder decodeObjectForKey:kAlbumNameKey];
+    album.coverImageName = [aDecoder decodeObjectForKey:kAlbumCoverImageNameKey];
+    album.images = [aDecoder decodeObjectForKey:kAlbumImagesKey];
+    
+    return album;
+    
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.name forKey:kAlbumNameKey];
+    [aCoder encodeObject:self.coverImageName forKey:kAlbumCoverImageNameKey];
+    [aCoder encodeObject:self.images forKey:kAlbumImagesKey];
+}
 
 
 +(DAAlbum *)AlbumWithGroup:(ALAssetsGroup *)group {

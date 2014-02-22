@@ -80,16 +80,15 @@
 
 -(void)albumCreated:(DAAlbum *)album {
     
-    puts("created album");
     
-    [[AlbumManager manager] saveAlbum:album];
-    
-    /*
-    self.albums = [self.albums arrayByAddingObject:album];
-    [albumsCollectionView reloadData];
-     */
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [[AlbumManager manager] saveAlbum:album onCompletion:^(BOOL success) {
+        
+        
+        self.albums = [self.albums arrayByAddingObject:album];
+        [albumsCollectionView reloadData];
+        [self dismissViewControllerAnimated:YES completion:nil];
+        
+    }];
 }
 
 #pragma mark - CollectionView

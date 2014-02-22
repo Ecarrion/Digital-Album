@@ -9,24 +9,30 @@
 #import "DAImage.h"
 #import "AlbumManager.h"
 
+#define kImagePathKey @"kImagePathKey"
+
+
 @interface DAImage ()
 
 @end 
 
 @implementation DAImage
 
-#pragma mark - Digital Album Image
+#pragma mark - NSCopying
 
--(UIImage *)image {
+-(id)initWithCoder:(NSCoder *)aDecoder {
     
-    UIImage * image = nil;
-    if (self.imagePath) {
-        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
-        image = [[UIImage alloc] initWithData:data scale:1];
-    }
-    
+    DAImage * image = [[DAImage alloc] init];
+    image.imagePath = [aDecoder decodeObjectForKey:kImagePathKey];
     return image;
 }
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.imagePath forKey:kImagePathKey];
+}
+
+#pragma mark - Digital Album Image
 
 -(BOOL)saveModifiedImage {
     
@@ -38,28 +44,45 @@
     
     DAImage * image  = [[DAImage alloc] init];
     image.localAsset = asset;
-    image.date = [image.localAsset valueForProperty:ALAssetPropertyDate];
     
     return image;
 }
 
--(UIImage *)localImage {
-    
-	return [UIImage imageWithCGImage:self.localAsset.defaultRepresentation.fullScreenImage];
-}
 
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio {
     
-	CGImageRef tImage = nil;
-    
-    if (preservingAspectRatio) {
-        tImage = self.localAsset.aspectRatioThumbnail;
-    } else {
-        tImage = self.localAsset.thumbnail;
+    if(self.localAsset) {
+        
+        CGImageRef tImage = nil;
+        
+        if (preservingAspectRatio) {
+            tImage = self.localAsset.aspectRatioThumbnail;
+        } else {
+            tImage = self.localAsset.thumbnail;
+        }
+        
+        return [UIImage imageWithCGImage:tImage];
     }
-	
-	return [UIImage imageWithCGImage:tImage];
+    
+    return nil;
 }
 
+#pragma mark - Common
+
+-(UIImage *)localImage {
+    
+    UIImage * image = nil;
+    if (self.localAsset) {
+        
+        image = [UIImage imageWithCGImage:self.localAsset.defaultRepresentation.fullScreenImage];
+        
+    } else if (self.imagePath) {
+        
+        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
+        image = [[UIImage alloc] initWithData:data scale:1];
+    }
+    
+    return image;
+}
 
 @end

@@ -15,7 +15,7 @@
 +(AlbumManager *)manager;
 -(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
 
--(BOOL)saveAlbum:(DAAlbum *)album;
+-(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block;
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath;
 

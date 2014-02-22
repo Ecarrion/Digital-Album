@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DAImage.h"
 
-@interface DAAlbum : NSObject
+@interface DAAlbum : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * coverImageName;
