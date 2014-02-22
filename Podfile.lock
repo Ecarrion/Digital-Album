@@ -1,21 +1,10 @@
 PODS:
-  - MMDrawerController (0.5.3):
-    - MMDrawerController/Core
-    - MMDrawerController/MMDrawerBarButtonItem
-    - MMDrawerController/MMDrawerVisualStates
-    - MMDrawerController/Subclass
-  - MMDrawerController/Core (0.5.3)
-  - MMDrawerController/MMDrawerBarButtonItem (0.5.3):
-    - MMDrawerController/Core
-  - MMDrawerController/MMDrawerVisualStates (0.5.3):
-    - MMDrawerController/Core
-  - MMDrawerController/Subclass (0.5.3):
-    - MMDrawerController/Core
+  - SVProgressHUD (1.0)
 
 DEPENDENCIES:
-  - MMDrawerController (~> 0.5.3)
+  - SVProgressHUD (~> 1.0)
 
 SPEC CHECKSUMS:
-  MMDrawerController: 4445e1927e8947b7e2382136c9b7109840efbfb9
+  SVProgressHUD: 5e10939a296debf5fe5a5895eda9539b8b2114f1
 
 COCOAPODS: 0.28.0
