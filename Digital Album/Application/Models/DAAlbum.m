@@ -43,6 +43,15 @@
     return album;
 }
 
+-(BOOL)isEqual:(id)object {
+    
+    if ([object isKindOfClass:[DAAlbum class]]) {
+        return [self.name isEqualToString:[object name]];
+    }
+    
+    return NO;
+}
+
 -(DAImage *)topImage {
     
     return [self.images firstObject];

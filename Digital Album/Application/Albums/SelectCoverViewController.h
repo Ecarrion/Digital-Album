@@ -23,5 +23,6 @@
 }
 
 @property (nonatomic, weak) id<CreateAlbumDelegate> delegate;
+@property (nonatomic, strong) NSArray * existingAlbums;
 
 @end

@@ -55,6 +55,12 @@
     NSArray * savedAlbums = [[AlbumManager manager] savedAlbums];
     self.albums = [self.albums arrayByAddingObjectsFromArray:savedAlbums];
     
+    //Delete will be done by long presse
+    UILongPressGestureRecognizer * longPressRecon = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressedRecognizer:)];
+    longPressRecon.delaysTouchesBegan = YES;
+    longPressRecon.minimumPressDuration = 0.5;
+    [albumsCollectionView addGestureRecognizer:longPressRecon];
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -66,11 +72,40 @@
 
 -(void)addAlbumPressed {
     
-    SelectCoverViewController * navc = [[SelectCoverViewController alloc] init];
-    navc.delegate = self;
-    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:navc];
+    SelectCoverViewController * scvc = [[SelectCoverViewController alloc] init];
+    scvc.delegate = self;
+    scvc.existingAlbums = self.albums;
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:scvc];
     [self presentViewController:nav animated:YES completion:nil];
     
+}
+
+-(void)longPressedRecognizer:(UIGestureRecognizer *)gestureRecognizer {
+    
+    if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
+        
+        CGPoint p = [gestureRecognizer locationInView:albumsCollectionView];
+        NSIndexPath * indexPath = [albumsCollectionView indexPathForItemAtPoint:p];
+        if (indexPath != nil){
+            
+            DAAlbum * albumToBeDeleted = self.albums[indexPath.row];
+            NSString * title = [NSString stringWithFormat:@"Delete %@?", albumToBeDeleted.name];
+            
+            [UIActionSheet showInView:self.navigationController.view withTitle:title cancelButtonTitle:@"No, Cancel" destructiveButtonTitle:@"Yes, Delete" otherButtonTitles:nil tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+                
+                if (buttonIndex == 0) {
+                    
+                    if ([[AlbumManager manager] deleteAlbum:albumToBeDeleted]) {
+                        
+                        NSMutableArray * newAlbums = self.albums.mutableCopy;
+                        [newAlbums removeObject:albumToBeDeleted];
+                        self.albums = newAlbums.copy;
+                        [albumsCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+                    }
+                }
+            }];
+        }
+    }
 }
 
 #pragma mark - Create Album Delegate

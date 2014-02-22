@@ -20,4 +20,7 @@
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath;
 
+
+-(BOOL)deleteAlbum:(DAAlbum *)album;
+
 @end

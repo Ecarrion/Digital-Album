@@ -121,9 +121,8 @@
         
         if (success) {
             
-            NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
             NSArray * savedAlbums = [[self savedAlbums] arrayByAddingObject:album];
-            success = [NSKeyedArchiver archiveRootObject:savedAlbums toFile:savedAlbumsPath];
+            [self saveAlbumsToDisk:savedAlbums];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -134,6 +133,12 @@
             
         });
     });
+}
+
+-(BOOL)saveAlbumsToDisk:(NSArray *)albums {
+    
+    NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
+    return [NSKeyedArchiver archiveRootObject:albums toFile:savedAlbumsPath];
 }
 
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
@@ -180,6 +185,20 @@
 }
 
 #pragma mark - Delete
+
+-(BOOL)deleteAlbum:(DAAlbum *)album {
+    
+    NSString * albumPath = [self pathForAlbum:album];
+    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:albumPath error:nil];
+    if (success) {
+        
+        NSMutableArray * savedAlbums = [self savedAlbums].mutableCopy;
+        [savedAlbums removeObject:album];
+        success = [self saveAlbumsToDisk:savedAlbums.copy];
+    }
+    
+    return success;
+}
 
 
 #pragma mark - Utilities

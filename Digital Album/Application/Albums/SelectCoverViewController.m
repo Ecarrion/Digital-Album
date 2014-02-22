@@ -144,6 +144,12 @@
         return NO;
     }
     
+    if ([self.existingAlbums containsObject:self.albumToCreate]) {
+        
+        showAlert(nil, @"An album with this name already exists", @"OK");
+        return NO;
+    }
+    
     if (!self.albumToCreate.coverImageName) {
         
         showAlert(nil, @"Please select a cover for your album", @"OK");
