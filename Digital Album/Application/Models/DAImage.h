@@ -15,6 +15,9 @@
 @property (nonatomic, strong) NSString * imagePath;
 @property (nonatomic, strong) UIImage * modifiedImage;
 
+@property (nonatomic, assign) CGAffineTransform viewTransform;
+@property (nonatomic, assign) CGPoint viewCenter;
+
 -(BOOL)saveModifiedImage;
 
 //Phone Image

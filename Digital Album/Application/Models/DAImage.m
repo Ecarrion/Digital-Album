@@ -9,10 +9,17 @@
 #import "DAImage.h"
 #import "AlbumManager.h"
 
+//Archive
 #define kImagePathKey @"kImagePathKey"
+#define kViewDictionaryKey @"kViewDictionaryKey"
 
+//View Dictionary
+#define kViewTransformKey @"kViewTransformKey"
+#define kViewCenterKey @"kViewCenterKey"
 
 @interface DAImage ()
+
+@property (nonatomic, strong) NSMutableDictionary * viewDictionary;
 
 @end 
 
@@ -24,12 +31,14 @@
     
     DAImage * image = [[DAImage alloc] init];
     image.imagePath = [aDecoder decodeObjectForKey:kImagePathKey];
+    image.viewDictionary = [aDecoder decodeObjectForKey:kViewDictionaryKey];
     return image;
 }
 
 -(void)encodeWithCoder:(NSCoder *)aCoder {
     
     [aCoder encodeObject:self.imagePath forKey:kImagePathKey];
+    [aCoder encodeObject:self.viewDictionary forKey:kViewDictionaryKey];
 }
 
 #pragma mark - Digital Album Image
@@ -39,11 +48,44 @@
     return [[AlbumManager manager] saveImage:self atPath:self.imagePath];
 }
 
+-(void)setViewTransform:(CGAffineTransform)viewTransform {
+    
+    NSString * transformString = NSStringFromCGAffineTransform(viewTransform);
+    self.viewDictionary[kViewDictionaryKey] = transformString;
+}
+
+-(CGAffineTransform)viewTransform {
+    
+    NSString * transformString = self.viewDictionary[kViewTransformKey];
+    if (transformString) {
+        return CGAffineTransformFromString(transformString);
+    }
+    
+    return CGAffineTransformIdentity;
+}
+
+-(void)setViewCenter:(CGPoint)viewCenter {
+    
+    NSString * centerString = NSStringFromCGPoint(viewCenter);
+    self.viewDictionary[kViewCenterKey] = centerString;
+}
+
+-(CGPoint)viewCenter {
+    
+    NSString * centerString = self.viewDictionary[kViewCenterKey];
+    if (centerString) {
+        return CGPointFromString(centerString);
+    }
+    
+    return CGPointZero;
+}
+
 #pragma mark - Phone Image
 +(DAImage *)imageWithLocalAsset:(ALAsset *)asset {
     
     DAImage * image  = [[DAImage alloc] init];
     image.localAsset = asset;
+    image.viewDictionary = [[NSMutableDictionary alloc] init];
     
     return image;
 }

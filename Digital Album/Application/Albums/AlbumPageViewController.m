@@ -55,6 +55,16 @@
     [self enableEditMode:NO];
 }
 
+-(void)loadViewAttributes {
+    
+    self.imageView.transform = self.image.viewTransform;
+    
+    CGPoint center = self.image.viewCenter;
+    if (!CGPointEqualToPoint(center, CGPointZero)) {
+        self.imageView.center = center;
+    }
+}
+
 -(void)enableEditMode:(BOOL)edit {
     
     if (edit) {
