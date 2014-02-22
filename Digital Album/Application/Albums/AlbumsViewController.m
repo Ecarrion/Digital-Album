@@ -80,7 +80,9 @@
 
 -(void)albumCreated:(DAAlbum *)album {
     
+    [SVProgressHUD showWithStatus:@"Creating Album..." maskType:SVProgressHUDMaskTypeGradient];
     [[AlbumManager manager] saveAlbum:album onCompletion:^(BOOL success) {
+        [SVProgressHUD dismiss];
         
         self.albums = [self.albums arrayByAddingObject:album];
         [albumsCollectionView reloadData];
