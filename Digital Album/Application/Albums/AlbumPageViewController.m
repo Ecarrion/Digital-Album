@@ -45,9 +45,7 @@
     [super viewDidLoad];
     self.imageView.image = [self.image localImage];
     
-    
-    [self setUpEditionImageGestureRecognizers];
-    
+    [self setUpReadGesturesRecognizers];
 }
 
 -(void)removeGesturesRecognizers {

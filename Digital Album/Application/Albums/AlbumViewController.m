@@ -13,7 +13,7 @@
 @interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AlbumPageDelegate> {
     
     __weak IBOutlet UIView *pageControlerHolder;
-    
+    BOOL inEditMode;
 }
 
 @property (nonatomic, strong) UIPageViewController * pageViewController;
@@ -43,7 +43,7 @@
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
     self.pageViewController.view.frame = pageControlerHolder.frame;
-    [self removeTapGestureRecognizer];
+    [self removePageTapGestureRecognizer];
     
     [self addChildViewController:self.pageViewController];
     [self.view addSubview:self.pageViewController.view];
@@ -54,6 +54,7 @@
     NSArray * array = @[[self pageControllerAtIndex:0]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
     
+    [self setReadOnlyBarButtonItems];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -61,22 +62,50 @@
     [super viewWillAppear:animated];
 }
 
--(void)removeTapGestureRecognizer {
+-(void)removePageTapGestureRecognizer {
     
     [self.pageViewController.gestureRecognizers enumerateObjectsUsingBlock:^(UIGestureRecognizer * recog, NSUInteger idx, BOOL *stop) {
-        
         if ([recog isKindOfClass:[UITapGestureRecognizer class]]) {
-            
             [(UITapGestureRecognizer *)recog setEnabled:NO];
         }
-        
     }];
 }
 
+-(void)setEditionBarButtonItems {
+    
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
+    [self.navigationItem setRightBarButtonItem:item animated:YES];
+    
+    [self.navigationItem setHidesBackButton:YES animated:YES];
+}
+
+-(void)setReadOnlyBarButtonItems {
+    
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed)];
+    [self.navigationItem setRightBarButtonItem:item animated:YES];
+    
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+}
+
+-(void)donePressed {
+    
+    [self setReadOnlyBarButtonItems];
+    inEditMode = NO;
+}
+
+-(void)editPressed {
+    
+    [self setEditionBarButtonItems];
+    inEditMode = YES;
+}
 
 #pragma mark - PageViewController
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    
+    if (inEditMode)
+        return nil;
+    
     
     int currentIndex = [self currentIndex] + 1;
     if (currentIndex < self.album.images.count) {
@@ -88,6 +117,9 @@
 }
 
 -(UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    
+    if (inEditMode)
+        return nil;
     
     int currentIndex = [self currentIndex] - 1;
     if (currentIndex >= 0) {
