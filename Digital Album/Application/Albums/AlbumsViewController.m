@@ -80,9 +80,7 @@
 
 -(void)albumCreated:(DAAlbum *)album {
     
-    
     [[AlbumManager manager] saveAlbum:album onCompletion:^(BOOL success) {
-        
         
         self.albums = [self.albums arrayByAddingObject:album];
         [albumsCollectionView reloadData];
