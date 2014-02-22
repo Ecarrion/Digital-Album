@@ -35,6 +35,8 @@
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlbumPressed)];
         [self.navigationItem setRightBarButtonItem:item];
+        
+        self.albums = [NSArray array];
     }
     return self;
 }
@@ -50,14 +52,6 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"shrinked-paper2.png"]];
     [albumsCollectionView registerNib:[UINib nibWithNibName:@"AlbumCell" bundle:nil] forCellWithReuseIdentifier:@"AlbumCell"];
     
-    [[AlbumManager manager] phoneAlbumsWithBlock:^(NSArray *albums, NSError *error) {
-        
-        if (!error) {
-            
-            self.albums = albums;
-            [albumsCollectionView reloadData];
-        }
-    }];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
