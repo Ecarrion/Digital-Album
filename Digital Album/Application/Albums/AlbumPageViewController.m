@@ -123,16 +123,19 @@
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
 	[pinchRecognizer setDelegate:self];
 	[self.view addGestureRecognizer:pinchRecognizer];
+    pinchRecognizer.delegate = self;
     
 	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
 	[rotationRecognizer setDelegate:self];
 	[self.view addGestureRecognizer:rotationRecognizer];
+    rotationRecognizer.delegate = self;
     
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[panRecognizer setDelegate:self];
 	[self.imageView addGestureRecognizer:panRecognizer];
+    panRecognizer.delegate = self;
 }
 
 -(void)imageTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -187,6 +190,11 @@
     
     translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
     [self.imageView setCenter:translatedPoint];
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
+    
+    return YES;
 }
 
 #pragma mark - Memory
