@@ -27,4 +27,7 @@
 -(id)initWithImage:(DAImage *)image;
 -(void)enableEditMode:(BOOL)edit;
 
+-(void)commitChanges;
+-(void)loadViewAttributes;
+
 @end

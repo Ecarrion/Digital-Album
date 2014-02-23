@@ -124,8 +124,15 @@
         
         if (success) {
             
-            NSArray * savedAlbums = [[self savedAlbums] arrayByAddingObject:album];
-            [self saveAlbumsToDisk:savedAlbums];
+            NSMutableArray * savedAlbums = [self savedAlbums].mutableCopy;
+            NSUInteger index = [savedAlbums indexOfObject:album];
+            if (index != NSNotFound) {
+                savedAlbums[index] = album;
+            } else {
+                [savedAlbums addObject:album];
+            }
+            
+            success = [self saveAlbumsToDisk:savedAlbums.copy];
         }
         
         dispatch_async(dispatch_get_main_queue(), ^{

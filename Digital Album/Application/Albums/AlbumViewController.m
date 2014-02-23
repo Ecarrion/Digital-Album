@@ -10,6 +10,8 @@
 #import "AlbumPageViewController.h"
 #import "GalleryViewController.h"
 
+#import "AlbumManager.h"
+
 @interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AlbumPageDelegate> {
     
     __weak IBOutlet UIView *pageControlerHolder;
@@ -76,6 +78,9 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
     [self.navigationItem setRightBarButtonItem:item animated:YES];
     
+    UIBarButtonItem * item2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed)];
+    [self.navigationItem setLeftBarButtonItem:item2 animated:YES];
+    
     [self.navigationItem setHidesBackButton:YES animated:YES];
 }
 
@@ -84,6 +89,7 @@
     UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed)];
     [self.navigationItem setRightBarButtonItem:item animated:YES];
     
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
 }
 
@@ -94,6 +100,31 @@
     
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
     [apvc enableEditMode:inEditMode];
+    [apvc commitChanges];
+    
+    
+    [[AlbumManager manager] saveAlbum:self.album onCompletion:^(BOOL success) {
+        
+        if (success) {
+            puts("Album save");
+        } else {
+            puts("Album not saved");
+        }
+        
+    }];
+}
+
+-(void)cancelPressed {
+    
+    [self setReadOnlyBarButtonItems];
+    inEditMode = NO;
+    
+    AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
+    [apvc enableEditMode:inEditMode];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        [apvc loadViewAttributes];
+    }];
 }
 
 -(void)editPressed {

@@ -52,7 +52,9 @@
     self.imageView.layer.allowsEdgeAntialiasing = YES;
     
     self.imageView.layer.borderWidth = 3;
+    
     [self enableEditMode:NO];
+    [self loadViewAttributes];
 }
 
 -(void)loadViewAttributes {
@@ -61,7 +63,12 @@
     
     CGPoint center = self.image.viewCenter;
     if (!CGPointEqualToPoint(center, CGPointZero)) {
+        
         self.imageView.center = center;
+        
+    } else {
+        
+        self.imageView.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     }
 }
 
@@ -79,7 +86,12 @@
     
     UIColor * color = edit ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
     self.imageView.layer.borderColor = color.CGColor;
+}
+
+-(void)commitChanges {
     
+    self.image.viewTransform = self.imageView.transform;
+    self.image.viewCenter = self.imageView.center;
 }
 
 #pragma mark - Gestures Recognizers

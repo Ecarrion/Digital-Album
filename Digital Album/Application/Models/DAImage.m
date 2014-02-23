@@ -43,15 +43,10 @@
 
 #pragma mark - Digital Album Image
 
--(BOOL)saveModifiedImage {
-    
-    return [[AlbumManager manager] saveImage:self atPath:self.imagePath];
-}
-
 -(void)setViewTransform:(CGAffineTransform)viewTransform {
     
     NSString * transformString = NSStringFromCGAffineTransform(viewTransform);
-    self.viewDictionary[kViewDictionaryKey] = transformString;
+    self.viewDictionary[kViewTransformKey] = transformString;
 }
 
 -(CGAffineTransform)viewTransform {

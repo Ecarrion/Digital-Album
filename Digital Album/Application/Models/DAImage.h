@@ -18,7 +18,6 @@
 @property (nonatomic, assign) CGAffineTransform viewTransform;
 @property (nonatomic, assign) CGPoint viewCenter;
 
--(BOOL)saveModifiedImage;
 
 //Phone Image
 @property(nonatomic, strong) ALAsset * localAsset;
@@ -26,8 +25,6 @@
 
 +(DAImage *)imageWithLocalAsset:(ALAsset *)asset;
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio;
-
-
 
 //Common
 -(UIImage *)localImage;
