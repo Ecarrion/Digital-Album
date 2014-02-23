@@ -127,4 +127,9 @@
     return image;
 }
 
+-(BOOL)hasSomethingToSave {
+    
+    return self.modifiedImage != nil || self.localAsset != nil;
+}
+
 @end

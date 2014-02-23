@@ -44,6 +44,7 @@
 
 #pragma mark - Get
 
+//Get Albums from phone
 -(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
     if (!self.lib) {
@@ -94,7 +95,7 @@
     }];
 }
 
-
+//Get Digital Albums from disk
 -(NSArray *)savedAlbums {
     
     NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
@@ -108,6 +109,8 @@
 
 #pragma mark - Save
 
+//iterate trought all DAImages and save its content to disk, then saves
+//the album aray to disk
 -(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block {
     
     __block BOOL success = YES;
@@ -135,12 +138,14 @@
     });
 }
 
+//Save the album array to disk
 -(BOOL)saveAlbumsToDisk:(NSArray *)albums {
     
     NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
     return [NSKeyedArchiver archiveRootObject:albums toFile:savedAlbumsPath];
 }
 
+//Saves UIImage from DAImage to disk for an Album
 -(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
     
     BOOL result = NO;
@@ -156,9 +161,14 @@
     return result;
 }
 
+//Saves UIImage from DAImage to disk at a specifieldPath
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath {
     
-    if ((!image.modifiedImage || !image.localAsset) && imagePath.length <= 0) {
+    if (![image hasSomethingToSave]) {
+        return YES;
+    }
+    
+    if (imagePath.length <= 0) {
         return NO;
     }
     
@@ -184,8 +194,11 @@
     return result;
 }
 
+
+
 #pragma mark - Delete
 
+//Delete album from disk if it exists
 -(BOOL)deleteAlbum:(DAAlbum *)album {
     
     NSString * albumPath = [self pathForAlbum:album];
@@ -220,8 +233,6 @@
     
     return imagePath;
 }
-
-
 
 -(BOOL)createFolderForAlbumIfNecesary:(DAAlbum *)album {
     

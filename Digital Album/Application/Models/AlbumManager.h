@@ -17,10 +17,6 @@
 -(NSArray *)savedAlbums;
 
 -(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block;
--(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
--(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath;
-
-
 -(BOOL)deleteAlbum:(DAAlbum *)album;
 
 @end

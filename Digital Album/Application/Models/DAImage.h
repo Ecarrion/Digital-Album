@@ -31,6 +31,6 @@
 
 //Common
 -(UIImage *)localImage;
-
+-(BOOL)hasSomethingToSave;
 
 @end
