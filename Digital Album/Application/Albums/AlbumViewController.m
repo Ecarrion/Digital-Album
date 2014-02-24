@@ -182,6 +182,8 @@
     return page;
 }
 
+#pragma mark - AlbumPage delegate
+
 -(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image {
     
     
@@ -223,6 +225,17 @@
         }];
         
     }];
+}
+
+-(void)didSelectCreateNewPage {
+    
+    DAPage * page = [[DAPage alloc] init];
+    self.album.pages = [self.album.pages arrayByAddingObject:page];
+    
+    NSArray * array = @[[self pageControllerAtIndex:self.album.pages.count - 1]];
+    [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    
+    [self donePressed];
 }
 
 #pragma mark - Memory

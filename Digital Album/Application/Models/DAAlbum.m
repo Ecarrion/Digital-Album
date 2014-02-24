@@ -15,6 +15,17 @@
 
 @implementation DAAlbum
 
+- (id)init {
+    
+    self = [super init];
+    if (self) {
+        
+        self.pages = @[[[DAPage alloc] init]];
+        
+    }
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     DAAlbum * album = [[DAAlbum alloc] init];

@@ -13,6 +13,17 @@
 
 @implementation DAPage
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        
+        self.images = [NSArray array];
+        self.texts = [NSArray array];
+    }
+    return self;
+}
+
 -(id)initWithCoder:(NSCoder *)aDecoder {
     
     DAPage * page = [[DAPage alloc] init];

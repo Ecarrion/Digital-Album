@@ -13,6 +13,7 @@
 @protocol AlbumPageDelegate <NSObject>
 
 -(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image;
+-(void)didSelectCreateNewPage;
 
 @end
 

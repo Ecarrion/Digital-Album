@@ -263,7 +263,9 @@
         switch (buttonIndex) {
             
             case 0: {
-                puts("Page");
+                if ([self.delegate respondsToSelector:@selector(didSelectCreateNewPage)]) {
+                    [self.delegate didSelectCreateNewPage];
+                }
                 break;
             }
                 
