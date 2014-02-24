@@ -238,7 +238,7 @@
 
 -(NSString *)pathForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
     
-    NSString * pageName = [NSString stringWithFormat:@"page-%d", (int)[album.pages indexOfObject:page]];
+    NSString * pageName = [NSString stringWithFormat:@"page-%d", (int)[album.pages indexOfObject:page] + 1];
     return [[self pathForAlbum:album] stringByAppendingPathComponent:pageName];
 }
 

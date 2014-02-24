@@ -14,5 +14,8 @@
 @property (nonatomic, assign) double firstX;
 @property (nonatomic, assign) double firstY;
 
+@property (nonatomic, assign) double lastScale;
+@property (nonatomic, assign) double lastRotation;
+
 
 @end

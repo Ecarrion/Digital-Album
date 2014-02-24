@@ -15,8 +15,14 @@
 static char const * firstXKey = "firstXKey";
 static char const * firstYKey = "firstYKey";
 
+static char const * lastScaleKey = "lastScaleKey";
+static char const * lastRotationKey = "lastRotationKey";
+
 @dynamic firstX;
 @dynamic firstY;
+
+@dynamic lastRotation;
+@dynamic lastScale;
 
 -(void)setFirstX:(double)firstX {
     
@@ -28,6 +34,16 @@ static char const * firstYKey = "firstYKey";
     objc_setAssociatedObject(self, firstYKey, @(firstY), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+-(void)setLastRotation:(double)lastRotation {
+    
+    objc_setAssociatedObject(self, lastRotationKey, @(lastRotation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+-(void)setLastScale:(double)lastScale {
+ 
+    objc_setAssociatedObject(self, lastScaleKey, @(lastScale), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 -(double)firstX {
     
     return [objc_getAssociatedObject(self, firstXKey) doubleValue];
@@ -36,6 +52,16 @@ static char const * firstYKey = "firstYKey";
 -(double)firstY {
     
     return [objc_getAssociatedObject(self, firstYKey) doubleValue];
+}
+
+-(double)lastScale {
+    
+    return [objc_getAssociatedObject(self, lastScaleKey) doubleValue];
+}
+
+-(double)lastRotation {
+    
+    return [objc_getAssociatedObject(self, lastRotationKey) doubleValue];
 }
 
 @end

@@ -178,7 +178,7 @@
         [self setUpEditionImageGestureRecognizersToView:imgV];
     }
     
-    self.page.images = [self.page.images arrayByAddingObjectsFromArray:images];
+    self.page.images = [self.page.images arrayByAddingObjectsFromArray:images]; 
     [self showBackgroundImageViewIfNecesary];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -240,41 +240,38 @@
 
 -(void)scale:(UIPinchGestureRecognizer *)gestureRecognizer {
     
-    #warning gestureRecognizers
-    /*
+    UIView * view = gestureRecognizer.view;
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        lastScale = 1.0;
+        view.lastScale = 1.0;
     }
     
-    CGFloat scale = 1.0 - (lastScale - [gestureRecognizer scale]);
+    CGFloat scale = 1.0 - (view.lastScale - [gestureRecognizer scale]);
     
-    CGAffineTransform currentTransform = self.imageView.transform;
+    CGAffineTransform currentTransform = view.transform;
     CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
     
-    [self.imageView setTransform:newTransform];
+    [view setTransform:newTransform];
     
-    lastScale = [gestureRecognizer scale];
-     */
+    view.lastScale = [gestureRecognizer scale];
 }
 
 -(void)rotate:(UIRotationGestureRecognizer *)gestureRecognizer {
     
-    #warning gestureRecognizers
-    /*
+    UIView * view = gestureRecognizer.view;
     if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
         
-        lastRotation = 0.0;
+        view.lastRotation = 0.0;
         return;
     }
     
-    CGFloat rotation = 0.0 - (lastRotation - [gestureRecognizer rotation]);
+    CGFloat rotation = 0.0 - (view.lastRotation - [gestureRecognizer rotation]);
     
-    CGAffineTransform currentTransform = self.imageView.transform;
+    CGAffineTransform currentTransform = view.transform;
     CGAffineTransform newTransform = CGAffineTransformRotate(currentTransform,rotation);
     
-    [self.imageView setTransform:newTransform];
-    lastRotation = [gestureRecognizer rotation];
-     */
+    [view setTransform:newTransform];
+    view.lastRotation = [gestureRecognizer rotation];
+
 }
 
 -(void)move:(UIPanGestureRecognizer *)gestureRecognizer {
