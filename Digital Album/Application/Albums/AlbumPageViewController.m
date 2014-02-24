@@ -168,21 +168,21 @@
     [self removeGesturesRecognizers];
     
     UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
-	[pinchRecognizer setDelegate:self];
 	[self.view addGestureRecognizer:pinchRecognizer];
     pinchRecognizer.delegate = self;
     
 	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
-	[rotationRecognizer setDelegate:self];
 	[self.view addGestureRecognizer:rotationRecognizer];
     rotationRecognizer.delegate = self;
+    
+    UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
+    [self.view addGestureRecognizer:longPressRecognizer];
     
     #warning gestureRecognizers
     /*
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
-	[panRecognizer setDelegate:self];
 	[self.imageView addGestureRecognizer:panRecognizer];
     panRecognizer.delegate = self;
      */
@@ -250,6 +250,42 @@
     translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
     [self.imageView setCenter:translatedPoint];
      */
+}
+
+-(void)longPressRecognized:(UIGestureRecognizer *)gestureRecognizer {
+    
+    if (gestureRecognizer.state != UIGestureRecognizerStateBegan) {
+        return;
+    }
+    
+    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Add new page", @"Add images", @"Add text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+        
+        switch (buttonIndex) {
+            
+            case 0: {
+                puts("Page");
+                break;
+            }
+                
+            case 1: {
+                puts("Images");
+                break;
+            }
+                
+            case 2: {
+                puts("Text");
+                break;
+            }
+            
+            case 4: {
+                //Cancel
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }];
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{
