@@ -11,9 +11,7 @@
 #import "SelectCoverViewController.h"
 
 #import "AlbumCell.h"
-
 #import "AlbumManager.h"
-
 
 @interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CreateAlbumDelegate>
 

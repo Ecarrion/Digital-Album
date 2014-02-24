@@ -8,6 +8,10 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DAPage : NSObject
+
+@interface DAPage : NSObject <NSCoding>
+
+@property (nonatomic, strong) NSArray * images;
+@property (nonatomic, strong) NSArray * texts;
 
 @end

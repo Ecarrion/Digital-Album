@@ -15,6 +15,7 @@
 @property (nonatomic, strong) NSString * coverImageName;
 @property (nonatomic, strong) NSString * id;
 @property (nonatomic, strong) NSArray * images;
+@property (nonatomic, strong) NSArray * pages;
 
 +(DAAlbum *)AlbumWithGroup:(ALAssetsGroup *)group;
 -(DAImage *)topImage;

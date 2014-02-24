@@ -8,6 +8,24 @@
 
 #import "DAPage.h"
 
+#define kPageImagesKey @"kPageImagesKey"
+#define kPageTextKey @"kPageTextKey"
+
 @implementation DAPage
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    
+    DAPage * page = [[DAPage alloc] init];
+    page.images = [aDecoder decodeObjectForKey:kPageImagesKey];
+    page.texts = [aDecoder decodeObjectForKey:kPageTextKey];
+    
+    return page;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.images forKey:kPageImagesKey];
+    [aCoder encodeObject:self.texts forKey:kPageTextKey];
+}
 
 @end
