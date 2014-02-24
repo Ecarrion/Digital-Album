@@ -15,6 +15,8 @@
     double lastRotation;
     double firstX;
     double firstY;
+    
+    BOOL inEditMode;
 }
 
 @end
@@ -58,8 +60,33 @@
      */
     
     [self enableEditMode:NO];
+    [self showBackgroundImageViewIfNecesary];
     [self loadViewAttributes];
      
+}
+
+-(void)showBackgroundImageViewIfNecesary {
+    
+    [UIView transitionWithView:backgroundImageView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
+    
+        if (inEditMode) {
+            
+            if (!self.page.images.count && !self.page.texts.count) {
+                backgroundImageView.image = [UIImage imageNamed:@"long-press-text.png"];
+            } else {
+                backgroundImageView.image = nil;
+            }
+            
+        } else {
+            
+            if (!self.page.images.count && !self.page.texts.count) {
+                backgroundImageView.image = [UIImage imageNamed:@"tap-edit-text.png"];
+            } else {
+                backgroundImageView.image = nil;
+            }
+        }
+        
+    } completion:nil];
 }
 
 -(void)loadViewAttributes {
@@ -82,6 +109,8 @@
 
 -(void)enableEditMode:(BOOL)edit {
     
+    inEditMode = edit;
+    
     if (edit) {
         
         [self setUpEditionImageGestureRecognizers];
@@ -92,8 +121,11 @@
         
     }
     
-    UIColor * color = edit ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
-    self.imageView.layer.borderColor = color.CGColor;
+    [self showBackgroundImageViewIfNecesary];
+    
+    //UIColor * color = edit ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
+    //self.imageView.layer.borderColor = color.CGColor;
+#warning border
 }
 
 -(void)commitChanges {
@@ -114,9 +146,12 @@
         [self.view removeGestureRecognizer:gr];
     }
     
+#warning gestureRecognizers
+    /*
     for (UIGestureRecognizer * gr in self.imageView.gestureRecognizers) {
         [self.imageView removeGestureRecognizer:gr];
     }
+     */
 }
 
 -(void)setUpReadOnlyGesturesRecognizers {
@@ -142,12 +177,15 @@
 	[self.view addGestureRecognizer:rotationRecognizer];
     rotationRecognizer.delegate = self;
     
+    #warning gestureRecognizers
+    /*
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
 	[panRecognizer setDelegate:self];
 	[self.imageView addGestureRecognizer:panRecognizer];
     panRecognizer.delegate = self;
+     */
 }
 
 -(void)imageTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -161,6 +199,8 @@
 
 -(void)scale:(UIPinchGestureRecognizer *)gestureRecognizer {
     
+    #warning gestureRecognizers
+    /*
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         lastScale = 1.0;
     }
@@ -173,10 +213,13 @@
     [self.imageView setTransform:newTransform];
     
     lastScale = [gestureRecognizer scale];
+     */
 }
 
 -(void)rotate:(UIRotationGestureRecognizer *)gestureRecognizer {
     
+    #warning gestureRecognizers
+    /*
     if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
         
         lastRotation = 0.0;
@@ -190,10 +233,13 @@
     
     [self.imageView setTransform:newTransform];
     lastRotation = [gestureRecognizer rotation];
+     */
 }
 
 -(void)move:(UIPanGestureRecognizer *)gestureRecognizer {
     
+    #warning gestureRecognizers
+    /*
     CGPoint translatedPoint = [gestureRecognizer translationInView:self.view];
     
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
@@ -203,6 +249,7 @@
     
     translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
     [self.imageView setCenter:translatedPoint];
+     */
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer{

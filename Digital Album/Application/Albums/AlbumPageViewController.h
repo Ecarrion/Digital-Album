@@ -18,9 +18,10 @@
 
 @interface AlbumPageViewController : UIViewController {
     
+    __weak IBOutlet UIImageView *backgroundImageView;
 }
 
-@property (nonatomic, weak) UIImageView *imageView;
+
 @property (strong, nonatomic) DAPage * page;
 @property (nonatomic, weak) id<AlbumPageDelegate> delegate;
 

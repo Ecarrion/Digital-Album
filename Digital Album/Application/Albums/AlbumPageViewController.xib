@@ -6,7 +6,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumPageViewController">
             <connections>
-                <outlet property="imageView" destination="XO5-JL-mP4" id="y2O-Gv-Fh7"/>
+                <outlet property="backgroundImageView" destination="WpQ-XH-wyR" id="VXs-bQ-bPr"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -19,9 +19,9 @@
                     <rect key="frame" x="0.0" y="0.0" width="279" height="475"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                 </imageView>
-                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="XO5-JL-mP4">
-                    <rect key="frame" x="7" y="120" width="265" height="235"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="WpQ-XH-wyR">
+                    <rect key="frame" x="0.0" y="62" width="279" height="352"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

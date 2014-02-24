@@ -190,9 +190,10 @@
     blackOverlay.alpha = 0;
     [self.view.window addSubview:blackOverlay];
     
+    #warning Image to zoom
     UIImageView * imgvToZoom = [[UIImageView alloc] initWithImage:image.localImage];
-    imgvToZoom.contentMode = page.imageView.contentMode;
-    imgvToZoom.frame = [self.view.window convertRect:page.imageView.frame fromView:page.view];
+    //imgvToZoom.contentMode = page.imageView.contentMode;
+    //imgvToZoom.frame = [self.view.window convertRect:page.imageView.frame fromView:page.view];
     [self.view.window addSubview:imgvToZoom];
     
     [UIView animateWithDuration:0.3 animations:^{
