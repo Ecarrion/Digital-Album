@@ -10,12 +10,9 @@
 #import "UIImageView+AspectSize.h"
 #import "AssetPickerViewController.h"
 
+#import "UIView+GestureRecognizers.h"
+
 @interface AlbumPageViewController () <UIGestureRecognizerDelegate, AssetPickerDelegate> {
-    
-    double lastScale;
-    double lastRotation;
-    double firstX;
-    double firstY;
     
     BOOL inEditMode;
 }
@@ -114,7 +111,7 @@
     
     if (edit) {
         
-        [self setUpEditionImageGestureRecognizers];
+        [self setUpMainEditionGestureRecognizers];
         
     } else {
         
@@ -124,9 +121,6 @@
     
     [self showBackgroundImageViewIfNecesary];
     
-    //UIColor * color = edit ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
-    //self.imageView.layer.borderColor = color.CGColor;
-#warning border
 }
 
 -(void)commitChanges {
@@ -147,61 +141,92 @@
     [self presentViewController:navController animated:YES completion:nil];
 }
 
+-(UIImageView *)viewForImage:(DAImage *)image {
+    
+    UIImageView * view = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 200, 200)];
+    view.contentMode = UIViewContentModeScaleAspectFit;
+    view.image = [image localImage];
+    view.frame = [view contentModetRect];
+    view.layer.allowsEdgeAntialiasing = YES;
+    view.userInteractionEnabled = YES;
+    
+    CGSize  superSize = self.view.frame.size;
+    view.center = CGPointMake(superSize.width / 2.0, superSize.height / 2.0);
+    
+    UIColor * color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]];
+    view.layer.borderWidth = 5;
+    view.layer.borderColor = color.CGColor;
+    
+    return view;
+}
+
 #pragma mark - Asset Picker delegate
 
 -(void)didSelectImages:(NSArray *)images {
     
+    int lowerBound = -20;
+    int upperBound = 20;
+    
+    for (DAImage * image in images) {
+        
+        int angle = lowerBound + arc4random() % (upperBound - lowerBound);
+        
+        UIImageView * imgV = [self viewForImage:image];
+        imgV.transform = CGAffineTransformRotate(imgV.transform, angle * M_PI / 180.0);
+        [self.view addSubview:imgV];
+        
+        [self setUpEditionImageGestureRecognizersToView:imgV];
+    }
+    
+    self.page.images = [self.page.images arrayByAddingObjectsFromArray:images];
+    [self showBackgroundImageViewIfNecesary];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Gestures Recognizers
 
--(void)removeGesturesRecognizers {
+-(void)removeGesturesRecognizersToView:(UIView *)view {
     
-    for (UIGestureRecognizer * gr in self.view.gestureRecognizers) {
-        [self.view removeGestureRecognizer:gr];
+    for (UIGestureRecognizer * gr in view.gestureRecognizers) {
+        [view removeGestureRecognizer:gr];
     }
-    
-#warning gestureRecognizers
-    /*
-    for (UIGestureRecognizer * gr in self.imageView.gestureRecognizers) {
-        [self.imageView removeGestureRecognizer:gr];
-    }
-     */
 }
 
 -(void)setUpReadOnlyGesturesRecognizers {
     
-    [self removeGesturesRecognizers];
+    [self removeGesturesRecognizersToView:self.view];
     
     UITapGestureRecognizer * tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     tapGestureRecornizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGestureRecornizer];
 }
 
--(void)setUpEditionImageGestureRecognizers {
+-(void)setUpMainEditionGestureRecognizers {
     
-    [self removeGesturesRecognizers];
-    
-    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
-	[self.view addGestureRecognizer:pinchRecognizer];
-    pinchRecognizer.delegate = self;
-    
-	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
-	[self.view addGestureRecognizer:rotationRecognizer];
-    rotationRecognizer.delegate = self;
+    [self removeGesturesRecognizersToView:self.view];
     
     UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.view addGestureRecognizer:longPressRecognizer];
+}
+
+-(void)setUpEditionImageGestureRecognizersToView:(UIView *)view {
     
-    #warning gestureRecognizers
-    /*
+    
+    [self removeGesturesRecognizersToView:view];
+    
+    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
+	[view addGestureRecognizer:pinchRecognizer];
+    pinchRecognizer.delegate = self;
+    
+	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
+	[view addGestureRecognizer:rotationRecognizer];
+    rotationRecognizer.delegate = self;
+    
 	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
 	[panRecognizer setMinimumNumberOfTouches:1];
 	[panRecognizer setMaximumNumberOfTouches:1];
-	[self.imageView addGestureRecognizer:panRecognizer];
+	[view addGestureRecognizer:panRecognizer];
     panRecognizer.delegate = self;
-     */
 }
 
 -(void)imageTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -254,18 +279,17 @@
 
 -(void)move:(UIPanGestureRecognizer *)gestureRecognizer {
     
-    #warning gestureRecognizers
-    /*
+
     CGPoint translatedPoint = [gestureRecognizer translationInView:self.view];
+    UIView * view = gestureRecognizer.view;
     
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
-        firstX = [self.imageView center].x;
-        firstY = [self.imageView center].y;
+        view.firstX = [view center].x;
+        view.firstY = [view center].y;
     }
     
-    translatedPoint = CGPointMake(firstX + translatedPoint.x, firstY + translatedPoint.y);
-    [self.imageView setCenter:translatedPoint];
-     */
+    translatedPoint = CGPointMake(view.firstX + translatedPoint.x, view.firstY + translatedPoint.y);
+    [view setCenter:translatedPoint];
 }
 
 -(void)longPressRecognized:(UIGestureRecognizer *)gestureRecognizer {

@@ -45,6 +45,7 @@
 		26A3CE5218BAC358006B02A9 /* DAPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5118BAC358006B02A9 /* DAPage.m */; };
 		26A3CE5518BAC372006B02A9 /* DAText.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5418BAC372006B02A9 /* DAText.m */; };
 		26A3CE5818BAF118006B02A9 /* DAPhoneAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5718BAF118006B02A9 /* DAPhoneAlbum.m */; };
+		26A3CE5B18BB21A2006B02A9 /* UIView+GestureRecognizers.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5A18BB21A2006B02A9 /* UIView+GestureRecognizers.m */; };
 		26A5F1C418B5BDF9001E173B /* SelectAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F1C218B5BDF9001E173B /* SelectAlbumViewController.m */; };
 		26A5F1C518B5BDF9001E173B /* SelectAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A5F1C318B5BDF9001E173B /* SelectAlbumViewController.xib */; };
 		CACF6D0BD88E446DA0155EFB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E93233345F8840EDA35532FC /* libPods.a */; };
@@ -121,6 +122,8 @@
 		26A3CE5418BAC372006B02A9 /* DAText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAText.m; sourceTree = "<group>"; };
 		26A3CE5618BAF118006B02A9 /* DAPhoneAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAPhoneAlbum.h; sourceTree = "<group>"; };
 		26A3CE5718BAF118006B02A9 /* DAPhoneAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPhoneAlbum.m; sourceTree = "<group>"; };
+		26A3CE5918BB21A2006B02A9 /* UIView+GestureRecognizers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+GestureRecognizers.h"; sourceTree = "<group>"; };
+		26A3CE5A18BB21A2006B02A9 /* UIView+GestureRecognizers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+GestureRecognizers.m"; sourceTree = "<group>"; };
 		26A5F1C118B5BDF9001E173B /* SelectAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectAlbumViewController.h; path = Picker/SelectAlbumViewController.h; sourceTree = "<group>"; };
 		26A5F1C218B5BDF9001E173B /* SelectAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectAlbumViewController.m; path = Picker/SelectAlbumViewController.m; sourceTree = "<group>"; };
 		26A5F1C318B5BDF9001E173B /* SelectAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectAlbumViewController.xib; path = Picker/SelectAlbumViewController.xib; sourceTree = "<group>"; };
@@ -315,6 +318,8 @@
 			children = (
 				2602202518B3C84300EBB269 /* UIImageView+AspectSize.h */,
 				2602202618B3C84300EBB269 /* UIImageView+AspectSize.m */,
+				26A3CE5918BB21A2006B02A9 /* UIView+GestureRecognizers.h */,
+				26A3CE5A18BB21A2006B02A9 /* UIView+GestureRecognizers.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -496,6 +501,7 @@
 				26A3CE5218BAC358006B02A9 /* DAPage.m in Sources */,
 				2602202718B3C84300EBB269 /* UIImageView+AspectSize.m in Sources */,
 				260B430018B2647700ABCC6A /* DAAlbum.m in Sources */,
+				26A3CE5B18BB21A2006B02A9 /* UIView+GestureRecognizers.m in Sources */,
 				260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */,
 				2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */,
 				2602203118B4069C00EBB269 /* CreateAlbumViewController.m in Sources */,
