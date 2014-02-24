@@ -238,6 +238,26 @@
     [self donePressed];
 }
 
+-(void)didSelectDeletePage {
+    
+    int index = [self currentIndex];
+    
+    NSMutableArray * pages = self.album.pages.mutableCopy;
+    AlbumPageViewController * pageController = (AlbumPageViewController *)self.pageViewController.viewControllers[0];
+    DAPage * page = pageController.page;
+    [pages removeObject:page];
+    self.album.pages = pages.mutableCopy;
+    
+    if (index >= (int)self.album.pages.count) {
+        index = (int)self.album.pages.count - 1;
+    }
+    
+    NSArray * array = @[[self pageControllerAtIndex:index]];
+    [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
+    
+    [self donePressed];
+}
+
 #pragma mark - Memory
 
 - (void)didReceiveMemoryWarning {

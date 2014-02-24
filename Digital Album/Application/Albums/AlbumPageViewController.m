@@ -258,27 +258,37 @@
         return;
     }
     
-    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@[@"Add new page", @"Add images", @"Add text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete page" otherButtonTitles:@[@"Add new page", @"Add images", @"Add text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         
         switch (buttonIndex) {
             
             case 0: {
+                if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
+                    [self.delegate didSelectDeletePage];
+                }
+                break;
+            }
+                
+            case 1: {
                 if ([self.delegate respondsToSelector:@selector(didSelectCreateNewPage)]) {
                     [self.delegate didSelectCreateNewPage];
                 }
                 break;
             }
                 
-            case 1: {
-                puts("Images");
+            case 2: {
+                if ([self.delegate respondsToSelector:@selector(didSelectAddImages)]) {
+                    [self.delegate didSelectCreateNewPage];
+                }
                 break;
             }
                 
-            case 2: {
+            case 3: {
                 puts("Text");
                 break;
             }
             
+                
             case 4: {
                 //Cancel
                 break;

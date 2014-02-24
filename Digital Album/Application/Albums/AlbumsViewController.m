@@ -118,11 +118,6 @@
         self.albums = [self.albums arrayByAddingObject:album];
         [albumsCollectionView reloadData];
         
-        //Navigate to new Album page
-        AlbumViewController * avc = [[AlbumViewController alloc] init];
-        avc.album = album;
-        [self.navigationController pushViewController:avc animated:NO];
-        
         //Dismiss modal
         [self dismissViewControllerAnimated:YES completion:nil];
         
