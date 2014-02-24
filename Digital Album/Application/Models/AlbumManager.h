@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DAImage.h"
 #import "DAAlbum.h"
+#import "DAPhoneAlbum.h"
 
 @interface AlbumManager : NSObject
 

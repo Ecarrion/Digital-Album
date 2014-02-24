@@ -7,17 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DAImage.h"
+#import "DAPage.h"
 
 @interface DAAlbum : NSObject <NSCoding>
 
 @property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSString * coverImageName;
-@property (nonatomic, strong) NSString * id;
-@property (nonatomic, strong) NSArray * images;
 @property (nonatomic, strong) NSArray * pages;
 
-+(DAAlbum *)AlbumWithGroup:(ALAssetsGroup *)group;
+
+-(NSArray *)allImages;
 -(DAImage *)topImage;
 
 

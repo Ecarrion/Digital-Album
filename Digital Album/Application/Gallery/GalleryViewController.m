@@ -13,6 +13,8 @@
 
 @interface GalleryViewController ()
 
+@property (nonatomic, strong) NSArray * images;
+
 @end
 
 @implementation GalleryViewController
@@ -29,6 +31,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.images = self.album.allImages;
+    
     [imagesCollectionView registerNib:[UINib nibWithNibName:@"GalleryCell" bundle:nil] forCellWithReuseIdentifier:@"GalleryCell"];
     [(GalleryFlowLayout *)imagesCollectionView.collectionViewLayout reloadLayout];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -68,13 +73,13 @@
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     
-    return [self.album.images count];
+    return [self.images count];
 }
 
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    DAImage * image = self.album.images[indexPath.row];
+    DAImage * image = self.images[indexPath.row];
     
     GalleryCell * cell = [collectionView  dequeueReusableCellWithReuseIdentifier:@"GalleryCell" forIndexPath:indexPath];
     cell.fullImageView.image = [image localImage];

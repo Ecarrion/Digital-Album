@@ -8,11 +8,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SelectCoverViewController.h"
+#import "CreateAlbumViewController.h"
 #import "AssetPickerViewController.h"
 
 
-@interface SelectCoverViewController () <UITextFieldDelegate>
+@interface CreateAlbumViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSArray * coverNames;
 @property (nonatomic, strong) NSArray * coverImages;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation SelectCoverViewController
+@implementation CreateAlbumViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -129,10 +129,7 @@
     
     if ([self validateAlbum]) {
         
-        AssetPickerViewController * apc = [[AssetPickerViewController alloc] init];
-        apc.delegate = self.delegate;
-        apc.albumToCreate = self.albumToCreate;
-        [self.navigationController pushViewController:apc animated:YES];
+        [self.delegate albumCreated:self.albumToCreate];
     }
 }
 

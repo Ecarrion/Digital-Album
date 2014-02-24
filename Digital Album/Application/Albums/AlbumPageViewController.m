@@ -30,12 +30,12 @@
     return self;
 }
 
--(id)initWithImage:(DAImage *)image {
+-(id)initWithPage:(DAPage *)page {
     
     self = [super init];
     if (self) {
         
-        self.image = image;
+        self.page = page;
     }
     
     return self;
@@ -44,7 +44,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.imageView.image = [self.image localImage];
+    //self.imageView.image = [self.image localImage];
+#warning figure out local image
     
     CGPoint center = self.imageView.center;
     self.imageView.frame = [self.imageView contentModetRect];
@@ -59,6 +60,8 @@
 
 -(void)loadViewAttributes {
     
+#warning figure out views transforms
+    /*
     self.imageView.transform = self.image.viewTransform;
     
     CGPoint center = self.image.viewCenter;
@@ -70,6 +73,7 @@
         
         self.imageView.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
     }
+     */
 }
 
 -(void)enableEditMode:(BOOL)edit {
@@ -90,8 +94,12 @@
 
 -(void)commitChanges {
     
+#warning figure out commit changes
+    
+    /*
     self.image.viewTransform = self.imageView.transform;
     self.image.viewCenter = self.imageView.center;
+     */
 }
 
 #pragma mark - Gestures Recognizers
@@ -142,7 +150,8 @@
     
     if ([self.delegate respondsToSelector:@selector(pageController:imageTapped:)]) {
         
-        [self.delegate pageController:self imageTapped:self.image];
+#warning figure out wich image was tapped
+        //[self.delegate pageController:self imageTapped:self.image];
     }
 }
 

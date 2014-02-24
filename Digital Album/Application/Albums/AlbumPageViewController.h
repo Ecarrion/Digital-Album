@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DAImage.h"
+#import "DAPage.h"
 
 @class AlbumPageViewController;
 @protocol AlbumPageDelegate <NSObject>
@@ -21,10 +21,10 @@
 }
 
 @property (nonatomic, weak) UIImageView *imageView;
-@property (strong, nonatomic)  DAImage * image;
+@property (strong, nonatomic) DAPage * page;
 @property (nonatomic, weak) id<AlbumPageDelegate> delegate;
 
--(id)initWithImage:(DAImage *)image;
+-(id)initWithPage:(DAPage *)page;
 -(void)enableEditMode:(BOOL)edit;
 
 -(void)commitChanges;

@@ -56,7 +56,7 @@
         
         if (group) {
         
-            DAAlbum * album = [DAAlbum AlbumWithGroup:group];
+            DAPhoneAlbum * album = [DAPhoneAlbum AlbumWithGroup:group];
             NSMutableArray * imagesArray = [NSMutableArray array];
             [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 
@@ -116,10 +116,13 @@
     __block BOOL success = YES;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        for (DAImage * image in album.images) {
-            BOOL result = [self saveImage:image inAlbum:album];
-            if (success)
-                success = result;
+        for (DAPage * page in album.pages) {
+            for (DAImage * image in page.images) {
+                
+                BOOL result = [self saveImage:image inPage:page inAlbum:album];
+                if (success)
+                    success = result;
+            }
         }
         
         if (success) {
@@ -153,14 +156,14 @@
 }
 
 //Saves UIImage from DAImage to disk for an Album
--(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+-(BOOL)saveImage:(DAImage *)image inPage:(DAPage *)page inAlbum:(DAAlbum *)album {
     
     BOOL result = NO;
-    if ([self createFolderForAlbumIfNecesary:album]) {
+    if ([self createFolderForAlbum:album andPage:page]) {
     
         @autoreleasepool {
             
-            NSString * imagePath = [self pathForImage:image inAlbum:album];
+            NSString * imagePath = [self pathForImage:image inPage:page inAlbum:album];
             result = [self saveImage:image atPath:imagePath];
         }
     }
@@ -228,25 +231,31 @@
     return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
 }
 
--(NSString *)pathForImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+-(NSString *)pathForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
+    
+    NSString * pageName = [NSString stringWithFormat:@"page-%d", (int)[album.pages indexOfObject:page]];
+    return [[self pathForAlbum:album] stringByAppendingPathComponent:pageName];
+}
+
+-(NSString *)pathForImage:(DAImage *)image inPage:(DAPage *)page inAlbum:(DAAlbum *)album {
     
     if (image.imagePath) {
         return image.imagePath;
     }
     
-    NSString * albumPath = [self pathForAlbum:album];
-    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
-    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
+    NSString * albumPagePath = [self pathForAlbum:album andPage:page];
+    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPagePath error:nil] count];
+    NSString * imagePath = [albumPagePath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
     
     return imagePath;
 }
 
--(BOOL)createFolderForAlbumIfNecesary:(DAAlbum *)album {
+-(BOOL)createFolderForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
     
-    NSString * path = [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+    NSString * albumPageSubPath = [self pathForAlbum:album andPage:page];
     NSFileManager * fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
-        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![fileManager fileExistsAtPath:albumPageSubPath isDirectory:nil]) {
+        return [fileManager createDirectoryAtPath:albumPageSubPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
     return YES;

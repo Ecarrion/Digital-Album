@@ -145,7 +145,7 @@
     
     
     int currentIndex = [self currentIndex] + 1;
-    if (currentIndex < self.album.images.count) {
+    if (currentIndex < self.album.pages.count) {
         
         return [self pageControllerAtIndex:currentIndex];
     }
@@ -170,14 +170,14 @@
 -(int)currentIndex {
     
     AlbumPageViewController * pageController = (AlbumPageViewController *)self.pageViewController.viewControllers[0];
-    DAImage * image = pageController.image;
-    return  (int)[self.album.images indexOfObject:image];
+    DAPage * page = pageController.page;
+    return  (int)[self.album.pages indexOfObject:page];
     
 }
 
 -(AlbumPageViewController *)pageControllerAtIndex:(int)index {
     
-    AlbumPageViewController * page = [[AlbumPageViewController alloc] initWithImage:self.album.images[index]];
+    AlbumPageViewController * page = [[AlbumPageViewController alloc] initWithPage:self.album.pages[index]];
     page.delegate = self;
     return page;
 }
@@ -204,7 +204,8 @@
         
         GalleryViewController * gvc = [[GalleryViewController alloc] init];
         gvc.album = self.album;
-        gvc.startingIndex = (int)[self.album.images indexOfObject:image];
+        //gvc.startingIndex = (int)[self.album.images indexOfObject:image];
+#warning sort the staring index, needs to get images to from all pages and then find the index
         
         [self.navigationController setNavigationBarHidden:YES animated:NO];
         [self.navigationController pushViewController:gvc animated:NO];

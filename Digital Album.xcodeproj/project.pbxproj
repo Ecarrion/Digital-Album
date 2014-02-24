@@ -13,8 +13,8 @@
 		2602202418B3B2D900EBB269 /* GalleryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602202318B3B2D900EBB269 /* GalleryCell.xib */; };
 		2602202718B3C84300EBB269 /* UIImageView+AspectSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202618B3C84300EBB269 /* UIImageView+AspectSize.m */; };
 		2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202C18B3E3EC00EBB269 /* GalleryFlowLayout.m */; };
-		2602203118B4069C00EBB269 /* SelectCoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202F18B4069C00EBB269 /* SelectCoverViewController.m */; };
-		2602203218B4069C00EBB269 /* SelectCoverViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203018B4069C00EBB269 /* SelectCoverViewController.xib */; };
+		2602203118B4069C00EBB269 /* CreateAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602202F18B4069C00EBB269 /* CreateAlbumViewController.m */; };
+		2602203218B4069C00EBB269 /* CreateAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203018B4069C00EBB269 /* CreateAlbumViewController.xib */; };
 		2602203618B41B9D00EBB269 /* AssetPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602203418B41B9D00EBB269 /* AssetPickerViewController.m */; };
 		2602203718B41B9D00EBB269 /* AssetPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203518B41B9D00EBB269 /* AssetPickerViewController.xib */; };
 		260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42AF18B2503300ABCC6A /* Foundation.framework */; };
@@ -44,6 +44,7 @@
 		269DBBA818B52D58003E8703 /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269DBBA718B52D58003E8703 /* AlbumCell.xib */; };
 		26A3CE5218BAC358006B02A9 /* DAPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5118BAC358006B02A9 /* DAPage.m */; };
 		26A3CE5518BAC372006B02A9 /* DAText.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5418BAC372006B02A9 /* DAText.m */; };
+		26A3CE5818BAF118006B02A9 /* DAPhoneAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A3CE5718BAF118006B02A9 /* DAPhoneAlbum.m */; };
 		26A5F1C418B5BDF9001E173B /* SelectAlbumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A5F1C218B5BDF9001E173B /* SelectAlbumViewController.m */; };
 		26A5F1C518B5BDF9001E173B /* SelectAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A5F1C318B5BDF9001E173B /* SelectAlbumViewController.xib */; };
 		CACF6D0BD88E446DA0155EFB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E93233345F8840EDA35532FC /* libPods.a */; };
@@ -70,9 +71,9 @@
 		2602202618B3C84300EBB269 /* UIImageView+AspectSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AspectSize.m"; sourceTree = "<group>"; };
 		2602202B18B3E3EC00EBB269 /* GalleryFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GalleryFlowLayout.h; path = Gallery/GalleryFlowLayout.h; sourceTree = "<group>"; };
 		2602202C18B3E3EC00EBB269 /* GalleryFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GalleryFlowLayout.m; path = Gallery/GalleryFlowLayout.m; sourceTree = "<group>"; };
-		2602202E18B4069C00EBB269 /* SelectCoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectCoverViewController.h; sourceTree = "<group>"; };
-		2602202F18B4069C00EBB269 /* SelectCoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectCoverViewController.m; sourceTree = "<group>"; };
-		2602203018B4069C00EBB269 /* SelectCoverViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SelectCoverViewController.xib; sourceTree = "<group>"; };
+		2602202E18B4069C00EBB269 /* CreateAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreateAlbumViewController.h; sourceTree = "<group>"; };
+		2602202F18B4069C00EBB269 /* CreateAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CreateAlbumViewController.m; sourceTree = "<group>"; };
+		2602203018B4069C00EBB269 /* CreateAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CreateAlbumViewController.xib; sourceTree = "<group>"; };
 		2602203318B41B9D00EBB269 /* AssetPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssetPickerViewController.h; path = "Digital Album/Application/Picker/AssetPickerViewController.h"; sourceTree = SOURCE_ROOT; };
 		2602203418B41B9D00EBB269 /* AssetPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetPickerViewController.m; path = "Digital Album/Application/Picker/AssetPickerViewController.m"; sourceTree = SOURCE_ROOT; };
 		2602203518B41B9D00EBB269 /* AssetPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AssetPickerViewController.xib; path = "Digital Album/Application/Picker/AssetPickerViewController.xib"; sourceTree = SOURCE_ROOT; };
@@ -118,6 +119,8 @@
 		26A3CE5118BAC358006B02A9 /* DAPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPage.m; sourceTree = "<group>"; };
 		26A3CE5318BAC372006B02A9 /* DAText.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAText.h; sourceTree = "<group>"; };
 		26A3CE5418BAC372006B02A9 /* DAText.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAText.m; sourceTree = "<group>"; };
+		26A3CE5618BAF118006B02A9 /* DAPhoneAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAPhoneAlbum.h; sourceTree = "<group>"; };
+		26A3CE5718BAF118006B02A9 /* DAPhoneAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAPhoneAlbum.m; sourceTree = "<group>"; };
 		26A5F1C118B5BDF9001E173B /* SelectAlbumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SelectAlbumViewController.h; path = Picker/SelectAlbumViewController.h; sourceTree = "<group>"; };
 		26A5F1C218B5BDF9001E173B /* SelectAlbumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SelectAlbumViewController.m; path = Picker/SelectAlbumViewController.m; sourceTree = "<group>"; };
 		26A5F1C318B5BDF9001E173B /* SelectAlbumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectAlbumViewController.xib; path = Picker/SelectAlbumViewController.xib; sourceTree = "<group>"; };
@@ -291,6 +294,8 @@
 				26A3CE5118BAC358006B02A9 /* DAPage.m */,
 				26A3CE5318BAC372006B02A9 /* DAText.h */,
 				26A3CE5418BAC372006B02A9 /* DAText.m */,
+				26A3CE5618BAF118006B02A9 /* DAPhoneAlbum.h */,
+				26A3CE5718BAF118006B02A9 /* DAPhoneAlbum.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -340,9 +345,9 @@
 		267F102C18B50B1D00922EBC /* New Album */ = {
 			isa = PBXGroup;
 			children = (
-				2602202E18B4069C00EBB269 /* SelectCoverViewController.h */,
-				2602202F18B4069C00EBB269 /* SelectCoverViewController.m */,
-				2602203018B4069C00EBB269 /* SelectCoverViewController.xib */,
+				2602202E18B4069C00EBB269 /* CreateAlbumViewController.h */,
+				2602202F18B4069C00EBB269 /* CreateAlbumViewController.m */,
+				2602203018B4069C00EBB269 /* CreateAlbumViewController.xib */,
 			);
 			name = "New Album";
 			sourceTree = "<group>";
@@ -426,7 +431,7 @@
 			files = (
 				269DBBA818B52D58003E8703 /* AlbumCell.xib in Resources */,
 				2602202418B3B2D900EBB269 /* GalleryCell.xib in Resources */,
-				2602203218B4069C00EBB269 /* SelectCoverViewController.xib in Resources */,
+				2602203218B4069C00EBB269 /* CreateAlbumViewController.xib in Resources */,
 				260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */,
 				260B42BA18B2503300ABCC6A /* InfoPlist.strings in Resources */,
 				260B42F518B2556700ABCC6A /* AlbumsViewController.xib in Resources */,
@@ -493,9 +498,10 @@
 				260B430018B2647700ABCC6A /* DAAlbum.m in Sources */,
 				260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */,
 				2602202D18B3E3EC00EBB269 /* GalleryFlowLayout.m in Sources */,
-				2602203118B4069C00EBB269 /* SelectCoverViewController.m in Sources */,
+				2602203118B4069C00EBB269 /* CreateAlbumViewController.m in Sources */,
 				267F102F18B51BB200922EBC /* AssetCell.m in Sources */,
 				2602203618B41B9D00EBB269 /* AssetPickerViewController.m in Sources */,
+				26A3CE5818BAF118006B02A9 /* DAPhoneAlbum.m in Sources */,
 				260B430318B26E4800ABCC6A /* AlbumCell.m in Sources */,
 				260B42F418B2556700ABCC6A /* AlbumsViewController.m in Sources */,
 				260B42FB18B25DA400ABCC6A /* DAImage.m in Sources */,

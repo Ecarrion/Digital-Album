@@ -7,6 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DAImage.h"
+#import "DAText.h"
 
 
 @interface DAPage : NSObject <NSCoding>

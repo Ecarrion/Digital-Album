@@ -15,7 +15,7 @@
 
 @end
 
-@interface SelectCoverViewController : UIViewController {
+@interface CreateAlbumViewController : UIViewController {
     
     
     __weak IBOutlet UITextField *albumNametextField;

@@ -10,7 +10,7 @@
 
 #define kAlbumNameKey @"kAlbumNameKey"
 #define kAlbumCoverImageNameKey @"kAlbumCoverImageNameKey"
-#define kAlbumImagesKey @"kAlbumImagesKey"
+#define kAlbumPagesKey @"kAlbumPagesKey"
 
 
 @implementation DAAlbum
@@ -20,7 +20,7 @@
     DAAlbum * album = [[DAAlbum alloc] init];
     album.name = [aDecoder decodeObjectForKey:kAlbumNameKey];
     album.coverImageName = [aDecoder decodeObjectForKey:kAlbumCoverImageNameKey];
-    album.images = [aDecoder decodeObjectForKey:kAlbumImagesKey];
+    album.pages = [aDecoder decodeObjectForKey:kAlbumPagesKey];
     
     return album;
     
@@ -30,17 +30,7 @@
     
     [aCoder encodeObject:self.name forKey:kAlbumNameKey];
     [aCoder encodeObject:self.coverImageName forKey:kAlbumCoverImageNameKey];
-    [aCoder encodeObject:self.images forKey:kAlbumImagesKey];
-}
-
-
-+(DAAlbum *)AlbumWithGroup:(ALAssetsGroup *)group {
-    
-    DAAlbum * album = [[DAAlbum alloc] init];
-    album.name = [group valueForProperty:ALAssetsGroupPropertyName];
-    album.id = [group valueForProperty:ALAssetsGroupPropertyPersistentID];
-    
-    return album;
+    [aCoder encodeObject:self.pages forKey:kAlbumPagesKey];
 }
 
 -(BOOL)isEqual:(id)object {
@@ -52,9 +42,19 @@
     return NO;
 }
 
+-(NSArray *)allImages {
+    
+    NSMutableArray * allImages = [NSMutableArray array];
+    for (DAPage * page in self.pages) {
+        [allImages addObjectsFromArray:page.images];
+    }
+    
+    return allImages;
+}
+
 -(DAImage *)topImage {
     
-    return [self.images firstObject];
+    return [[[self.pages firstObject] images] firstObject];
 }
 
 @end
