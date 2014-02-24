@@ -8,8 +8,9 @@
 
 #import "AlbumPageViewController.h"
 #import "UIImageView+AspectSize.h"
+#import "AssetPickerViewController.h"
 
-@interface AlbumPageViewController () <UIGestureRecognizerDelegate> {
+@interface AlbumPageViewController () <UIGestureRecognizerDelegate, AssetPickerDelegate> {
     
     double lastScale;
     double lastRotation;
@@ -136,6 +137,21 @@
     self.image.viewTransform = self.imageView.transform;
     self.image.viewCenter = self.imageView.center;
      */
+}
+
+-(void)launchAssetPicker {
+    
+    AssetPickerViewController * apvc = [[AssetPickerViewController alloc] init];
+    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:apvc];
+    apvc.delegate = self;
+    [self presentViewController:navController animated:YES completion:nil];
+}
+
+#pragma mark - Asset Picker delegate
+
+-(void)didSelectImages:(NSArray *)images {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Gestures Recognizers
@@ -277,9 +293,7 @@
             }
                 
             case 2: {
-                if ([self.delegate respondsToSelector:@selector(didSelectAddImages)]) {
-                    [self.delegate didSelectCreateNewPage];
-                }
+                [self launchAssetPicker];
                 break;
             }
                 

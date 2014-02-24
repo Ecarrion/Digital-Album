@@ -14,7 +14,6 @@
 
 -(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image;
 -(void)didSelectCreateNewPage;
--(void)didSelectAddImages;
 -(void)didSelectDeletePage;
 
 @end

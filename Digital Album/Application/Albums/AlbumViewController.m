@@ -255,6 +255,8 @@
     NSArray * array = @[[self pageControllerAtIndex:index]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
     
+#warning delete images for page
+    
     [self donePressed];
 }
 
