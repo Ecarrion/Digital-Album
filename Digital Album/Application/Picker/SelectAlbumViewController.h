@@ -7,13 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DAAlbum.h"
+#import "DAPhoneAlbum.h"
 
 #define SELECT_ALBUM_CELL_HEIGHT 64.f
 
 @protocol SelectAlbumDelegate <NSObject>
 
--(void) didSelectAlbum:(DAAlbum *) album;
+-(void) didSelectAlbum:(DAPhoneAlbum *) album;
 -(void) didCancelSelection;
 
 @end

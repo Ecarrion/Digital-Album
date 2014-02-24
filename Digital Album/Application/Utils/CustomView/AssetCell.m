@@ -7,16 +7,26 @@
 //
 
 #import "AssetCell.h"
+#import <QuartzCore/QuartzCore.h>
 
 @implementation AssetCell
 
+-(void)awakeFromNib {
+    
+    self.layer.borderWidth = 3;
+    self.layer.borderColor = [UIColor clearColor].CGColor;
+}
 
 -(void)setSelected:(BOOL)selected {
     
     [super setSelected:selected];
+    
     self.selectionImageView.hidden = !selected;
+    
+    UIColor * color = selected ? [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]] : [UIColor clearColor];
+    self.layer.borderColor = color.CGColor;
+    
 }
-
 
 -(void)prepareForReuse {
     

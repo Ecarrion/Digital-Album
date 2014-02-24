@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumsViewController">
             <connections>
                 <outlet property="albumsCollectionView" destination="DdO-2n-aze" id="HPw-WQ-MMq"/>
+                <outlet property="noAlbumsImageView" destination="EVD-LK-Cu3" id="fuG-yu-iOS"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -31,6 +32,10 @@
                         <outlet property="delegate" destination="-1" id="Cuq-yr-oJE"/>
                     </connections>
                 </collectionView>
+                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="no-album-text" id="EVD-LK-Cu3">
+                    <rect key="frame" x="14" y="72" width="293" height="210"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedStatusBarMetrics key="simulatedStatusBarMetrics"/>
@@ -38,4 +43,7 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
         </view>
     </objects>
+    <resources>
+        <image name="no-album-text" width="293" height="210"/>
+    </resources>
 </document>

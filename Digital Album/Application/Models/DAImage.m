@@ -9,37 +9,70 @@
 #import "DAImage.h"
 #import "AlbumManager.h"
 
+//Archive
+#define kImagePathKey @"kImagePathKey"
+#define kViewDictionaryKey @"kViewDictionaryKey"
+
+//View Dictionary
+#define kViewTransformKey @"kViewTransformKey"
+#define kViewCenterKey @"kViewCenterKey"
+
 @interface DAImage ()
+
+@property (nonatomic, strong) NSMutableDictionary * viewDictionary;
 
 @end 
 
-
-
 @implementation DAImage
+
+#pragma mark - NSCopying
+
+-(id)initWithCoder:(NSCoder *)aDecoder {
+    
+    DAImage * image = [[DAImage alloc] init];
+    image.imagePath = [aDecoder decodeObjectForKey:kImagePathKey];
+    image.viewDictionary = [aDecoder decodeObjectForKey:kViewDictionaryKey];
+    return image;
+}
+
+-(void)encodeWithCoder:(NSCoder *)aCoder {
+    
+    [aCoder encodeObject:self.imagePath forKey:kImagePathKey];
+    [aCoder encodeObject:self.viewDictionary forKey:kViewDictionaryKey];
+}
 
 #pragma mark - Digital Album Image
 
-+(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset {
+-(void)setViewTransform:(CGAffineTransform)viewTransform {
     
-    DAImage * image  = [[DAImage alloc] init];
-    image.modifiedImage = [UIImage imageWithCGImage:[[imageAsset defaultRepresentation] fullScreenImage]];
-    return image;
+    NSString * transformString = NSStringFromCGAffineTransform(viewTransform);
+    self.viewDictionary[kViewTransformKey] = transformString;
 }
 
--(UIImage *)image {
+-(CGAffineTransform)viewTransform {
     
-    UIImage * image = nil;
-    if (self.imagePath) {
-        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
-        image = [[UIImage alloc] initWithData:data scale:1];
+    NSString * transformString = self.viewDictionary[kViewTransformKey];
+    if (transformString) {
+        return CGAffineTransformFromString(transformString);
     }
     
-    return image;
+    return CGAffineTransformIdentity;
 }
 
--(BOOL)saveModifiedImage {
+-(void)setViewCenter:(CGPoint)viewCenter {
     
-    return [[AlbumManager manager] saveImage:self atPath:self.imagePath];
+    NSString * centerString = NSStringFromCGPoint(viewCenter);
+    self.viewDictionary[kViewCenterKey] = centerString;
+}
+
+-(CGPoint)viewCenter {
+    
+    NSString * centerString = self.viewDictionary[kViewCenterKey];
+    if (centerString) {
+        return CGPointFromString(centerString);
+    }
+    
+    return CGPointZero;
 }
 
 #pragma mark - Phone Image
@@ -47,28 +80,51 @@
     
     DAImage * image  = [[DAImage alloc] init];
     image.localAsset = asset;
-    image.date = [image.localAsset valueForProperty:ALAssetPropertyDate];
+    image.viewDictionary = [[NSMutableDictionary alloc] init];
     
     return image;
 }
 
--(UIImage *)localImage {
-    
-	return [UIImage imageWithCGImage:self.localAsset.defaultRepresentation.fullScreenImage];
-}
 
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio {
     
-	CGImageRef tImage = nil;
-    
-    if (preservingAspectRatio) {
-        tImage = self.localAsset.aspectRatioThumbnail;
-    } else {
-        tImage = self.localAsset.thumbnail;
+    if(self.localAsset) {
+        
+        CGImageRef tImage = nil;
+        
+        if (preservingAspectRatio) {
+            tImage = self.localAsset.aspectRatioThumbnail;
+        } else {
+            tImage = self.localAsset.thumbnail;
+        }
+        
+        return [UIImage imageWithCGImage:tImage];
     }
-	
-	return [UIImage imageWithCGImage:tImage];
+    
+    return nil;
 }
 
+#pragma mark - Common
+
+-(UIImage *)localImage {
+    
+    UIImage * image = nil;
+    if (self.localAsset) {
+        
+        image = [UIImage imageWithCGImage:self.localAsset.defaultRepresentation.fullScreenImage];
+        
+    } else if (self.imagePath) {
+        
+        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
+        image = [[UIImage alloc] initWithData:data scale:1];
+    }
+    
+    return image;
+}
+
+-(BOOL)hasSomethingToSave {
+    
+    return self.modifiedImage != nil || self.localAsset != nil;
+}
 
 @end

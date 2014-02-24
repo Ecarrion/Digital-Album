@@ -114,7 +114,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    DAAlbum * album = self.albums[indexPath.row];
+    DAPhoneAlbum * album = self.albums[indexPath.row];
     cell.imageView.image = [[album topImage] localThumbnailPreservingAspectRatio:NO];
     cell.textLabel.text = album.name;
     

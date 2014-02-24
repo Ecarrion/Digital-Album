@@ -16,7 +16,7 @@
 
 @interface AssetPickerViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SelectAlbumDelegate>
 
-@property (nonatomic, strong) DAAlbum * selectedAlbum;
+@property (nonatomic, strong) DAPhoneAlbum * selectedAlbum;
 @property (nonatomic, strong) SelectAlbumViewController * albumController;
 @property (nonatomic, strong) NSMutableOrderedSet * selectedImages;
 
@@ -103,36 +103,14 @@
 
 -(void)finishPressed {
     
-    NSMutableArray * images = [NSMutableArray array];
-    for (DAImage * image in self.selectedImages) {
-        [images addObject:[DAImage imageByCopyingLocalAsset:image.localAsset]];
+    if ([self.delegate respondsToSelector:@selector(didSelectImages:)]) {
+            [self.delegate didSelectImages:self.selectedImages.array];
     }
-    self.albumToCreate.images = images.copy;
-    
-    
-    if ([self validateAlbum]) {
-        
-        if ([self.delegate respondsToSelector:@selector(albumCreated:)]) {
-            [self.delegate albumCreated:self.albumToCreate];
-        }
-    }
-}
-
-
--(BOOL)validateAlbum {
-    
-    if (self.albumToCreate.images.count <= 0) {
-        
-        showAlert(nil, @"Please add at least one image to your album", @"OK");
-        return NO;
-    }
-    
-    return YES;
 }
 
 #pragma mark - Selection Album Delegate
 
--(void)didSelectAlbum:(DAAlbum *)album {
+-(void)didSelectAlbum:(DAPhoneAlbum *)album {
     
     self.selectedAlbum = album;
     [self reloadCollectionView];

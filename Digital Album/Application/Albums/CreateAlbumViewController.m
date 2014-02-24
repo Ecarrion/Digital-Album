@@ -8,11 +8,11 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#import "SelectCoverViewController.h"
+#import "CreateAlbumViewController.h"
 #import "AssetPickerViewController.h"
 
 
-@interface SelectCoverViewController () <UITextFieldDelegate>
+@interface CreateAlbumViewController () <UITextFieldDelegate>
 
 @property (nonatomic, strong) NSArray * coverNames;
 @property (nonatomic, strong) NSArray * coverImages;
@@ -23,7 +23,7 @@
 
 @end
 
-@implementation SelectCoverViewController
+@implementation CreateAlbumViewController
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,7 +35,7 @@
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelPressed)];
         self.navigationItem.leftBarButtonItem = item;
         
-        item = [[UIBarButtonItem alloc] initWithTitle:@"Add Photos" style:UIBarButtonItemStylePlain target:self action:@selector(addPhotosPressed)];
+        item = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStylePlain target:self action:@selector(createAlbumPressed)];
         self.navigationItem.rightBarButtonItem = item;
         
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -122,17 +122,14 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)addPhotosPressed {
+-(void)createAlbumPressed {
     
     self.albumToCreate.name = albumNametextField.text;
     self.albumToCreate.coverImageName = self.selectedImageCoverName;
     
     if ([self validateAlbum]) {
         
-        AssetPickerViewController * apc = [[AssetPickerViewController alloc] init];
-        apc.delegate = self.delegate;
-        apc.albumToCreate = self.albumToCreate;
-        [self.navigationController pushViewController:apc animated:YES];
+        [self.delegate albumCreated:self.albumToCreate];
     }
 }
 
@@ -141,6 +138,12 @@
     if (self.albumToCreate.name.length <= 0) {
         
         showAlert(nil, @"Please enter the album name", @"OK");
+        return NO;
+    }
+    
+    if ([self.existingAlbums containsObject:self.albumToCreate]) {
+        
+        showAlert(nil, @"An album with this name already exists", @"OK");
         return NO;
     }
     

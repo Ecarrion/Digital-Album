@@ -7,16 +7,16 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DAImage.h"
 #import "DAAlbum.h"
+#import "DAPhoneAlbum.h"
 
 @interface AlbumManager : NSObject
 
 +(AlbumManager *)manager;
 -(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
+-(NSArray *)savedAlbums;
 
--(BOOL)saveAlbum:(DAAlbum *)album;
--(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album;
--(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath;
+-(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block;
+-(BOOL)deleteAlbum:(DAAlbum *)album;
 
 @end

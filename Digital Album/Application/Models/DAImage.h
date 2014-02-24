@@ -9,17 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface DAImage : NSObject
-
-@property (nonatomic, strong) NSDate * date;
+@interface DAImage : NSObject <NSCoding>
 
 //Digital Album Image
 @property (nonatomic, strong) NSString * imagePath;
 @property (nonatomic, strong) UIImage * modifiedImage;
 
-+(DAImage *)imageByCopyingLocalAsset:(ALAsset *)imageAsset;
--(UIImage *)image;
--(BOOL)saveModifiedImage;
+@property (nonatomic, assign) CGAffineTransform viewTransform;
+@property (nonatomic, assign) CGPoint viewCenter;
+
 
 //Phone Image
 @property(nonatomic, strong) ALAsset * localAsset;
@@ -27,7 +25,9 @@
 
 +(DAImage *)imageWithLocalAsset:(ALAsset *)asset;
 -(UIImage *)localThumbnailPreservingAspectRatio:(BOOL)preservingAspectRatio;
--(UIImage *)localImage;
 
+//Common
+-(UIImage *)localImage;
+-(BOOL)hasSomethingToSave;
 
 @end

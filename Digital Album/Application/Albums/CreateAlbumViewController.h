@@ -15,7 +15,7 @@
 
 @end
 
-@interface SelectCoverViewController : UIViewController {
+@interface CreateAlbumViewController : UIViewController {
     
     
     __weak IBOutlet UITextField *albumNametextField;
@@ -23,5 +23,6 @@
 }
 
 @property (nonatomic, weak) id<CreateAlbumDelegate> delegate;
+@property (nonatomic, strong) NSArray * existingAlbums;
 
 @end

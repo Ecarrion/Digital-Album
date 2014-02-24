@@ -12,6 +12,8 @@
     
     
     __weak IBOutlet UICollectionView *albumsCollectionView;
+    __weak IBOutlet UIImageView *noAlbumsImageView;
+    
     
 }
 

@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SelectCoverViewController.h"
+#import "CreateAlbumViewController.h"
 
+
+@protocol AssetPickerDelegate <NSObject>
+
+-(void)didSelectImages:(NSArray *)images;
+
+@end
 
 @interface AssetPickerViewController : UIViewController {
     
@@ -18,7 +24,6 @@
 }
 
 @property (nonatomic, strong) NSArray * phoneAlbums;
-@property (nonatomic, weak) id<CreateAlbumDelegate> delegate;
-@property (nonatomic, strong) DAAlbum * albumToCreate;
+@property (nonatomic, weak) id<AssetPickerDelegate> delegate;
 
 @end

@@ -9,6 +9,8 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import "AlbumManager.h"
 
+#define ALBUMS_OBJ_PATH @"albums.array"
+
 @interface AlbumManager ()
 
 @property (nonatomic, strong) ALAssetsLibrary * lib;
@@ -28,27 +30,8 @@
     return manager;
 }
 
--(NSString *)pathForAlbum:(DAAlbum *)album {
+- (id)init {
     
-    return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
-}
-
--(NSString *)pathForImage:(DAImage *)image inAlbum:(DAAlbum *)album {
-    
-    if (image.imagePath) {
-        return image.imagePath;
-    }
-    
-    NSString * albumPath = [self pathForAlbum:album];
-    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPath error:nil] count];
-    NSString * imagePath = [albumPath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count]];
-    
-    return imagePath;
-}
-
-
-- (id)init
-{
     self = [super init];
     if (self) {
         
@@ -59,6 +42,9 @@
     return self;
 }
 
+#pragma mark - Get
+
+//Get Albums from phone
 -(void)phoneAlbumsWithBlock:(void (^)(NSArray *, NSError *))block {
     
     if (!self.lib) {
@@ -70,7 +56,7 @@
         
         if (group) {
         
-            DAAlbum * album = [DAAlbum AlbumWithGroup:group];
+            DAPhoneAlbum * album = [DAPhoneAlbum AlbumWithGroup:group];
             NSMutableArray * imagesArray = [NSMutableArray array];
             [group enumerateAssetsUsingBlock:^(ALAsset *result, NSUInteger index, BOOL *stop) {
                 
@@ -107,27 +93,77 @@
         if (block)
             block(nil, error);
     }];
-    
 }
 
--(BOOL)saveAlbum:(DAAlbum *)album {
+//Get Digital Albums from disk
+-(NSArray *)savedAlbums {
     
-    for (DAImage * image in album.images) {
+    NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
+    NSArray * savedAlbums = [NSKeyedUnarchiver unarchiveObjectWithFile:savedAlbumsPath];
+    if (!savedAlbums)
+        savedAlbums = [NSArray array];
+    
+    return savedAlbums;
+}
+
+
+#pragma mark - Save
+
+//iterate trought all DAImages and save its content to disk, then saves
+//the album aray to disk
+-(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block {
+    
+    __block BOOL success = YES;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-        [self saveImage:image inAlbum:album];
-    }
-    
-    return YES;
+        for (DAPage * page in album.pages) {
+            for (DAImage * image in page.images) {
+                
+                BOOL result = [self saveImage:image inPage:page inAlbum:album];
+                if (success)
+                    success = result;
+            }
+        }
+        
+        if (success) {
+            
+            NSMutableArray * savedAlbums = [self savedAlbums].mutableCopy;
+            NSUInteger index = [savedAlbums indexOfObject:album];
+            if (index != NSNotFound) {
+                savedAlbums[index] = album;
+            } else {
+                [savedAlbums addObject:album];
+            }
+            
+            success = [self saveAlbumsToDisk:savedAlbums.copy];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+           
+            if (block) {
+                block(success);
+            }
+            
+        });
+    });
 }
 
--(BOOL)saveImage:(DAImage *)image inAlbum:(DAAlbum *)album {
+//Save the album array to disk
+-(BOOL)saveAlbumsToDisk:(NSArray *)albums {
+    
+    NSString * savedAlbumsPath = [self.documentsDirectoryPath stringByAppendingPathComponent:ALBUMS_OBJ_PATH];
+    return [NSKeyedArchiver archiveRootObject:albums toFile:savedAlbumsPath];
+}
+
+//Saves UIImage from DAImage to disk for an Album
+-(BOOL)saveImage:(DAImage *)image inPage:(DAPage *)page inAlbum:(DAAlbum *)album {
     
     BOOL result = NO;
-    if ([self createFolderForAlbumIfNecesary:album]) {
+    if ([self createFolderForAlbum:album andPage:page]) {
     
         @autoreleasepool {
             
-            NSString * imagePath = [self pathForImage:image inAlbum:album];
+            NSString * imagePath = [self pathForImage:image inPage:page inAlbum:album];
             result = [self saveImage:image atPath:imagePath];
         }
     }
@@ -135,29 +171,96 @@
     return result;
 }
 
+//Saves UIImage from DAImage to disk at a specifieldPath
 -(BOOL)saveImage:(DAImage *)image atPath:(NSString *)imagePath {
     
-    if (!image.modifiedImage || imagePath <= 0) {
+    if (![image hasSomethingToSave]) {
+        return YES;
+    }
+    
+    if (imagePath.length <= 0) {
         return NO;
     }
     
-    BOOL result = [UIImageJPEGRepresentation(image.modifiedImage, 1.0) writeToFile:imagePath atomically:YES];
+    NSData * imageData = nil;
+    if (image.modifiedImage) {
+        imageData = UIImageJPEGRepresentation(image.modifiedImage, 1.0);
+    }
+    else if (image.localAsset) {
+        imageData = UIImageJPEGRepresentation([image localImage], 1.0);
+    }
+    
+    BOOL result = [imageData writeToFile:imagePath atomically:YES];
+    imageData = nil;
+    
     if (result) {
         
         image.modifiedImage = nil;
+        image.localAsset = nil;
         image.imagePath = imagePath;
+        
     }
     
     return result;
 }
 
 
--(BOOL)createFolderForAlbumIfNecesary:(DAAlbum *)album {
+
+#pragma mark - Delete
+
+//Delete album from disk if it exists
+-(BOOL)deleteAlbum:(DAAlbum *)album {
     
-    NSString * path = [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+    NSString * albumPath = [self pathForAlbum:album];
+    BOOL success = YES;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:albumPath isDirectory:nil]) {
+        success = [[NSFileManager defaultManager] removeItemAtPath:albumPath error:nil];
+    }
+    
+    if (success) {
+        
+        NSMutableArray * savedAlbums = [self savedAlbums].mutableCopy;
+        [savedAlbums removeObject:album];
+        success = [self saveAlbumsToDisk:savedAlbums.copy];
+    }
+    
+    return success;
+}
+
+
+#pragma mark - Utilities
+
+-(NSString *)pathForAlbum:(DAAlbum *)album {
+    
+    return [self.documentsDirectoryPath stringByAppendingPathComponent:album.name];
+}
+
+-(NSString *)pathForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
+    
+    NSString * pageName = [NSString stringWithFormat:@"page-%d", (int)[album.pages indexOfObject:page] + 1];
+    return [[self pathForAlbum:album] stringByAppendingPathComponent:pageName];
+}
+
+-(NSString *)pathForImage:(DAImage *)image inPage:(DAPage *)page inAlbum:(DAAlbum *)album {
+    
+    if (image.imagePath) {
+        return image.imagePath;
+    }
+    
+    NSString * albumPagePath = [self pathForAlbum:album andPage:page];
+    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPagePath error:nil] count];
+    NSString * imagePath = [albumPagePath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
+    
+    return imagePath;
+}
+
+-(BOOL)createFolderForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
+    
+    NSString * albumPageSubPath = [self pathForAlbum:album andPage:page];
     NSFileManager * fileManager = [NSFileManager defaultManager];
-    if (![fileManager fileExistsAtPath:path isDirectory:nil]) {
-        return [fileManager createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:nil];
+    if (![fileManager fileExistsAtPath:albumPageSubPath isDirectory:nil]) {
+        return [fileManager createDirectoryAtPath:albumPageSubPath withIntermediateDirectories:YES attributes:nil error:nil];
     }
     
     return YES;
