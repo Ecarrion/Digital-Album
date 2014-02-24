@@ -212,7 +212,12 @@
 -(BOOL)deleteAlbum:(DAAlbum *)album {
     
     NSString * albumPath = [self pathForAlbum:album];
-    BOOL success = [[NSFileManager defaultManager] removeItemAtPath:albumPath error:nil];
+    BOOL success = YES;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:albumPath isDirectory:nil]) {
+        success = [[NSFileManager defaultManager] removeItemAtPath:albumPath error:nil];
+    }
+    
     if (success) {
         
         NSMutableArray * savedAlbums = [self savedAlbums].mutableCopy;

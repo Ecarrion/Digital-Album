@@ -46,16 +46,20 @@
     [super viewDidLoad];
     //self.imageView.image = [self.image localImage];
 #warning figure out local image
-    
+
+    #warning figure out view pimping
+    /*
     CGPoint center = self.imageView.center;
     self.imageView.frame = [self.imageView contentModetRect];
     self.imageView.center = center;
     self.imageView.layer.allowsEdgeAntialiasing = YES;
     
     self.imageView.layer.borderWidth = 3;
+     */
     
     [self enableEditMode:NO];
     [self loadViewAttributes];
+     
 }
 
 -(void)loadViewAttributes {

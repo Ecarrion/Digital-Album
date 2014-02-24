@@ -35,7 +35,7 @@
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelPressed)];
         self.navigationItem.leftBarButtonItem = item;
         
-        item = [[UIBarButtonItem alloc] initWithTitle:@"Add Photos" style:UIBarButtonItemStylePlain target:self action:@selector(addPhotosPressed)];
+        item = [[UIBarButtonItem alloc] initWithTitle:@"Create" style:UIBarButtonItemStylePlain target:self action:@selector(createAlbumPressed)];
         self.navigationItem.rightBarButtonItem = item;
         
         self.navigationItem.backBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:nil action:nil];
@@ -122,7 +122,7 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
--(void)addPhotosPressed {
+-(void)createAlbumPressed {
     
     self.albumToCreate.name = albumNametextField.text;
     self.albumToCreate.coverImageName = self.selectedImageCoverName;
