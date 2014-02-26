@@ -7,6 +7,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AlbumPageViewController">
             <connections>
                 <outlet property="backgroundImageView" destination="WpQ-XH-wyR" id="VXs-bQ-bPr"/>
+                <outlet property="canvas" destination="XkS-bb-yqt" id="Wlv-SJ-hhm"/>
                 <outlet property="view" destination="1" id="3"/>
             </connections>
         </placeholder>
@@ -23,6 +24,11 @@
                     <rect key="frame" x="0.0" y="62" width="279" height="352"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                 </imageView>
+                <view contentMode="scaleToFill" id="XkS-bb-yqt">
+                    <rect key="frame" x="0.0" y="0.0" width="279" height="475"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

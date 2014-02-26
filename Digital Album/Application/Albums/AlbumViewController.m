@@ -102,8 +102,9 @@
     [apvc enableEditMode:inEditMode];
     [apvc commitChanges];
     
-    
+    [SVProgressHUD showWithStatus:@"Saving..." maskType:SVProgressHUDMaskTypeGradient];
     [[AlbumManager manager] saveAlbum:self.album onCompletion:^(BOOL success) {
+        [SVProgressHUD dismiss];
         
         if (success) {
             puts("Album save");
@@ -123,7 +124,7 @@
     [apvc enableEditMode:inEditMode];
     
     [UIView animateWithDuration:0.3 animations:^{
-        [apvc loadViewAttributes];
+        [apvc disregardChanges];
     }];
 }
 

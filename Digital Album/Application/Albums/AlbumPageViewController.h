@@ -21,6 +21,7 @@
 @interface AlbumPageViewController : UIViewController {
     
     __weak IBOutlet UIImageView *backgroundImageView;
+    __weak IBOutlet UIView *canvas;
 }
 
 
@@ -31,6 +32,7 @@
 -(void)enableEditMode:(BOOL)edit;
 
 -(void)commitChanges;
--(void)loadViewAttributes;
+-(void)redrawView;
+-(void)disregardChanges;
 
 @end

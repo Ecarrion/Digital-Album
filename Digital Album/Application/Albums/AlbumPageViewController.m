@@ -17,6 +17,15 @@
     BOOL inEditMode;
 }
 
+@property (nonatomic, strong) NSMutableArray * imageViews;
+@property (nonatomic, strong) NSMutableArray * labels;
+
+@property (nonatomic, strong) NSMutableArray * tempImageViews;
+@property (nonatomic, strong) NSMutableArray * tempLabels;
+
+@property (nonatomic, strong) NSMutableArray * tempDAImages;
+@property (nonatomic, strong) NSMutableArray * tempDALabels;
+
 @end
 
 @implementation AlbumPageViewController
@@ -26,6 +35,13 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+        
+        self.imageViews = [NSMutableArray array];
+        self.labels = [NSMutableArray array];
+        self.tempImageViews = [NSMutableArray array];
+        self.tempLabels = [NSMutableArray array];
+        self.tempDAImages = [NSMutableArray array];
+        self.tempDALabels = [NSMutableArray array];
     }
     return self;
 }
@@ -44,32 +60,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //self.imageView.image = [self.image localImage];
-#warning figure out local image
-
-    #warning figure out view pimping
-    /*
-    CGPoint center = self.imageView.center;
-    self.imageView.frame = [self.imageView contentModetRect];
-    self.imageView.center = center;
-    self.imageView.layer.allowsEdgeAntialiasing = YES;
-    
-    self.imageView.layer.borderWidth = 3;
-     */
     
     [self enableEditMode:NO];
-    [self showBackgroundImageViewIfNecesary];
-    [self loadViewAttributes];
+    [self redrawView];
      
 }
 
 -(void)showBackgroundImageViewIfNecesary {
     
+    int viewCount = self.imageViews.count + self.tempImageViews.count + self.labels.count + self.tempLabels.count;
+    
     [UIView transitionWithView:backgroundImageView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
     
         if (inEditMode) {
             
-            if (!self.page.images.count && !self.page.texts.count) {
+            if (viewCount == 0) {
                 backgroundImageView.image = [UIImage imageNamed:@"long-press-text.png"];
             } else {
                 backgroundImageView.image = nil;
@@ -77,7 +82,7 @@
             
         } else {
             
-            if (!self.page.images.count && !self.page.texts.count) {
+            if (viewCount == 0) {
                 backgroundImageView.image = [UIImage imageNamed:@"tap-edit-text.png"];
             } else {
                 backgroundImageView.image = nil;
@@ -87,22 +92,39 @@
     } completion:nil];
 }
 
--(void)loadViewAttributes {
+-(void)redrawView {
     
-#warning figure out views transforms
-    /*
-    self.imageView.transform = self.image.viewTransform;
+    [self cleanCanvas];
     
-    CGPoint center = self.image.viewCenter;
-    if (!CGPointEqualToPoint(center, CGPointZero)) {
+    for (DAImage * image in self.page.images) {
         
-        self.imageView.center = center;
-        
-    } else {
-        
-        self.imageView.center = CGPointMake(self.view.frame.size.width / 2.0, self.view.frame.size.height / 2.0);
+        UIImageView * view = [self viewForImage:image];
+        [self setUpEditionImageGestureRecognizersToView:view];
+        [canvas addSubview:view];
+        [self.imageViews addObject:view];
     }
-     */
+    
+    //TODO: texts
+    
+    [self showBackgroundImageViewIfNecesary];
+}
+
+-(void)cleanCanvas {
+    
+    for (UIView * view in canvas.subviews) {
+        [view removeFromSuperview];
+    }
+    [self cleanArrays];
+}
+
+-(void)cleanArrays {
+    
+    [self.imageViews removeAllObjects];
+    [self.tempImageViews removeAllObjects];
+    [self.labels removeAllObjects];
+    [self.tempLabels removeAllObjects];
+    [self.tempDAImages removeAllObjects];
+    [self.tempDALabels removeAllObjects];
 }
 
 -(void)enableEditMode:(BOOL)edit {
@@ -125,12 +147,42 @@
 
 -(void)commitChanges {
     
-#warning figure out commit changes
+    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
+        
+        DAImage * image = self.page.images[idx];
+        image.viewCenter = imgV.center;
+        image.viewTransform = imgV.transform;
+        
+    }];
     
-    /*
-    self.image.viewTransform = self.imageView.transform;
-    self.image.viewCenter = self.imageView.center;
-     */
+    
+    [self.tempImageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
+        
+        DAImage * image = self.tempDAImages[idx];
+        image.viewCenter = imgV.center;
+        image.viewTransform = imgV.transform;
+    }];
+    
+    self.page.images = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
+    
+}
+
+-(void)disregardChanges {
+    
+    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
+        
+        DAImage * image = self.page.images[idx];
+        imgV.center = image.viewCenter;
+        imgV.transform = image.viewTransform;
+        
+    }];
+    
+    [self.tempImageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
+        [imgV removeFromSuperview];
+    }];
+    [self.tempDAImages removeAllObjects];
+    
+    [self showBackgroundImageViewIfNecesary];
 }
 
 -(void)launchAssetPicker {
@@ -150,9 +202,19 @@
     view.layer.allowsEdgeAntialiasing = YES;
     view.userInteractionEnabled = YES;
     
-    CGSize  superSize = self.view.frame.size;
-    view.center = CGPointMake(superSize.width / 2.0, superSize.height / 2.0);
+    //View saved Transformation
+    view.transform = image.viewTransform;
+    CGPoint center = image.viewCenter;
     
+    if (!CGPointEqualToPoint(center, CGPointZero)) {
+        view.center = center;
+        
+    } else {
+        CGSize  superSize = self.view.frame.size;
+        view.center = CGPointMake(superSize.width / 2.0, superSize.height / 2.0);
+    }
+    
+    //Border
     UIColor * color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]];
     view.layer.borderWidth = 5;
     view.layer.borderColor = color.CGColor;
@@ -173,12 +235,14 @@
         
         UIImageView * imgV = [self viewForImage:image];
         imgV.transform = CGAffineTransformRotate(imgV.transform, angle * M_PI / 180.0);
-        [self.view addSubview:imgV];
-        
         [self setUpEditionImageGestureRecognizersToView:imgV];
+        
+        [canvas addSubview:imgV];
+        [self.tempImageViews addObject:imgV];
+        [self.tempDAImages addObject:image];
+
     }
     
-    self.page.images = [self.page.images arrayByAddingObjectsFromArray:images]; 
     [self showBackgroundImageViewIfNecesary];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
@@ -195,6 +259,7 @@
 -(void)setUpReadOnlyGesturesRecognizers {
     
     [self removeGesturesRecognizersToView:self.view];
+    canvas.userInteractionEnabled = NO;
     
     UITapGestureRecognizer * tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     tapGestureRecornizer.numberOfTapsRequired = 1;
@@ -204,6 +269,7 @@
 -(void)setUpMainEditionGestureRecognizers {
     
     [self removeGesturesRecognizersToView:self.view];
+    canvas.userInteractionEnabled = YES;
     
     UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.view addGestureRecognizer:longPressRecognizer];
@@ -212,21 +278,22 @@
 -(void)setUpEditionImageGestureRecognizersToView:(UIView *)view {
     
     
-    [self removeGesturesRecognizersToView:view];
-    
-    UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
-	[view addGestureRecognizer:pinchRecognizer];
-    pinchRecognizer.delegate = self;
-    
-	UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
-	[view addGestureRecognizer:rotationRecognizer];
-    rotationRecognizer.delegate = self;
-    
-	UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
-	[panRecognizer setMinimumNumberOfTouches:1];
-	[panRecognizer setMaximumNumberOfTouches:1];
-	[view addGestureRecognizer:panRecognizer];
-    panRecognizer.delegate = self;
+    if (view.gestureRecognizers.count == 0) {
+        
+        UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
+        [view addGestureRecognizer:pinchRecognizer];
+        pinchRecognizer.delegate = self;
+        
+        UIRotationGestureRecognizer *rotationRecognizer = [[UIRotationGestureRecognizer alloc] initWithTarget:self action:@selector(rotate:)];
+        [view addGestureRecognizer:rotationRecognizer];
+        rotationRecognizer.delegate = self;
+        
+        UIPanGestureRecognizer *panRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(move:)];
+        [panRecognizer setMinimumNumberOfTouches:1];
+        [panRecognizer setMaximumNumberOfTouches:1];
+        [view addGestureRecognizer:panRecognizer];
+        panRecognizer.delegate = self;
+    }
 }
 
 -(void)imageTapped:(UITapGestureRecognizer *)gestureRecognizer {
@@ -354,6 +421,7 @@
     if (![self isViewLoaded]) {
         
         //Clean outlets here
+        [self cleanArrays];
     }
     
     //Clean rest of resources here eg:arrays, maps, dictionaries, etc
