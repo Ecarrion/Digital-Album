@@ -180,7 +180,9 @@
     [self.tempImageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
         [imgV removeFromSuperview];
     }];
+    
     [self.tempDAImages removeAllObjects];
+    [self.tempImageViews removeAllObjects];
     
     [self showBackgroundImageViewIfNecesary];
 }
