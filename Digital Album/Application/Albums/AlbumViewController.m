@@ -102,7 +102,24 @@
     [apvc enableEditMode:inEditMode];
     [apvc commitChanges];
     
-    [SVProgressHUD showWithStatus:@"Saving..." maskType:SVProgressHUDMaskTypeGradient];
+    //Figure out if we need to show the spinner
+    //Only show it if there are images to copy to disk
+    BOOL haveSomethingToSave = NO;
+    for (DAPage * page in self.album.pages) {
+        for (DAImage * image in page.images) {
+            if ([image hasSomethingToSave]) {
+                haveSomethingToSave = YES;
+                break;
+            }
+        }
+        if (haveSomethingToSave) {
+            break;
+        }
+    }
+    
+    if (haveSomethingToSave)
+        [SVProgressHUD showWithStatus:@"Saving..." maskType:SVProgressHUDMaskTypeGradient];
+    
     [[AlbumManager manager] saveAlbum:self.album onCompletion:^(BOOL success) {
         [SVProgressHUD dismiss];
         
@@ -172,11 +189,20 @@
     
     AlbumPageViewController * pageController = (AlbumPageViewController *)self.pageViewController.viewControllers[0];
     DAPage * page = pageController.page;
-    return  (int)[self.album.pages indexOfObject:page];
+    NSUInteger index = [self.album.pages indexOfObject:page];
+    if (index == NSNotFound) {
+        index = 0;
+    }
+    
+    return  index;
     
 }
 
 -(AlbumPageViewController *)pageControllerAtIndex:(int)index {
+    
+    if (self.album.pages.count == 0) {
+        self.album.pages = @[[[DAPage alloc] init]];
+    }
     
     AlbumPageViewController * page = [[AlbumPageViewController alloc] initWithPage:self.album.pages[index]];
     page.delegate = self;
@@ -249,15 +275,14 @@
     [pages removeObject:page];
     self.album.pages = pages.mutableCopy;
     
-    if (index >= (int)self.album.pages.count) {
+    if (index >= (int)self.album.pages.count && index != 0) {
         index = (int)self.album.pages.count - 1;
     }
     
     NSArray * array = @[[self pageControllerAtIndex:index]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionReverse animated:YES completion:nil];
     
-#warning delete images for page
-    
+    [[AlbumManager manager] deleteDiskDataOfPage:page inAlbum:self.album];
     [self donePressed];
 }
 

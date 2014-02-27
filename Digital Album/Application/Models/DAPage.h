@@ -13,6 +13,7 @@
 
 @interface DAPage : NSObject <NSCoding>
 
+@property (nonatomic, strong) NSString * name;
 @property (nonatomic, strong) NSArray * images;
 @property (nonatomic, strong) NSArray * texts;
 

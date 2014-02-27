@@ -19,4 +19,8 @@
 -(void)saveAlbum:(DAAlbum *)album onCompletion:(void(^)(BOOL success))block;
 -(BOOL)deleteAlbum:(DAAlbum *)album;
 
+
+-(BOOL)deleteDiskDataOfPage:(DAPage *)page inAlbum:(DAAlbum *)album;
+-(BOOL)deleteDiskDataOfImage:(DAImage *)image;
+
 @end

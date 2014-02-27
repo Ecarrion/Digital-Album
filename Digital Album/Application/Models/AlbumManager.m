@@ -160,7 +160,8 @@
     
     BOOL result = NO;
     if ([self createFolderForAlbum:album andPage:page]) {
-    
+        
+        
         @autoreleasepool {
             
             NSString * imagePath = [self pathForImage:image inPage:page inAlbum:album];
@@ -228,6 +229,29 @@
     return success;
 }
 
+-(BOOL)deleteDiskDataOfPage:(DAPage *)page inAlbum:(DAAlbum *)album {
+    
+    NSString * pagePath = [self pathForAlbum:album andPage:page];
+    BOOL success = YES;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:pagePath isDirectory:nil]) {
+        success = [[NSFileManager defaultManager] removeItemAtPath:pagePath error:nil];
+    }
+    
+    return success;
+}
+
+-(BOOL)deleteDiskDataOfImage:(DAImage *)image {
+    
+    BOOL success = YES;
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:image.imagePath isDirectory:nil]) {
+        success = [[NSFileManager defaultManager] removeItemAtPath:image.imagePath error:nil];
+    }
+    
+    return success;
+}
+
 
 #pragma mark - Utilities
 
@@ -238,8 +262,11 @@
 
 -(NSString *)pathForAlbum:(DAAlbum *)album andPage:(DAPage *)page {
     
-    NSString * pageName = [NSString stringWithFormat:@"page-%d", (int)[album.pages indexOfObject:page] + 1];
-    return [[self pathForAlbum:album] stringByAppendingPathComponent:pageName];
+    if (!page.name) {
+        page.name = [NSString stringWithFormat:@"page-%f", [NSDate timeIntervalSinceReferenceDate]];
+    }
+    
+    return [[self pathForAlbum:album] stringByAppendingPathComponent:page.name];
 }
 
 -(NSString *)pathForImage:(DAImage *)image inPage:(DAPage *)page inAlbum:(DAAlbum *)album {
@@ -249,8 +276,7 @@
     }
     
     NSString * albumPagePath = [self pathForAlbum:album andPage:page];
-    int count = (int)[[[NSFileManager defaultManager] contentsOfDirectoryAtPath:albumPagePath error:nil] count];
-    NSString * imagePath = [albumPagePath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%d.jpg", count + 1]];
+    NSString * imagePath = [albumPagePath stringByAppendingPathComponent:[NSString stringWithFormat:@"image-%f.jpg", [NSDate timeIntervalSinceReferenceDate]]];
     
     return imagePath;
 }

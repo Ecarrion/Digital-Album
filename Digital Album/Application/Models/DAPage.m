@@ -10,6 +10,7 @@
 
 #define kPageImagesKey @"kPageImagesKey"
 #define kPageTextKey @"kPageTextKey"
+#define kPageNameKey @"kPageNameKey"
 
 @implementation DAPage
 
@@ -29,6 +30,7 @@
     DAPage * page = [[DAPage alloc] init];
     page.images = [aDecoder decodeObjectForKey:kPageImagesKey];
     page.texts = [aDecoder decodeObjectForKey:kPageTextKey];
+    page.name = [aDecoder decodeObjectForKey:kPageNameKey];
     
     return page;
 }
@@ -37,6 +39,12 @@
     
     [aCoder encodeObject:self.images forKey:kPageImagesKey];
     [aCoder encodeObject:self.texts forKey:kPageTextKey];
+    [aCoder encodeObject:self.name forKey:kPageNameKey];
+}
+
+-(BOOL)isEqual:(id)object {
+    
+    return [self.name isEqualToString:[object name]];
 }
 
 @end
