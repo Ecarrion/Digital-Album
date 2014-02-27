@@ -174,6 +174,7 @@
         DAImage * image = self.page.images[idx];
         imgV.center = image.viewCenter;
         imgV.transform = image.viewTransform;
+        imgV.layer.zPosition = image.zPosition;
         
     }];
     
@@ -361,6 +362,7 @@
         view.firstX = [view center].x;
         view.firstY = [view center].y;
         [self.canvas bringSubviewToFront:view];
+        view.layer.zPosition = 100;
     }
     
     translatedPoint = CGPointMake(view.firstX + translatedPoint.x, view.firstY + translatedPoint.y);
