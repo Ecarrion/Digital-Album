@@ -16,6 +16,7 @@
 //View Dictionary
 #define kViewTransformKey @"kViewTransformKey"
 #define kViewCenterKey @"kViewCenterKey"
+#define kViewZPositionKey @"kViewZPositionKey"
 
 @interface DAImage ()
 
@@ -73,6 +74,18 @@
     }
     
     return CGPointZero;
+}
+
+-(void)setZPosition:(NSInteger)zPosition {
+    
+    NSString * zPositionString = [@(zPosition) stringValue];
+    self.viewDictionary[kViewZPositionKey] = zPositionString;
+}
+
+-(NSInteger)zPosition {
+    
+    NSString * zPositionString = self.viewDictionary[kViewZPositionKey];
+    return [zPositionString integerValue];
 }
 
 #pragma mark - Phone Image

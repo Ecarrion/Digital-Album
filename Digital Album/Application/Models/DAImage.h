@@ -17,6 +17,7 @@
 
 @property (nonatomic, assign) CGAffineTransform viewTransform;
 @property (nonatomic, assign) CGPoint viewCenter;
+@property (nonatomic, assign) NSInteger zPosition;
 
 
 //Phone Image

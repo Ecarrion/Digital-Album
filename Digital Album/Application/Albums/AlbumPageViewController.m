@@ -102,6 +102,7 @@
         [self setUpEditionImageGestureRecognizersToView:view];
         [self.canvas addSubview:view];
         [self.imageViews addObject:view];
+        view.layer.zPosition = image.zPosition;
     }
     
     //TODO: texts
@@ -147,23 +148,22 @@
 
 -(void)commitChanges {
     
+    [self.imageViews addObjectsFromArray:self.tempImageViews];
+    self.page.images = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
+    
     [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
         
         DAImage * image = self.page.images[idx];
         image.viewCenter = imgV.center;
         image.viewTransform = imgV.transform;
+        image.zPosition = [self.canvas.subviews indexOfObject:imgV];
         
     }];
     
+    [self.tempImageViews removeAllObjects];
+    [self.tempDAImages removeAllObjects];
     
-    [self.tempImageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
-        
-        DAImage * image = self.tempDAImages[idx];
-        image.viewCenter = imgV.center;
-        image.viewTransform = imgV.transform;
-    }];
-    
-    self.page.images = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
+    [self showBackgroundImageViewIfNecesary];
     
 }
 
@@ -183,7 +183,6 @@
     
     [self.tempDAImages removeAllObjects];
     [self.tempImageViews removeAllObjects];
-    
     [self showBackgroundImageViewIfNecesary];
 }
 
@@ -361,6 +360,7 @@
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
         view.firstX = [view center].x;
         view.firstY = [view center].y;
+        [self.canvas bringSubviewToFront:view];
     }
     
     translatedPoint = CGPointMake(view.firstX + translatedPoint.x, view.firstY + translatedPoint.y);
