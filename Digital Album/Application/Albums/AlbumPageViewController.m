@@ -86,7 +86,7 @@
 
 -(void)showBackgroundImageViewIfNecesary {
     
-    int viewCount = self.imageViews.count + self.tempImageViews.count + self.labels.count + self.tempLabels.count;
+    NSUInteger viewCount = self.imageViews.count + self.tempImageViews.count + self.labels.count + self.tempLabels.count;
     
     [UIView transitionWithView:backgroundImageView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
     
@@ -226,6 +226,8 @@
         [self.canvas addSubview:imgV];
         [self.tempImageViews addObject:imgV];
         [self.tempDAImages addObject:image];
+        
+        imgV.layer.zPosition = 100;
 
     }
     

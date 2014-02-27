@@ -194,7 +194,7 @@
         index = 0;
     }
     
-    return  index;
+    return  (int)index;
     
 }
 
@@ -256,13 +256,13 @@
 
 -(void)didSelectCreateNewPage {
     
+    [self donePressed];
+    
     DAPage * page = [[DAPage alloc] init];
     self.album.pages = [self.album.pages arrayByAddingObject:page];
     
     NSArray * array = @[[self pageControllerAtIndex:(int)self.album.pages.count - 1]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-    
-    [self donePressed];
 }
 
 -(void)didSelectDeletePage {
