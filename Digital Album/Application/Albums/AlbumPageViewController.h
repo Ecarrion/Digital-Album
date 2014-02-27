@@ -21,12 +21,12 @@
 @interface AlbumPageViewController : UIViewController {
     
     __weak IBOutlet UIImageView *backgroundImageView;
-    __weak IBOutlet UIView *canvas;
 }
 
 
 @property (strong, nonatomic) DAPage * page;
 @property (nonatomic, weak) id<AlbumPageDelegate> delegate;
+@property (nonatomic, weak) IBOutlet UIView * canvas;
 
 -(id)initWithPage:(DAPage *)page;
 -(void)enableEditMode:(BOOL)edit;

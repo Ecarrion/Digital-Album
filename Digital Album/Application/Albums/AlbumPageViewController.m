@@ -100,7 +100,7 @@
         
         UIImageView * view = [self viewForImage:image];
         [self setUpEditionImageGestureRecognizersToView:view];
-        [canvas addSubview:view];
+        [self.canvas addSubview:view];
         [self.imageViews addObject:view];
     }
     
@@ -111,7 +111,7 @@
 
 -(void)cleanCanvas {
     
-    for (UIView * view in canvas.subviews) {
+    for (UIView * view in self.canvas.subviews) {
         [view removeFromSuperview];
     }
     [self cleanArrays];
@@ -239,7 +239,7 @@
         imgV.transform = CGAffineTransformRotate(imgV.transform, angle * M_PI / 180.0);
         [self setUpEditionImageGestureRecognizersToView:imgV];
         
-        [canvas addSubview:imgV];
+        [self.canvas addSubview:imgV];
         [self.tempImageViews addObject:imgV];
         [self.tempDAImages addObject:image];
 
@@ -261,7 +261,7 @@
 -(void)setUpReadOnlyGesturesRecognizers {
     
     [self removeGesturesRecognizersToView:self.view];
-    canvas.userInteractionEnabled = NO;
+    self.canvas.userInteractionEnabled = NO;
     
     UITapGestureRecognizer * tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     tapGestureRecornizer.numberOfTapsRequired = 1;
@@ -271,7 +271,7 @@
 -(void)setUpMainEditionGestureRecognizers {
     
     [self removeGesturesRecognizersToView:self.view];
-    canvas.userInteractionEnabled = YES;
+    self.canvas.userInteractionEnabled = YES;
     
     UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
     [self.view addGestureRecognizer:longPressRecognizer];
@@ -302,8 +302,17 @@
     
     if ([self.delegate respondsToSelector:@selector(pageController:imageTapped:)]) {
         
-#warning figure out wich image was tapped
-        //[self.delegate pageController:self imageTapped:self.image];
+        self.canvas.userInteractionEnabled = YES;
+        CGPoint point = [gestureRecognizer locationInView:self.canvas];
+        UIView * view = [self.canvas hitTest:point withEvent:nil];
+        self.canvas.userInteractionEnabled = NO;
+                
+        NSUInteger index = [self.imageViews indexOfObject:view];
+        if (index != NSNotFound) {
+            
+            DAImage * image = self.page.images[index];
+            [self.delegate pageController:self imageTapped:image];
+        }
     }
 }
 

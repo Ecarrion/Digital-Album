@@ -213,29 +213,29 @@
 
 -(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image {
     
-    
     UIView  * blackOverlay = [[UIView alloc] initWithFrame:self.view.window.bounds];
     blackOverlay.backgroundColor = [UIColor blackColor];
     blackOverlay.alpha = 0;
     [self.view.window addSubview:blackOverlay];
     
-    #warning Image to zoom
     UIImageView * imgvToZoom = [[UIImageView alloc] initWithImage:image.localImage];
-    //imgvToZoom.contentMode = page.imageView.contentMode;
-    //imgvToZoom.frame = [self.view.window convertRect:page.imageView.frame fromView:page.view];
+    imgvToZoom.frame = CGRectMake(0, 0, 200, 200);
+    imgvToZoom.contentMode = UIViewContentModeScaleAspectFit;
+    imgvToZoom.transform = image.viewTransform;
+    imgvToZoom.center = [self.view.window convertPoint:image.viewCenter fromView:page.canvas];
     [self.view.window addSubview:imgvToZoom];
     
     [UIView animateWithDuration:0.3 animations:^{
        
         blackOverlay.alpha = 1;
+        imgvToZoom.transform = CGAffineTransformIdentity;
         imgvToZoom.frame = self.view.window.bounds;
         
     } completion:^(BOOL finished) {
         
         GalleryViewController * gvc = [[GalleryViewController alloc] init];
         gvc.album = self.album;
-        //gvc.startingIndex = (int)[self.album.images indexOfObject:image];
-#warning sort the staring index, needs to get images to from all pages and then find the index
+        gvc.startingIndex = [self.album.allImages indexOfObject:image];
         
         [self.navigationController setNavigationBarHidden:YES animated:NO];
         [self.navigationController pushViewController:gvc animated:NO];
