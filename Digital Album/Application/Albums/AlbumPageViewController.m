@@ -57,13 +57,31 @@
     return self;
 }
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     [self enableEditMode:NO];
     [self redrawView];
      
+}
+
+-(void)redrawView {
+    
+    [self cleanCanvas];
+    
+    for (DAImage * image in self.page.images) {
+        
+        UIImageView * view = [self viewForImage:image];
+        [self setUpEditionImageGestureRecognizersToView:view];
+        [self.canvas addSubview:view];
+        [self.imageViews addObject:view];
+        view.layer.zPosition = image.zPosition;
+    }
+    
+    //TODO: texts
+    
+    [self showBackgroundImageViewIfNecesary];
 }
 
 -(void)showBackgroundImageViewIfNecesary {
@@ -90,42 +108,6 @@
         }
         
     } completion:nil];
-}
-
--(void)redrawView {
-    
-    [self cleanCanvas];
-    
-    for (DAImage * image in self.page.images) {
-        
-        UIImageView * view = [self viewForImage:image];
-        [self setUpEditionImageGestureRecognizersToView:view];
-        [self.canvas addSubview:view];
-        [self.imageViews addObject:view];
-        view.layer.zPosition = image.zPosition;
-    }
-    
-    //TODO: texts
-    
-    [self showBackgroundImageViewIfNecesary];
-}
-
--(void)cleanCanvas {
-    
-    for (UIView * view in self.canvas.subviews) {
-        [view removeFromSuperview];
-    }
-    [self cleanArrays];
-}
-
--(void)cleanArrays {
-    
-    [self.imageViews removeAllObjects];
-    [self.tempImageViews removeAllObjects];
-    [self.labels removeAllObjects];
-    [self.tempLabels removeAllObjects];
-    [self.tempDAImages removeAllObjects];
-    [self.tempDALabels removeAllObjects];
 }
 
 -(void)enableEditMode:(BOOL)edit {
@@ -187,13 +169,7 @@
     [self showBackgroundImageViewIfNecesary];
 }
 
--(void)launchAssetPicker {
-    
-    AssetPickerViewController * apvc = [[AssetPickerViewController alloc] init];
-    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:apvc];
-    apvc.delegate = self;
-    [self presentViewController:navController animated:YES completion:nil];
-}
+
 
 -(UIImageView *)viewForImage:(DAImage *)image {
     
@@ -225,6 +201,14 @@
 }
 
 #pragma mark - Asset Picker delegate
+
+-(void)launchAssetPicker {
+    
+    AssetPickerViewController * apvc = [[AssetPickerViewController alloc] init];
+    UINavigationController * navController = [[UINavigationController alloc] initWithRootViewController:apvc];
+    apvc.delegate = self;
+    [self presentViewController:navController animated:YES completion:nil];
+}
 
 -(void)didSelectImages:(NSArray *)images {
     
@@ -421,6 +405,24 @@
 }
 
 #pragma mark - Memory
+
+-(void)cleanCanvas {
+    
+    for (UIView * view in self.canvas.subviews) {
+        [view removeFromSuperview];
+    }
+    [self cleanArrays];
+}
+
+-(void)cleanArrays {
+    
+    [self.imageViews removeAllObjects];
+    [self.tempImageViews removeAllObjects];
+    [self.labels removeAllObjects];
+    [self.tempLabels removeAllObjects];
+    [self.tempDAImages removeAllObjects];
+    [self.tempDALabels removeAllObjects];
+}
 
 - (void)didReceiveMemoryWarning {
     
