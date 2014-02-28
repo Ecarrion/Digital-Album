@@ -15,6 +15,7 @@
 -(void)pageController:(AlbumPageViewController *)page imageTapped:(DAImage *)image;
 -(void)didSelectCreateNewPage;
 -(void)didSelectDeletePage;
+-(void)WillEnterInEditMode;
 
 @end
 

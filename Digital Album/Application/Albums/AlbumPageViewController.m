@@ -128,6 +128,9 @@
     
 }
 
+#pragma mark - View Handling
+
+
 -(void)commitChanges {
     
     [self.imageViews addObjectsFromArray:self.tempImageViews];
@@ -252,6 +255,10 @@
     UITapGestureRecognizer * tapGestureRecornizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(imageTapped:)];
     tapGestureRecornizer.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:tapGestureRecornizer];
+    
+    
+    UILongPressGestureRecognizer * longPressRecognizer = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressRecognized:)];
+    [self.view addGestureRecognizer:longPressRecognizer];
 }
 
 -(void)setUpMainEditionGestureRecognizers {
@@ -361,10 +368,29 @@
         return;
     }
     
+    if (inEditMode) {
+        
+        [self launchLongPressActionSheet];
+        
+    } else {
+        
+        if ([self.delegate respondsToSelector:@selector(WillEnterInEditMode)]) {
+            
+            [self.delegate WillEnterInEditMode];
+            [self launchLongPressActionSheet];
+#warning Finish this edit thing
+            
+        }
+        
+    }
+}
+
+-(void)launchLongPressActionSheet {
+    
     [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete page" otherButtonTitles:@[@"Add new page", @"Add images", @"Add text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         
         switch (buttonIndex) {
-            
+                
             case 0: {
                 if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
                     [self.delegate didSelectDeletePage];
@@ -388,7 +414,7 @@
                 puts("Text");
                 break;
             }
-            
+                
                 
             case 4: {
                 //Cancel
