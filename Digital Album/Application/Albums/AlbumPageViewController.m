@@ -90,21 +90,10 @@
     
     [UIView transitionWithView:backgroundImageView duration:0.2f options:UIViewAnimationOptionTransitionCrossDissolve animations:^{
     
-        if (inEditMode) {
-            
-            if (viewCount == 0) {
-                backgroundImageView.image = [UIImage imageNamed:@"long-press-text.png"];
-            } else {
-                backgroundImageView.image = nil;
-            }
-            
+        if (viewCount == 0) {
+            backgroundImageView.image = [UIImage imageNamed:@"long-press-text.png"];
         } else {
-            
-            if (viewCount == 0) {
-                backgroundImageView.image = [UIImage imageNamed:@"tap-edit-text.png"];
-            } else {
-                backgroundImageView.image = nil;
-            }
+            backgroundImageView.image = nil;
         }
         
     } completion:nil];
@@ -370,24 +359,22 @@
     
     if (inEditMode) {
         
-        [self launchLongPressActionSheet];
+        [self launchEditModeLongPressActionSheet];
         
     } else {
         
         if ([self.delegate respondsToSelector:@selector(WillEnterInEditMode)]) {
             
             [self.delegate WillEnterInEditMode];
-            [self launchLongPressActionSheet];
-#warning Finish this edit thing
-            
+            [self launchNonEditModeLongPressActionSheet];
         }
         
     }
 }
 
--(void)launchLongPressActionSheet {
+-(void)launchEditModeLongPressActionSheet {
     
-    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete page" otherButtonTitles:@[@"Add new page", @"Add images", @"Add text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Page" otherButtonTitles:@[@"Add New Page", @"Add Images", @"Add Text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         
         switch (buttonIndex) {
                 
@@ -418,6 +405,55 @@
                 
             case 4: {
                 //Cancel
+                break;
+            }
+                
+            default:
+                break;
+        }
+    }];
+}
+
+-(void)launchNonEditModeLongPressActionSheet {
+    
+    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Page" otherButtonTitles:@[@"Add New Page", @"Add Images", @"Add Text", @"Edit"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+        
+        switch (buttonIndex) {
+                
+            case 0: {
+                if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
+                    [self.delegate didSelectDeletePage];
+                }
+                break;
+            }
+                
+            case 1: {
+                if ([self.delegate respondsToSelector:@selector(didSelectCreateNewPage)]) {
+                    [self.delegate didSelectCreateNewPage];
+                }
+                break;
+            }
+                
+            case 2: {
+                [self launchAssetPicker];
+                break;
+            }
+                
+            case 3: {
+                puts("Text");
+                break;
+            }
+                
+            case 4: {
+                //Do nothing
+                break;
+            }
+                
+                
+            case 5: {
+                if ([self.delegate respondsToSelector:@selector(willLeaveEditMode)]) {
+                    [self.delegate willLeaveEditMode];
+                }
                 break;
             }
                 

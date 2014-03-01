@@ -86,20 +86,15 @@
 
 -(void)setReadOnlyBarButtonItems {
     
-    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed)];
-    [self.navigationItem setRightBarButtonItem:item animated:YES];
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
     
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
 }
 
--(void)donePressed {
-    
-    [self setReadOnlyBarButtonItems];
-    inEditMode = NO;
+-(void)saveCurrentPage {
     
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
-    [apvc enableEditMode:inEditMode];
     [apvc commitChanges];
     
     //Figure out if we need to show the spinner
@@ -130,6 +125,17 @@
         }
         
     }];
+}
+
+-(void)donePressed {
+    
+    [self setReadOnlyBarButtonItems];
+    inEditMode = NO;
+    
+    AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
+    [apvc enableEditMode:inEditMode];
+    
+    [self saveCurrentPage];
 }
 
 -(void)cancelPressed {
@@ -254,15 +260,18 @@
     }];
 }
 
+//TODO: Add new page at correct index
 -(void)didSelectCreateNewPage {
     
-    [self donePressed];
+    [self saveCurrentPage];
     
     DAPage * page = [[DAPage alloc] init];
     self.album.pages = [self.album.pages arrayByAddingObject:page];
     
     NSArray * array = @[[self pageControllerAtIndex:(int)self.album.pages.count - 1]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+    
+    [self donePressed];
 }
 
 -(void)didSelectDeletePage {
@@ -284,6 +293,17 @@
     
     [[AlbumManager manager] deleteDiskDataOfPage:page inAlbum:self.album];
     [self donePressed];
+}
+
+-(void)WillEnterInEditMode {
+    
+    [self editPressed];
+    
+}
+
+-(void)willLeaveEditMode {
+    
+    [self cancelPressed];
 }
 
 #pragma mark - Memory

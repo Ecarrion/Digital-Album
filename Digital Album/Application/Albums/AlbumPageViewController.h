@@ -16,6 +16,7 @@
 -(void)didSelectCreateNewPage;
 -(void)didSelectDeletePage;
 -(void)WillEnterInEditMode;
+-(void)willLeaveEditMode;
 
 @end
 
