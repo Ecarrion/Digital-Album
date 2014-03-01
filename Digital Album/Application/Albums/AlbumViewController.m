@@ -265,10 +265,17 @@
     
     [self saveCurrentPage];
     
+    int newPageIndex = [self currentIndex] + 1;
     DAPage * page = [[DAPage alloc] init];
-    self.album.pages = [self.album.pages arrayByAddingObject:page];
+    NSMutableArray * pages = [self.album.pages mutableCopy];
     
-    NSArray * array = @[[self pageControllerAtIndex:(int)self.album.pages.count - 1]];
+    if (pages.count > newPageIndex)
+        [pages insertObject:page atIndex:newPageIndex];
+    else
+        [pages addObject:page];
+    self.album.pages = pages.copy;
+    
+    NSArray * array = @[[self pageControllerAtIndex:newPageIndex]];
     [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
     
     [self donePressed];
