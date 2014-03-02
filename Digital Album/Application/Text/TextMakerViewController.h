@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DAText.h"
+#import "DATextView.h"
 
-@interface TextMakerViewController : UIViewController
+@protocol TextMakerDelegate <NSObject>
+
+-(void)didFinishGeneratingText:(DAText *)text;
+
+@end
+
+@interface TextMakerViewController : UIViewController {
+    
+
+    __weak IBOutlet DATextView *textView;
+    __weak IBOutlet UIView *textViewHolder;
+    
+}
+
+@property (nonatomic, weak) id<TextMakerDelegate> delegate;
 
 @end

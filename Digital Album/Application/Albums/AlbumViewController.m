@@ -40,7 +40,6 @@
     [super viewDidLoad];
     
     self.title = self.album.name;
-    self.view.backgroundColor = [UIColor colorWithRed:209.0/255.0 green:195.0/255.0 blue:177.0/255.0 alpha:1];
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;

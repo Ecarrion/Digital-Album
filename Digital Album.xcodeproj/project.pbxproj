@@ -19,6 +19,7 @@
 		2602203718B41B9D00EBB269 /* AssetPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203518B41B9D00EBB269 /* AssetPickerViewController.xib */; };
 		2603B26B18C3BB6B0027CD5B /* TextMakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2603B26918C3BB6B0027CD5B /* TextMakerViewController.m */; };
 		2603B26C18C3BB6B0027CD5B /* TextMakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2603B26A18C3BB6B0027CD5B /* TextMakerViewController.xib */; };
+		2603B27018C3E15E0027CD5B /* DATextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2603B26F18C3E15E0027CD5B /* DATextView.m */; };
 		260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42AF18B2503300ABCC6A /* Foundation.framework */; };
 		260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B118B2503300ABCC6A /* CoreGraphics.framework */; };
 		260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B318B2503300ABCC6A /* UIKit.framework */; };
@@ -83,6 +84,8 @@
 		2603B26818C3BB6B0027CD5B /* TextMakerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextMakerViewController.h; path = "Digital Album/Application/Text/TextMakerViewController.h"; sourceTree = "<group>"; };
 		2603B26918C3BB6B0027CD5B /* TextMakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextMakerViewController.m; path = "Digital Album/Application/Text/TextMakerViewController.m"; sourceTree = "<group>"; };
 		2603B26A18C3BB6B0027CD5B /* TextMakerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextMakerViewController.xib; path = "Digital Album/Application/Text/TextMakerViewController.xib"; sourceTree = "<group>"; };
+		2603B26E18C3E15E0027CD5B /* DATextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DATextView.h; sourceTree = "<group>"; };
+		2603B26F18C3E15E0027CD5B /* DATextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DATextView.m; sourceTree = "<group>"; };
 		260B42AC18B2503300ABCC6A /* Digital Album.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Album.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		260B42AF18B2503300ABCC6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		260B42B118B2503300ABCC6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -353,6 +356,8 @@
 				267F102D18B51BB200922EBC /* AssetCell.h */,
 				267F102E18B51BB200922EBC /* AssetCell.m */,
 				267F103018B51BFC00922EBC /* AssetCell.xib */,
+				2603B26E18C3E15E0027CD5B /* DATextView.h */,
+				2603B26F18C3E15E0027CD5B /* DATextView.m */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				260B430E18B27A4800ABCC6A /* AlbumViewController.m in Sources */,
+				2603B27018C3E15E0027CD5B /* DATextView.m in Sources */,
 				26A3CE5218BAC358006B02A9 /* DAPage.m in Sources */,
 				2603B26B18C3BB6B0027CD5B /* TextMakerViewController.m in Sources */,
 				2602202718B3C84300EBB269 /* UIImageView+AspectSize.m in Sources */,

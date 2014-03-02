@@ -7,6 +7,7 @@
 //
 
 #import "TextMakerViewController.h"
+#import <QuartzCore/QuartzCore.h>
 
 @interface TextMakerViewController ()
 
@@ -19,6 +20,10 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
+    
+        self.title = @"Add Text";
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(donePressed)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelPressed)];
     }
     return self;
 }
@@ -27,12 +32,59 @@
 {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    [textView becomeFirstResponder];
+    
+    //Border
+    UIColor * color = [UIColor colorWithPatternImage:[UIImage imageNamed:@"wood-texture-2.png"]];
+    textViewHolder.layer.borderWidth = 6;
+    textViewHolder.layer.borderColor = color.CGColor;
+    
+    //Shadown
+    textViewHolder.layer.shadowRadius = 5.f;
+    textViewHolder.layer.shadowOpacity = .9;
+    textViewHolder.layer.shadowOffset = CGSizeZero;
+    textViewHolder.layer.masksToBounds = NO;
+    
+    //Corner
+    textViewHolder.layer.cornerRadius = 6.f;
+    
+    //Placeholder
+    textView.placeholder = @" Type to add text";
 }
 
-- (void)didReceiveMemoryWarning
-{
+-(void)donePressed {
+    
+    //TODO: Create DAText Object
+    if ([self.delegate respondsToSelector:@selector(didFinishGeneratingText:)]) {
+        [self.delegate didFinishGeneratingText:nil];
+    }
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+-(void)cancelPressed {
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - memory
+
+- (void)didReceiveMemoryWarning {
+    
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    
+    if ([self isViewLoaded] && self.view.window == nil) {
+        
+        self.view = nil;
+    }
+    
+    if (![self isViewLoaded]) {
+        
+        //Clean outlets here
+    }
+    
+    //Clean rest of resources here eg:arrays, maps, dictionaries, etc
 }
 
 @end
