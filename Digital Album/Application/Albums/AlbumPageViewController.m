@@ -9,6 +9,7 @@
 #import "AlbumPageViewController.h"
 #import "UIImageView+AspectSize.h"
 #import "AssetPickerViewController.h"
+#import "TextMakerViewController.h"
 
 #import "UIView+GestureRecognizers.h"
 
@@ -236,7 +237,16 @@
     }
 }
 
-#pragma mark - Asset Picker delegate
+#pragma mark - Text Maker
+
+-(void)launchTextMaker {
+    
+    TextMakerViewController * tmvc = [[TextMakerViewController alloc] init];
+    UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:tmvc];
+    [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - Asset Picker
 
 -(void)launchAssetPicker {
     
@@ -250,13 +260,18 @@
     
     int lowerBound = -20;
     int upperBound = 20;
+    int lastAngle = 0;
+    int newAngle = 0;
     
     for (DAImage * image in images) {
         
-        int angle = lowerBound + arc4random() % (upperBound - lowerBound);
+        while (newAngle == lastAngle) {
+            newAngle = lowerBound + arc4random() % (upperBound - lowerBound);
+        }
+        lastAngle = newAngle;
         
         UIImageView * imgV = [self viewForImage:image];
-        imgV.transform = CGAffineTransformRotate(imgV.transform, angle * M_PI / 180.0);
+        imgV.transform = CGAffineTransformRotate(imgV.transform, (double)newAngle * M_PI / 180.0);
         [self setUpEditionImageGestureRecognizersToView:imgV];
         
         [self.canvas addSubview:imgV];
@@ -264,7 +279,6 @@
         [self.tempDAImages addObject:image];
         
         imgV.layer.zPosition = 100;
-
     }
     
     [self showBackgroundImageViewIfNecesary];
@@ -457,7 +471,7 @@
             }
                 
             case 3: {
-                puts("Text");
+                [self launchTextMaker];
                 break;
             }
                 
@@ -499,7 +513,7 @@
             }
                 
             case 3: {
-                puts("Text");
+                [self launchTextMaker];
                 break;
             }
                 

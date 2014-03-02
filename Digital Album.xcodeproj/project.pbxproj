@@ -17,6 +17,8 @@
 		2602203218B4069C00EBB269 /* CreateAlbumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203018B4069C00EBB269 /* CreateAlbumViewController.xib */; };
 		2602203618B41B9D00EBB269 /* AssetPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2602203418B41B9D00EBB269 /* AssetPickerViewController.m */; };
 		2602203718B41B9D00EBB269 /* AssetPickerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2602203518B41B9D00EBB269 /* AssetPickerViewController.xib */; };
+		2603B26B18C3BB6B0027CD5B /* TextMakerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2603B26918C3BB6B0027CD5B /* TextMakerViewController.m */; };
+		2603B26C18C3BB6B0027CD5B /* TextMakerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2603B26A18C3BB6B0027CD5B /* TextMakerViewController.xib */; };
 		260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42AF18B2503300ABCC6A /* Foundation.framework */; };
 		260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B118B2503300ABCC6A /* CoreGraphics.framework */; };
 		260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 260B42B318B2503300ABCC6A /* UIKit.framework */; };
@@ -78,6 +80,9 @@
 		2602203318B41B9D00EBB269 /* AssetPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AssetPickerViewController.h; path = "Digital Album/Application/Picker/AssetPickerViewController.h"; sourceTree = SOURCE_ROOT; };
 		2602203418B41B9D00EBB269 /* AssetPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AssetPickerViewController.m; path = "Digital Album/Application/Picker/AssetPickerViewController.m"; sourceTree = SOURCE_ROOT; };
 		2602203518B41B9D00EBB269 /* AssetPickerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AssetPickerViewController.xib; path = "Digital Album/Application/Picker/AssetPickerViewController.xib"; sourceTree = SOURCE_ROOT; };
+		2603B26818C3BB6B0027CD5B /* TextMakerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextMakerViewController.h; path = "Digital Album/Application/Text/TextMakerViewController.h"; sourceTree = "<group>"; };
+		2603B26918C3BB6B0027CD5B /* TextMakerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextMakerViewController.m; path = "Digital Album/Application/Text/TextMakerViewController.m"; sourceTree = "<group>"; };
+		2603B26A18C3BB6B0027CD5B /* TextMakerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextMakerViewController.xib; path = "Digital Album/Application/Text/TextMakerViewController.xib"; sourceTree = "<group>"; };
 		260B42AC18B2503300ABCC6A /* Digital Album.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Digital Album.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		260B42AF18B2503300ABCC6A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		260B42B118B2503300ABCC6A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -181,6 +186,17 @@
 			name = Picker;
 			sourceTree = "<group>";
 		};
+		2603B26D18C3BB740027CD5B /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				2603B26818C3BB6B0027CD5B /* TextMakerViewController.h */,
+				2603B26918C3BB6B0027CD5B /* TextMakerViewController.m */,
+				2603B26A18C3BB6B0027CD5B /* TextMakerViewController.xib */,
+			);
+			name = Text;
+			path = ../..;
+			sourceTree = "<group>";
+		};
 		260B42A318B2503300ABCC6A = {
 			isa = PBXGroup;
 			children = (
@@ -261,6 +277,7 @@
 				260B42E418B254FC00ABCC6A /* Utils */,
 				260B42DF18B254FC00ABCC6A /* Albums */,
 				2602203818B41BAC00EBB269 /* Picker */,
+				2603B26D18C3BB740027CD5B /* Text */,
 				2602201F18B3AFD900EBB269 /* Gallery */,
 				260B42E118B254FC00ABCC6A /* Models */,
 			);
@@ -444,6 +461,7 @@
 				262739EB18B3080900441831 /* Images.xcassets in Resources */,
 				2602203718B41B9D00EBB269 /* AssetPickerViewController.xib in Resources */,
 				267F103118B51BFC00922EBC /* AssetCell.xib in Resources */,
+				2603B26C18C3BB6B0027CD5B /* TextMakerViewController.xib in Resources */,
 				260B430F18B27A4800ABCC6A /* AlbumViewController.xib in Resources */,
 				2602201E18B3AFBD00EBB269 /* GalleryViewController.xib in Resources */,
 			);
@@ -499,6 +517,7 @@
 			files = (
 				260B430E18B27A4800ABCC6A /* AlbumViewController.m in Sources */,
 				26A3CE5218BAC358006B02A9 /* DAPage.m in Sources */,
+				2603B26B18C3BB6B0027CD5B /* TextMakerViewController.m in Sources */,
 				2602202718B3C84300EBB269 /* UIImageView+AspectSize.m in Sources */,
 				260B430018B2647700ABCC6A /* DAAlbum.m in Sources */,
 				26A3CE5B18BB21A2006B02A9 /* UIView+GestureRecognizers.m in Sources */,
