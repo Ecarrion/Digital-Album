@@ -118,22 +118,27 @@
 }
 
 #pragma mark - View Handling
-
+//TODO: COMMIT TEXTS
 
 -(void)commitChanges {
     
     [self.imageViews addObjectsFromArray:self.tempImageViews];
-    self.page.images = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
+    NSArray * allImages = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
+    NSMutableArray * newImages = [NSMutableArray array];
     
     [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
         
-        DAImage * image = self.page.images[idx];
-        image.viewCenter = imgV.center;
-        image.viewTransform = imgV.transform;
-        image.zPosition = [self.canvas.subviews indexOfObject:imgV];
-        
+        if (imgV.alpha > 0) {
+            
+            DAImage * image = allImages[idx];
+            image.viewCenter = imgV.center;
+            image.viewTransform = imgV.transform;
+            image.zPosition = [self.canvas.subviews indexOfObject:imgV];
+            [newImages addObject:image];
+        }
     }];
     
+    self.page.images = [newImages copy];
     [self.tempImageViews removeAllObjects];
     [self.tempDAImages removeAllObjects];
     
@@ -149,6 +154,7 @@
         imgV.center = image.viewCenter;
         imgV.transform = image.viewTransform;
         imgV.layer.zPosition = image.zPosition;
+        imgV.alpha = 1;
         
     }];
     
@@ -190,6 +196,35 @@
     view.layer.borderColor = color.CGColor;
     
     return view;
+}
+
+-(void)deleteImageForImageView:(UIImageView *)imageView {
+    
+    //Deletion of a saved image
+    NSUInteger index = [self.imageViews indexOfObject:imageView];
+    if (index != NSNotFound) {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            imageView.transform = CGAffineTransformScale(imageView.transform, 0.1, 0.1);
+        } completion:^(BOOL finished) {
+            imageView.transform = CGAffineTransformIdentity;
+            imageView.alpha = 0;
+        }];
+    }
+    
+    //Deletion of a temporal image
+    index = [self.tempImageViews indexOfObject:imageView];
+    if (index != NSNotFound) {
+        
+        [self.tempDAImages removeObjectAtIndex:index];
+        [self.tempImageViews removeObjectAtIndex:index];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            imageView.transform = CGAffineTransformScale(imageView.transform, 0.1, 0.1);
+        } completion:^(BOOL finished) {
+            [imageView removeFromSuperview];
+        }];
+    }
 }
 
 #pragma mark - Asset Picker delegate
@@ -359,7 +394,7 @@
     
     if (inEditMode) {
         
-        [self launchEditModeLongPressActionSheet];
+        [self launchEditModeLongPressActionSheet:gestureRecognizer];
         
     } else {
         
@@ -372,15 +407,29 @@
     }
 }
 
--(void)launchEditModeLongPressActionSheet {
+-(void)launchEditModeLongPressActionSheet:(UIGestureRecognizer *)recon {
     
-    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:@"Delete Page" otherButtonTitles:@[@"Add New Page", @"Add Images", @"Add Text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
+    BOOL deletePage = YES;
+    NSString * destructive = @"Delete Page";
+    
+    CGPoint point = [recon locationInView:self.canvas];
+    UIView * view = [self.canvas hitTest:point withEvent:nil];
+    if ([view isKindOfClass:[UIImageView class]]) {
+        deletePage = NO;
+        destructive = @"Delete Image";
+    }
+    
+    [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:destructive otherButtonTitles:@[@"Add New Page", @"Add Images", @"Add Text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         
         switch (buttonIndex) {
                 
             case 0: {
-                if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
-                    [self.delegate didSelectDeletePage];
+                if (deletePage) {
+                    if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
+                        [self.delegate didSelectDeletePage];
+                    }
+                } else {
+                    [self deleteImageForImageView:(UIImageView *)view];
                 }
                 break;
             }

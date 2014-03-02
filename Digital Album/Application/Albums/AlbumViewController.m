@@ -260,7 +260,6 @@
     }];
 }
 
-//TODO: Add new page at correct index
 -(void)didSelectCreateNewPage {
     
     [self saveCurrentPage];
