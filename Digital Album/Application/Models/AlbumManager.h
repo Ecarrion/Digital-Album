@@ -12,6 +12,8 @@
 
 @interface AlbumManager : NSObject
 
+@property (nonatomic, readonly) NSString * documentsDirectoryPath;
+
 +(AlbumManager *)manager;
 -(void)phoneAlbumsWithBlock:(void(^)(NSArray * albums, NSError * error))block;
 -(NSArray *)savedAlbums;

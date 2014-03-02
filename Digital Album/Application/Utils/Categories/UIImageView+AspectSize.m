@@ -35,9 +35,14 @@
 
 -(CGRect)contentModetRect {
     
-    CGSize scale = [self imageScale];
-    CGSize size = self.image.size;
-    return CGRectMake(0, 0, size.width * scale.width, size.height * scale.height);
+    if (self.image) {
+        
+        CGSize scale = [self imageScale];
+        CGSize size = self.image.size;
+        return CGRectMake(0, 0, size.width * scale.width, size.height * scale.height);
+    }
+    
+    return self.bounds;
 }
 
 @end

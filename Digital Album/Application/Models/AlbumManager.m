@@ -14,7 +14,6 @@
 @interface AlbumManager ()
 
 @property (nonatomic, strong) ALAssetsLibrary * lib;
-@property (nonatomic, strong) NSString * documentsDirectoryPath;
 @end
 
 @implementation AlbumManager
@@ -37,7 +36,7 @@
         
         NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
         NSString * basePath = ([paths count] > 0) ? [paths objectAtIndex:0] : nil;
-        self.documentsDirectoryPath = basePath;
+        _documentsDirectoryPath = basePath;
     }
     return self;
 }
@@ -198,7 +197,7 @@
         
         image.modifiedImage = nil;
         image.localAsset = nil;
-        image.imagePath = imagePath;
+        image.imagePath = [imagePath stringByReplacingOccurrencesOfString:self.documentsDirectoryPath withString:@""];
         
     }
     

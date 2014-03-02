@@ -128,7 +128,8 @@
         
     } else if (self.imagePath) {
         
-        NSData * data = [NSData dataWithContentsOfFile:self.imagePath];
+        NSString * fullPath = [[AlbumManager manager].documentsDirectoryPath stringByAppendingPathComponent:self.imagePath];
+        NSData * data = [NSData dataWithContentsOfFile:fullPath];
         image = [[UIImage alloc] initWithData:data scale:1];
     }
     
