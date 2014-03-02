@@ -142,7 +142,7 @@
             DAImage * image = allImages[idx];
             [imagesToDelete addObject:image];
             [imgV removeFromSuperview];
-            [self.imageViews removeObjectAtIndex:idx];
+            [self.imageViews removeObject:imgV];
         }
     }];
     
