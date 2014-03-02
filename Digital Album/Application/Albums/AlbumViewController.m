@@ -92,10 +92,15 @@
     [self.navigationItem setHidesBackButton:NO animated:YES];
 }
 
--(void)saveCurrentPage {
+-(void)saveCurrentPageOnCompletion:(void(^)(BOOL success))block {
     
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
-    [apvc commitChanges];
+    NSArray * imagesToDelete = [apvc commitChanges];
+    
+    //Delete Images
+    for (DAImage * image in imagesToDelete) {
+        [[AlbumManager manager] deleteDiskDataOfImage:image];
+    }
     
     //Figure out if we need to show the spinner
     //Only show it if there are images to copy to disk
@@ -118,10 +123,16 @@
     [[AlbumManager manager] saveAlbum:self.album onCompletion:^(BOOL success) {
         [SVProgressHUD dismiss];
         
+#ifdef DEBUG
         if (success) {
             puts("Album save");
         } else {
             puts("Album not saved");
+        }
+#endif
+        
+        if (block) {
+            block(success);
         }
         
     }];
@@ -135,7 +146,7 @@
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
     [apvc enableEditMode:inEditMode];
     
-    [self saveCurrentPage];
+    [self saveCurrentPageOnCompletion:nil];
 }
 
 -(void)cancelPressed {
@@ -262,22 +273,24 @@
 
 -(void)didSelectCreateNewPage {
     
-    [self saveCurrentPage];
-    
-    int newPageIndex = [self currentIndex] + 1;
-    DAPage * page = [[DAPage alloc] init];
-    NSMutableArray * pages = [self.album.pages mutableCopy];
-    
-    if (pages.count > newPageIndex)
-        [pages insertObject:page atIndex:newPageIndex];
-    else
-        [pages addObject:page];
-    self.album.pages = pages.copy;
-    
-    NSArray * array = @[[self pageControllerAtIndex:newPageIndex]];
-    [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
-    
-    [self donePressed];
+    [self saveCurrentPageOnCompletion:^(BOOL success) {
+        
+        int newPageIndex = [self currentIndex] + 1;
+        DAPage * page = [[DAPage alloc] init];
+        NSMutableArray * pages = [self.album.pages mutableCopy];
+        
+        if (pages.count > newPageIndex)
+            [pages insertObject:page atIndex:newPageIndex];
+        else
+            [pages addObject:page];
+        self.album.pages = pages.copy;
+        
+        NSArray * array = @[[self pageControllerAtIndex:newPageIndex]];
+        [self.pageViewController setViewControllers:array direction:UIPageViewControllerNavigationDirectionForward animated:YES completion:nil];
+        
+        [self donePressed];
+        
+    }];
 }
 
 -(void)didSelectDeletePage {

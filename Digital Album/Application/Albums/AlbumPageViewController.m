@@ -120,13 +120,14 @@
 #pragma mark - View Handling
 //TODO: COMMIT TEXTS
 
--(void)commitChanges {
+-(NSArray *)commitChanges {
     
     [self.imageViews addObjectsFromArray:self.tempImageViews];
     NSArray * allImages = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
     NSMutableArray * newImages = [NSMutableArray array];
+    NSMutableArray * imagesToDelete = [NSMutableArray array];
     
-    [self.imageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
+    [self.imageViews.copy enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
         
         if (imgV.alpha > 0) {
             
@@ -135,6 +136,13 @@
             image.viewTransform = imgV.transform;
             image.zPosition = [self.canvas.subviews indexOfObject:imgV];
             [newImages addObject:image];
+            
+        } else {
+            
+            DAImage * image = allImages[idx];
+            [imagesToDelete addObject:image];
+            [imgV removeFromSuperview];
+            [self.imageViews removeObjectAtIndex:idx];
         }
     }];
     
@@ -144,6 +152,7 @@
     
     [self showBackgroundImageViewIfNecesary];
     
+    return imagesToDelete.copy;
 }
 
 -(void)disregardChanges {
@@ -429,6 +438,7 @@
                         [self.delegate didSelectDeletePage];
                     }
                 } else {
+                    
                     [self deleteImageForImageView:(UIImageView *)view];
                 }
                 break;

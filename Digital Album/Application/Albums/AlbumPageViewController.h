@@ -33,7 +33,8 @@
 -(id)initWithPage:(DAPage *)page;
 -(void)enableEditMode:(BOOL)edit;
 
--(void)commitChanges;
+//These method will return a lit of deleted images
+-(NSArray *)commitChanges;
 -(void)redrawView;
 -(void)disregardChanges;
 
