@@ -8,6 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DAText : NSObject
+@interface DAText : NSObject <NSCoding>
+
+//Digital Album Image
+@property (nonatomic, strong) NSString * text;
+
+@property (nonatomic, assign) CGAffineTransform viewTransform;
+@property (nonatomic, assign) CGRect viewFrame;
+@property (nonatomic, assign) NSInteger zPosition;
+
 
 @end

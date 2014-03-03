@@ -54,12 +54,29 @@
     textView.placeholder = @" Type to add text";
 }
 
+-(DAText *)textObject {
+    
+    DAText * text = [[DAText alloc] init];
+    text.text = textView.text;
+    
+    CGSize size = [text.text sizeWithAttributes:@{NSFontAttributeName:textView.font}];
+    text.viewFrame = CGRectMake(0, 0, size.width, size.height);
+    text.zPosition = 200;
+    
+    return text;
+}
+
 -(void)donePressed {
     
-    //TODO: Create DAText Object
-    if ([self.delegate respondsToSelector:@selector(didFinishGeneratingText:)]) {
-        [self.delegate didFinishGeneratingText:nil];
+    if (textView.text.length > 0) {
+        
+        DAText * text = [self textObject];
+        if ([self.delegate respondsToSelector:@selector(didFinishGeneratingText:)]) {
+            [self.delegate didFinishGeneratingText:text];
+        }
+        
     }
+    
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 

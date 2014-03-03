@@ -13,7 +13,7 @@
 
 #import "UIView+GestureRecognizers.h"
 
-@interface AlbumPageViewController () <UIGestureRecognizerDelegate, AssetPickerDelegate> {
+@interface AlbumPageViewController () <UIGestureRecognizerDelegate, AssetPickerDelegate, TextMakerDelegate> {
     
     BOOL inEditMode;
 }
@@ -208,6 +208,27 @@
     return view;
 }
 
+-(UILabel *)viewForText:(DAText *)text firstTime:(BOOL)firstTime {
+    
+    UILabel * view = [[UILabel alloc] initWithFrame:text.viewFrame];
+    view.text = text.text;
+    view.numberOfLines = 0;
+    view.layer.allowsEdgeAntialiasing = YES;
+    view.userInteractionEnabled = YES;
+    view.transform = text.viewTransform;
+    view.font = DEFAULT_DATEXT_FONT;
+    view.textColor = DEFAULT_DATEXT_COLOR;
+    view.layer.zPosition = text.zPosition;
+    view.textAlignment = NSTextAlignmentCenter;
+    
+    if (firstTime) {
+        CGSize  superSize = self.view.frame.size;
+        view.center = CGPointMake(superSize.width / 2.0, superSize.height / 2.0);
+    }
+    
+    return view;
+}
+
 -(void)deleteImageForImageView:(UIImageView *)imageView {
     
     //Deletion of a saved image
@@ -242,8 +263,19 @@
 -(void)launchTextMaker {
     
     TextMakerViewController * tmvc = [[TextMakerViewController alloc] init];
+    tmvc.delegate = self;
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:tmvc];
     [self.navigationController presentViewController:nav animated:YES completion:nil];
+}
+
+-(void)didFinishGeneratingText:(DAText *)text {
+    
+    UILabel * view = [self viewForText:text firstTime:YES];
+    [self.canvas addSubview:view];
+    [self setUpEditionImageGestureRecognizersToView:view];
+    
+    [self showBackgroundImageViewIfNecesary];
+    
 }
 
 #pragma mark - Asset Picker
@@ -319,7 +351,6 @@
 
 -(void)setUpEditionImageGestureRecognizersToView:(UIView *)view {
     
-    
     if (view.gestureRecognizers.count == 0) {
         
         UIPinchGestureRecognizer *pinchRecognizer = [[UIPinchGestureRecognizer alloc] initWithTarget:self action:@selector(scale:)];
@@ -360,7 +391,21 @@
     
     UIView * view = gestureRecognizer.view;
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
         view.lastScale = 1.0;
+        view.layer.zPosition = 100;
+        
+        if ([view isKindOfClass:[UILabel class]]) {
+            
+            view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+            view.layer.zPosition = 100;
+        }
+    }
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            view.backgroundColor = [UIColor clearColor];
+        }
     }
     
     CGFloat scale = 1.0 - (view.lastScale - [gestureRecognizer scale]);
@@ -376,7 +421,22 @@
 -(void)rotate:(UIRotationGestureRecognizer *)gestureRecognizer {
     
     UIView * view = gestureRecognizer.view;
+    
+    if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
+        view.layer.zPosition = 100;
+        if ([view isKindOfClass:[UILabel class]]) {
+            
+            view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+            view.layer.zPosition = 200;
+        }
+    }
+    
     if([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+     
+        if ([view isKindOfClass:[UILabel class]]) {
+            view.backgroundColor = [UIColor clearColor];
+        }
         
         view.lastRotation = 0.0;
         return;
@@ -399,10 +459,23 @@
     UIView * view = gestureRecognizer.view;
     
     if([gestureRecognizer state] == UIGestureRecognizerStateBegan) {
+        
         view.firstX = [view center].x;
         view.firstY = [view center].y;
         [self.canvas bringSubviewToFront:view];
         view.layer.zPosition = 100;
+        
+        if ([view isKindOfClass:[UILabel class]]) {
+            
+            view.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+            view.layer.zPosition = 200;
+        }
+    }
+    
+    if ([gestureRecognizer state] == UIGestureRecognizerStateEnded) {
+        if ([view isKindOfClass:[UILabel class]]) {
+            view.backgroundColor = [UIColor clearColor];
+        }
     }
     
     translatedPoint = CGPointMake(view.firstX + translatedPoint.x, view.firstY + translatedPoint.y);
