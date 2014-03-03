@@ -90,7 +90,7 @@
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
     
-    NSLog(@"Error add %@", error);
+    //NSLog(@"Error add %@", error);
     [view  loadRequest:[GADRequest request]];
 }
 

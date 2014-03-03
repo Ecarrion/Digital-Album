@@ -184,7 +184,7 @@
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [SVProgressHUD dismiss];
         
-        UIGraphicsBeginImageContextWithOptions(viewMainHolder.frame.size, NO, 1);
+        UIGraphicsBeginImageContextWithOptions(viewMainHolder.frame.size, NO, 4);
         [viewMainHolder drawViewHierarchyInRect:viewMainHolder.bounds afterScreenUpdates:NO];
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
