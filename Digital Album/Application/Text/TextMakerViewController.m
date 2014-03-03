@@ -94,7 +94,7 @@
         [bannerView removeFromSuperview];
         bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
         CGRect frame = bannerView.frame;
-        frame.origin.y = self.view.frame.size.height - frame.size.height;
+        frame.origin.y = self.view.frame.size.height - 248;
         bannerView.frame = frame;
         
         // Specify the ad unit ID.
@@ -103,7 +103,7 @@
         // Let the runtime know which UIViewController to restore after taking
         // the user wherever the ad goes and add it to the view hierarchy.
         bannerView.rootViewController = self;
-        [textView setInputAccessoryView:bannerView];
+        [self.view addSubview:bannerView];
         
         // Initiate a generic request to load it with an ad.
         [bannerView loadRequest:[GADRequest request]];
