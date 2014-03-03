@@ -23,6 +23,7 @@
     #import <UIActionSheet+Blocks.h>
     #import <GAI.h>
     #import <GAIDictionaryBuilder.h>
+    #import "AppDelegate.h"
 #endif
 
 

@@ -63,6 +63,7 @@
     longPressRecon.delaysTouchesBegan = YES;
     longPressRecon.minimumPressDuration = 0.5;
     [albumsCollectionView addGestureRecognizer:longPressRecon];
+    
     [self createBanner];
     
 }
@@ -77,6 +78,7 @@
     
     [bannerView removeFromSuperview];
     bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    bannerView.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
     CGRect frame = bannerView.frame;
     frame.origin.y = self.view.frame.size.height - frame.size.height;
     bannerView.frame = frame;

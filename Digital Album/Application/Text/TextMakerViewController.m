@@ -57,6 +57,8 @@
     
     //Placeholder
     textView.placeholder = @" Type to add text";
+    
+    [self createBanner];
 }
 
 -(DAText *)textObject {
@@ -94,6 +96,7 @@
     
         [bannerView removeFromSuperview];
         bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        bannerView.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
         CGRect frame = bannerView.frame;
         frame.origin.y = self.view.frame.size.height - 248;
         bannerView.frame = frame;
@@ -104,7 +107,7 @@
         // Let the runtime know which UIViewController to restore after taking
         // the user wherever the ad goes and add it to the view hierarchy.
         bannerView.rootViewController = self;
-        [self.view addSubview:bannerView];
+        [textView setInputAccessoryView:bannerView];
         
         // Initiate a generic request to load it with an ad.
         [bannerView loadRequest:[GADRequest request]];

@@ -9,10 +9,17 @@
 #import "AppDelegate.h"
 #import "AlbumsViewController.h"
 #import <GADRequest.h>
+#import <GADBannerView.h>
+
 
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+#ifdef DEBUG
+    [GADRequest request].testDevices = @[GAD_SIMULATOR_ID];
+    [[GAI sharedInstance] setDryRun:YES];
+#endif
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -33,11 +40,6 @@
     [GAI sharedInstance].dispatchInterval = 120;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
     [[GAI sharedInstance] trackerWithTrackingId:@"UA-4850795-4"];
-    
-#ifdef DEBUG
-    [GADRequest request].testDevices = @[GAD_SIMULATOR_ID];
-    [[GAI sharedInstance] setDryRun:YES];
-#endif
     
     return YES;
 }
@@ -82,6 +84,35 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+#pragma mark - GAD Delegate 
+
+- (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
+    
+    NSLog(@"Error add %@", error);
+    [view  loadRequest:[GADRequest request]];
+}
+
+#pragma mark Click-Time Lifecycle Notifications
+
+
+- (void)adViewWillPresentScreen:(GADBannerView *)adView {
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Ads"     // Event category (required)
+                                                          action:@"Add Taped"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
+}
+
+- (void)adViewWillLeaveApplication:(GADBannerView *)adView {
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Ads"     // Event category (required)
+                                                          action:@"Add to outside the app"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
 }
 
 @end
