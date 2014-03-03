@@ -39,7 +39,7 @@
     [GAI sharedInstance].trackUncaughtExceptions = YES;
     [GAI sharedInstance].dispatchInterval = 120;
     [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
-    [[GAI sharedInstance] trackerWithTrackingId:@"UA-4850795-4"];
+    [[GAI sharedInstance] trackerWithTrackingId:GOOGLE_ANALYTICS_ID];
     
     return YES;
 }
@@ -90,7 +90,7 @@
 
 - (void)adView:(GADBannerView *)view didFailToReceiveAdWithError:(GADRequestError *)error {
     
-    NSLog(@"Error add %@", error);
+    //NSLog(@"Error add %@", error);
     [view  loadRequest:[GADRequest request]];
 }
 

@@ -97,9 +97,6 @@
         [bannerView removeFromSuperview];
         bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
         bannerView.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-        CGRect frame = bannerView.frame;
-        frame.origin.y = self.view.frame.size.height - 248;
-        bannerView.frame = frame;
         
         // Specify the ad unit ID.
         bannerView.adUnitID = ADD_TEXT_BANNER_UNIT_ID;

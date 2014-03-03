@@ -11,8 +11,13 @@
 #import "GalleryCell.h"
 #import "GalleryFlowLayout.h"
 
+#import <Google-AdMob-Ads-SDK/GADBannerView.h>
 
-@interface GalleryViewController ()
+
+@interface GalleryViewController () {
+    
+    GADBannerView * bannerView;
+}
 
 @property (nonatomic, strong) NSArray * images;
 
@@ -43,6 +48,8 @@
     UITapGestureRecognizer * gestureR = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toggleNavControls)];
     gestureR.numberOfTapsRequired = 1;
     [self.view addGestureRecognizer:gestureR];
+    
+    [self createBanner];
 }
 
 -(void)viewWillAppear:(BOOL)animated {
@@ -65,6 +72,31 @@
     [super viewWillDisappear:animated];
     [self hideNavControls:NO];
 }
+
+-(void)createBanner {
+    
+    if ([[UIScreen mainScreen] bounds].size.height >= 568) {
+        
+        [bannerView removeFromSuperview];
+        bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+        bannerView.delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+        CGRect frame = bannerView.frame;
+        frame.origin.y = self.view.frame.size.height - frame.size.height;
+        bannerView.frame = frame;
+        
+        // Specify the ad unit ID.
+        bannerView.adUnitID = GALLERY_BANNER_UNIT_ID;
+        
+        // Let the runtime know which UIViewController to restore after taking
+        // the user wherever the ad goes and add it to the view hierarchy.
+        bannerView.rootViewController = self;
+        [self.view addSubview:bannerView];
+        
+        // Initiate a generic request to load it with an ad.
+        [bannerView loadRequest:[GADRequest request]];
+    }
+}
+
 
 #pragma mark - CollectionView
 
@@ -100,6 +132,13 @@
     
     [self.navigationController setNavigationBarHidden:hidden animated:YES];
     [[UIApplication sharedApplication] setStatusBarHidden:hidden withAnimation:UIStatusBarAnimationSlide];
+    
+    CGRect frame = bannerView.frame;
+    frame.origin.y = hidden ? self.view.frame.size.height : self.view.frame.size.height - frame.size.height;
+    [UIView animateWithDuration:0.25 animations:^{
+        bannerView.frame = frame;
+    }];
+    
 }
 
 
