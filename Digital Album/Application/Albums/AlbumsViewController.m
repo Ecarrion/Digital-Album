@@ -9,11 +9,15 @@
 #import "AlbumsViewController.h"
 #import "AlbumViewController.h"
 #import "CreateAlbumViewController.h"
+#import <Google-AdMob-Ads-SDK/GADBannerView.h>
 
 #import "AlbumCell.h"
 #import "AlbumManager.h"
 
-@interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CreateAlbumDelegate>
+@interface AlbumsViewController () <UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, CreateAlbumDelegate> {
+    
+    GADBannerView * bannerView;
+}
 
 @property (nonatomic, strong) NSArray * albums;
 @property (nonatomic, strong) NSArray * covers;
@@ -58,6 +62,7 @@
     longPressRecon.delaysTouchesBegan = YES;
     longPressRecon.minimumPressDuration = 0.5;
     [albumsCollectionView addGestureRecognizer:longPressRecon];
+    [self createBanner];
     
 }
 
@@ -65,6 +70,26 @@
     
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
+-(void)createBanner {
+    
+    [bannerView removeFromSuperview];
+    bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    CGRect frame = bannerView.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    bannerView.frame = frame;
+    
+    // Specify the ad unit ID.
+    bannerView.adUnitID = ALBUMS_BANNER_UNIT_ID;
+    
+    // Let the runtime know which UIViewController to restore after taking
+    // the user wherever the ad goes and add it to the view hierarchy.
+    bannerView.rootViewController = self;
+    [self.view addSubview:bannerView];
+    
+    // Initiate a generic request to load it with an ad.
+    [bannerView loadRequest:[GADRequest request]];
 }
 
 

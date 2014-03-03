@@ -9,7 +9,6 @@
 #import "AlbumViewController.h"
 #import "AlbumPageViewController.h"
 #import "GalleryViewController.h"
-
 #import "AlbumManager.h"
 
 @interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AlbumPageDelegate> {

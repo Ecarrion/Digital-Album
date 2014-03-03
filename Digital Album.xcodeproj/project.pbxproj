@@ -42,6 +42,7 @@
 		260B431318B27DE400ABCC6A /* AlbumPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 260B431118B27DE400ABCC6A /* AlbumPageViewController.m */; };
 		260B431418B27DE400ABCC6A /* AlbumPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */; };
 		262739EB18B3080900441831 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 262739EA18B3080900441831 /* Images.xcassets */; };
+		2663B46518C4ECE00072C7EA /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2663B46418C4ECE00072C7EA /* StoreKit.framework */; };
 		267F102F18B51BB200922EBC /* AssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 267F102E18B51BB200922EBC /* AssetCell.m */; };
 		267F103118B51BFC00922EBC /* AssetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 267F103018B51BFC00922EBC /* AssetCell.xib */; };
 		269DBBA818B52D58003E8703 /* AlbumCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 269DBBA718B52D58003E8703 /* AlbumCell.xib */; };
@@ -120,6 +121,7 @@
 		260B431118B27DE400ABCC6A /* AlbumPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumPageViewController.m; sourceTree = "<group>"; };
 		260B431218B27DE400ABCC6A /* AlbumPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlbumPageViewController.xib; sourceTree = "<group>"; };
 		262739EA18B3080900441831 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		2663B46418C4ECE00072C7EA /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		267F102D18B51BB200922EBC /* AssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssetCell.h; sourceTree = "<group>"; };
 		267F102E18B51BB200922EBC /* AssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssetCell.m; sourceTree = "<group>"; };
 		267F103018B51BFC00922EBC /* AssetCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AssetCell.xib; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2663B46518C4ECE00072C7EA /* StoreKit.framework in Frameworks */,
 				260B42B218B2503300ABCC6A /* CoreGraphics.framework in Frameworks */,
 				260B42B418B2503300ABCC6A /* UIKit.framework in Frameworks */,
 				260B42B018B2503300ABCC6A /* Foundation.framework in Frameworks */,
@@ -223,6 +226,7 @@
 		260B42AE18B2503300ABCC6A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2663B46418C4ECE00072C7EA /* StoreKit.framework */,
 				260B42FC18B260E700ABCC6A /* CoreLocation.framework */,
 				260B42AF18B2503300ABCC6A /* Foundation.framework */,
 				260B42B118B2503300ABCC6A /* CoreGraphics.framework */,

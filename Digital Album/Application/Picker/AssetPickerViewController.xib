@@ -19,6 +19,7 @@
                 <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="none" id="tBq-iy-Kj9">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <inset key="contentInset" minX="0.0" minY="0.0" maxX="0.0" maxY="50"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="Crv-5M-Y48">
                         <size key="itemSize" width="100" height="100"/>
                         <size key="headerReferenceSize" width="0.0" height="0.0"/>

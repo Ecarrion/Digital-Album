@@ -12,6 +12,9 @@
 
 #define COVERS() @[@"black-cover.png", @"wood-cover.png", @"darkBlue-cover.png", @"lightBlue-cover.png", @"green-cover.png", @"purple-cover.png", @"red-cover.png"]
 #define APP_STORE_URL_STRING @"http://goo.gl/uZhhN4"
+#define ALBUMS_BANNER_UNIT_ID @"ca-app-pub-4837743190127716/3617911982"
+#define SELECT_IMAGES_BANNER_UNIT_ID @"ca-app-pub-4837743190127716/7629309184"
+#define ADD_TEXT_BANNER_UNIT_ID @"ca-app-pub-4837743190127716/9106042382"
 
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>

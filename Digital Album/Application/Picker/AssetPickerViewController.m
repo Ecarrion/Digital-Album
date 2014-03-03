@@ -8,13 +8,17 @@
 
 #import "AssetPickerViewController.h"
 #import "SelectAlbumViewController.h"
+#import <Google-AdMob-Ads-SDK/GADBannerView.h>
 
 #import "AssetCell.h"
 
 #import "AlbumManager.h"
 #import "DAAlbum.h"
 
-@interface AssetPickerViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SelectAlbumDelegate>
+@interface AssetPickerViewController () <UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, SelectAlbumDelegate> {
+    
+    GADBannerView * bannerView;
+}
 
 @property (nonatomic, strong) DAPhoneAlbum * selectedAlbum;
 @property (nonatomic, strong) SelectAlbumViewController * albumController;
@@ -60,7 +64,30 @@
             [self setTitleButtonViewText];
         }
     }];
+    
+    [self createBanner];
 }
+
+-(void)createBanner {
+    
+    [bannerView removeFromSuperview];
+    bannerView = [[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner];
+    CGRect frame = bannerView.frame;
+    frame.origin.y = self.view.frame.size.height - frame.size.height;
+    bannerView.frame = frame;
+    
+    // Specify the ad unit ID.
+    bannerView.adUnitID = SELECT_IMAGES_BANNER_UNIT_ID;
+    
+    // Let the runtime know which UIViewController to restore after taking
+    // the user wherever the ad goes and add it to the view hierarchy.
+    bannerView.rootViewController = self;
+    [self.view addSubview:bannerView];
+    
+    // Initiate a generic request to load it with an ad.
+    [bannerView loadRequest:[GADRequest request]];
+}
+
 
 -(void)setTitleButtonViewText {
     

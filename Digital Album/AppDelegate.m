@@ -8,11 +8,11 @@
 
 #import "AppDelegate.h"
 #import "AlbumsViewController.h"
+#import <GADRequest.h>
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[UIApplication sharedApplication] setStatusBarHidden:NO];
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
@@ -26,6 +26,9 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    //Tests Ads
+    [GADRequest request].testDevices = @[GAD_SIMULATOR_ID];
     
     return YES;
 }
