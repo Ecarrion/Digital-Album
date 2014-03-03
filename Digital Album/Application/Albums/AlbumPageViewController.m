@@ -330,7 +330,7 @@
     }
     
     //Deletion of a temporal text
-    index = [self.tempDATexts indexOfObject:view];
+    index = [self.tempLabels indexOfObject:view];
     if (index != NSNotFound) {
         
         [self.tempDATexts removeObjectAtIndex:index];
