@@ -4,3 +4,4 @@ inhibit_all_warnings!
 pod 'SVProgressHUD', '~> 1.0'
 pod 'UIActionSheet+Blocks', '~> 0.8'
 pod 'Google-AdMob-Ads-SDK', '~> 6.8'
+pod 'GoogleAnalytics-iOS-SDK', '~> 3.0'
