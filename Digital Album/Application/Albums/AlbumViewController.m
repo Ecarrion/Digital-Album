@@ -14,6 +14,7 @@
 
 @interface AlbumViewController () <UIPageViewControllerDataSource, UIPageViewControllerDelegate, AlbumPageDelegate> {
     
+    __weak IBOutlet UIView *viewMainHolder;
     __weak IBOutlet UIView *pageControlerHolder;
     BOOL inEditMode;
 }
@@ -47,7 +48,7 @@
     [self removePageTapGestureRecognizer];
     
     [self addChildViewController:self.pageViewController];
-    [self.view addSubview:self.pageViewController.view];
+    [viewMainHolder addSubview:self.pageViewController.view];
     [self.pageViewController didMoveToParentViewController:self];
     [pageControlerHolder removeFromSuperview];
     pageControlerHolder = nil;
@@ -178,8 +179,22 @@
 
 -(void)sharedPressed {
     
-    UIActivityViewController * avc = [[UIActivityViewController alloc] init];
-    [self presentViewController:avc animated:YES completion:nil];
+    [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [SVProgressHUD dismiss];
+        
+        UIGraphicsBeginImageContextWithOptions(viewMainHolder.frame.size, NO, 1);
+        [viewMainHolder drawViewHierarchyInRect:viewMainHolder.bounds afterScreenUpdates:NO];
+        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+        UIGraphicsEndImageContext();
+        
+        NSString * description = [NSString stringWithFormat:@"Make your own Digital Albums! - %@", APP_STORE_URL_STRING];
+        NSArray * content = @[description, image];
+        
+        UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:content applicationActivities:nil];
+        [self presentViewController:avc animated:YES completion:nil];
+    });
 }
 
 #pragma mark - PageViewController
