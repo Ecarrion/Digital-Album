@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AlbumsViewController : UIViewController {
+@interface AlbumsViewController : GAITrackedViewController {
     
     
     __weak IBOutlet UICollectionView *albumsCollectionView;

@@ -21,6 +21,8 @@
     #import <Foundation/Foundation.h>
     #import <SVProgressHUD/SVProgressHUD.h>
     #import <UIActionSheet+Blocks.h>
+    #import <GAI.h>
+    #import <GAIDictionaryBuilder.h>
 #endif
 
 

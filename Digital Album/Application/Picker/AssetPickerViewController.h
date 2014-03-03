@@ -16,7 +16,7 @@
 
 @end
 
-@interface AssetPickerViewController : UIViewController {
+@interface AssetPickerViewController : GAITrackedViewController {
     
     __weak IBOutlet UICollectionView *imagesCollectionView;
     IBOutlet UIButton *titleButtonView;

@@ -20,7 +20,7 @@
 
 @end
 
-@interface TextMakerViewController : UIViewController {
+@interface TextMakerViewController : GAITrackedViewController {
     
 
     __weak IBOutlet DATextView *textView;

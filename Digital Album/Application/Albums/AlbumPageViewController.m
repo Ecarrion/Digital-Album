@@ -365,6 +365,12 @@
     
     [self showBackgroundImageViewIfNecesary];
     
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Creation"     // Event category (required)
+                                                          action:@"Text added"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
+    
 }
 
 #pragma mark - Asset Picker
@@ -404,6 +410,12 @@
     
     [self showBackgroundImageViewIfNecesary];
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Creation"     // Event category (required)
+                                                          action:@"Images added"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
 }
 
 #pragma mark - Gestures Recognizers

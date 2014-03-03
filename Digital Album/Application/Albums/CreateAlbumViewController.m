@@ -31,6 +31,7 @@
     if (self) {
         
         self.title = @"New Album";
+        self.screenName = @"New Album Screen";
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Cancel" style:UIBarButtonItemStylePlain target:self action:@selector(cancelPressed)];
         self.navigationItem.leftBarButtonItem = item;

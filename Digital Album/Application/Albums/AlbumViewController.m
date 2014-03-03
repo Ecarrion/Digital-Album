@@ -40,6 +40,7 @@
     [super viewDidLoad];
     
     self.title = self.album.name;
+    self.screenName = @"Album Screen";
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStylePageCurl navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:nil];
     self.pageViewController.dataSource = self;
@@ -192,6 +193,16 @@
         NSArray * content = @[description, image];
         
         UIActivityViewController * avc = [[UIActivityViewController alloc] initWithActivityItems:content applicationActivities:nil];
+        [avc setCompletionHandler:^(NSString *activityType, BOOL completed) {
+            if (completed) {
+                
+                id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Actions"     // Event category (required)
+                                                                      action:@"Share succeded"  // Event action (required)
+                                                                       label:nil          // Event label
+                                                                       value:nil] build]];
+            }
+        }];
         [self presentViewController:avc animated:YES completion:nil];
     });
 }
@@ -316,6 +327,13 @@
         [self donePressed];
         
     }];
+    
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Creation"     // Event category (required)
+                                                          action:@"Page added"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
 }
 
 -(void)didSelectDeletePage {

@@ -19,14 +19,6 @@
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    //Tests Ads
-    /*[GADRequest request].testDevices = @[GAD_SIMULATOR_ID,
-                                         @"74bd061215a350ef58419d4b5507e048910d18bb",
-                                         @"22b4d67c6292a65a567949d9d1355a247e80ff17",
-                                         @"9cbfc7702b83476e8e6d86f68deea0d30ed13660"];
-     */
-    [GADRequest request].testDevices = @[GAD_SIMULATOR_ID];
-    
     AlbumsViewController * avc = [[AlbumsViewController alloc] init];
     UINavigationController * nav = [[UINavigationController alloc] initWithRootViewController:avc];
     self.window.rootViewController = nav;
@@ -34,6 +26,18 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     [self.window makeKeyAndVisible];
+    
+    
+    //Tracking
+    [GAI sharedInstance].trackUncaughtExceptions = YES;
+    [GAI sharedInstance].dispatchInterval = 120;
+    [[[GAI sharedInstance] logger] setLogLevel:kGAILogLevelError];
+    [[GAI sharedInstance] trackerWithTrackingId:@"UA-4850795-4"];
+    
+#ifdef DEBUG
+    [GADRequest request].testDevices = @[GAD_SIMULATOR_ID];
+    [[GAI sharedInstance] setDryRun:YES];
+#endif
     
     return YES;
 }

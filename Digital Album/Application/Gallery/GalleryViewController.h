@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DAAlbum.h"
 
-@interface GalleryViewController : UIViewController {
+@interface GalleryViewController : GAITrackedViewController {
     
     __weak IBOutlet UICollectionView *imagesCollectionView;
     

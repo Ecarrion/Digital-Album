@@ -36,8 +36,9 @@
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithTitle:@"Finish" style:UIBarButtonItemStylePlain target:self action:@selector(finishPressed)];
         self.navigationItem.rightBarButtonItem = item;
-        
         self.selectedImages = [[NSMutableOrderedSet alloc] init];
+        
+        self.screenName = @"Select Asset Screen";
     }
     return self;
 }

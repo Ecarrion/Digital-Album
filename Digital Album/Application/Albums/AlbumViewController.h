@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DAAlbum.h"
 
-@interface AlbumViewController : UIViewController
+@interface AlbumViewController : GAITrackedViewController
 
 
 @property (nonatomic, strong) DAAlbum * album;

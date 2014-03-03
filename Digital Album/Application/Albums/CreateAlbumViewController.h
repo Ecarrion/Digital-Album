@@ -15,7 +15,7 @@
 
 @end
 
-@interface CreateAlbumViewController : UIViewController {
+@interface CreateAlbumViewController : GAITrackedViewController {
     
     
     __weak IBOutlet UITextField *albumNametextField;

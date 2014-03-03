@@ -33,6 +33,7 @@
         // Custom initialization
         
         self.title = @"Albums";
+        self.screenName = @"Albums Screen";
         self.covers = COVERS();
         
         UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addAlbumPressed)];
@@ -124,6 +125,13 @@
                         [newAlbums removeObject:albumToBeDeleted];
                         self.albums = newAlbums.copy;
                         [albumsCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+                        
+                        
+                        id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+                        [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Deletion"     // Event category (required)
+                                                                              action:@"Album Deleted"  // Event action (required)
+                                                                               label:nil          // Event label
+                                                                               value:nil] build]];
                     }
                 }
             }];
@@ -145,6 +153,13 @@
         [self dismissViewControllerAnimated:YES completion:nil];
         
     }];
+    
+    
+    id<GAITracker> tracker = [[GAI sharedInstance] defaultTracker];
+    [tracker send:[[GAIDictionaryBuilder createEventWithCategory:@"Creation"     // Event category (required)
+                                                          action:@"Album Created"  // Event action (required)
+                                                           label:nil          // Event label
+                                                           value:nil] build]];
 }
 
 #pragma mark - CollectionView
