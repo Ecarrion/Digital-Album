@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString * text;
 
 @property (nonatomic, assign) CGAffineTransform viewTransform;
-@property (nonatomic, assign) CGRect viewFrame;
+@property (nonatomic, assign) CGPoint viewCenter;
 @property (nonatomic, assign) NSInteger zPosition;
 
 

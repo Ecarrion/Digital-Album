@@ -34,7 +34,7 @@
 -(void)enableEditMode:(BOOL)edit;
 
 //These method will return a lit of deleted images
--(NSArray *)commitChanges;
+-(void)commitChangesOnCompletion:(void(^)(NSArray * imagesToDelete, NSArray * textToDelete))block;
 -(void)redrawView;
 -(void)disregardChanges;
 

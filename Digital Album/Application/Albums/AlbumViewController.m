@@ -94,12 +94,17 @@
 -(void)saveCurrentPageOnCompletion:(void(^)(BOOL success))block {
     
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
-    NSArray * imagesToDelete = [apvc commitChanges];
-    
-    //Delete Images
-    for (DAImage * image in imagesToDelete) {
-        [[AlbumManager manager] deleteDiskDataOfImage:image];
-    }
+    [apvc commitChangesOnCompletion:^(NSArray *imagesToDelete, NSArray *textToDelete) {
+        
+        //Delete Images
+        for (DAImage * image in imagesToDelete) {
+            [[AlbumManager manager] deleteDiskDataOfImage:image];
+        }
+        
+        //Delete Texts
+        //No need to delete texts because SaveAlbum function takes care of it
+        
+    }];
     
     //Figure out if we need to show the spinner
     //Only show it if there are images to copy to disk

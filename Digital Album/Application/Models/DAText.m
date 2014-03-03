@@ -15,7 +15,7 @@
 
 //View Dictionary
 #define kTextViewTransformKey @"kTextViewTransformKey"
-#define kTextViewFrameKey @"kTextViewFrameKey"
+#define kTextViewCenterKey @"kTextViewCenterKey"
 #define kTextViewZPositionKey @"kTextViewZPositionKey"
 
 @interface DAText ()
@@ -68,20 +68,20 @@
     return CGAffineTransformIdentity;
 }
 
--(void)setViewFrame:(CGRect)viewFrame {
+-(void)setViewCenter:(CGPoint)viewCenter {
     
-    NSString * frameString = NSStringFromCGRect(viewFrame);
-    self.viewDictionary[kTextViewFrameKey] = frameString;
+    NSString * centerString = NSStringFromCGPoint(viewCenter);
+    self.viewDictionary[kTextViewCenterKey] = centerString;
 }
 
--(CGRect)viewFrame {
+-(CGPoint)viewCenter {
     
-    NSString * frameString = self.viewDictionary[kTextViewFrameKey];
-    if (frameString) {
-        return CGRectFromString(frameString);
+    NSString * centerString = self.viewDictionary[kTextViewCenterKey];
+    if (centerString) {
+        return CGPointFromString(centerString);
     }
     
-    return CGRectZero;
+    return CGPointZero;
 }
 
 -(void)setZPosition:(NSInteger)zPosition {

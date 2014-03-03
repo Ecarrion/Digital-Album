@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSMutableArray * tempLabels;
 
 @property (nonatomic, strong) NSMutableArray * tempDAImages;
-@property (nonatomic, strong) NSMutableArray * tempDALabels;
+@property (nonatomic, strong) NSMutableArray * tempDATexts;
 
 @end
 
@@ -42,7 +42,7 @@
         self.tempImageViews = [NSMutableArray array];
         self.tempLabels = [NSMutableArray array];
         self.tempDAImages = [NSMutableArray array];
-        self.tempDALabels = [NSMutableArray array];
+        self.tempDATexts = [NSMutableArray array];
     }
     return self;
 }
@@ -80,7 +80,13 @@
         view.layer.zPosition = image.zPosition;
     }
     
-    //TODO: texts
+    for (DAText * text in self.page.texts) {
+        
+        UILabel * label = [self viewForText:text firstTime:NO];
+        [self setUpEditionImageGestureRecognizersToView:label];
+        [self.canvas addSubview:label];
+        [self.labels addObject:label];
+    }
     
     [self showBackgroundImageViewIfNecesary];
 }
@@ -119,10 +125,10 @@
 }
 
 #pragma mark - View Handling
-//TODO: COMMIT TEXTS
 
--(NSArray *)commitChanges {
+-(void)commitChangesOnCompletion:(void(^)(NSArray * imagesToDelete, NSArray * textToDelete))block {
     
+    //Images
     [self.imageViews addObjectsFromArray:self.tempImageViews];
     NSArray * allImages = [self.page.images arrayByAddingObjectsFromArray:self.tempDAImages];
     NSMutableArray * newImages = [NSMutableArray array];
@@ -151,9 +157,41 @@
     [self.tempImageViews removeAllObjects];
     [self.tempDAImages removeAllObjects];
     
+    
+    //Texts
+    [self.labels addObjectsFromArray:self.tempLabels];
+    NSArray * allTexts = [self.page.texts arrayByAddingObjectsFromArray:self.tempDATexts];
+    NSMutableArray * newTexts = [NSMutableArray array];
+    NSMutableArray * textsToDelete = [NSMutableArray array];
+    
+    [self.labels.copy enumerateObjectsUsingBlock:^(UILabel * label, NSUInteger idx, BOOL *stop) {
+        
+        if (label.alpha > 0) {
+            
+            DAText * text = allTexts[idx];
+            text.viewCenter = label.center;
+            text.viewTransform = label.transform;
+            text.zPosition = [self.canvas.subviews indexOfObject:label] + 100;
+            [newTexts addObject:text];
+            
+        } else {
+            
+            DAText * text = allTexts[idx];
+            [textsToDelete addObject:text];
+            [label removeFromSuperview];
+            [self.labels removeObject:label];
+        }
+    }];
+    
+    self.page.texts = [newTexts copy];
+    [self.tempLabels removeAllObjects];
+    [self.tempDATexts removeAllObjects];
+    
     [self showBackgroundImageViewIfNecesary];
     
-    return imagesToDelete.copy;
+    if (block) {
+        block(imagesToDelete, textsToDelete);
+    }
 }
 
 -(void)disregardChanges {
@@ -168,12 +206,27 @@
         
     }];
     
+    [self.labels enumerateObjectsUsingBlock:^(UILabel * label, NSUInteger idx, BOOL *stop) {
+        
+        DAText * text = self.page.texts[idx];
+        label.center = text.viewCenter;
+        label.transform = text.viewTransform;
+        label.layer.zPosition = text.zPosition;
+        label.alpha = 1;
+    }];
+    
     [self.tempImageViews enumerateObjectsUsingBlock:^(UIImageView * imgV, NSUInteger idx, BOOL *stop) {
         [imgV removeFromSuperview];
     }];
     
+    [self.tempLabels enumerateObjectsUsingBlock:^(UILabel * label, NSUInteger idx, BOOL *stop) {
+        [label removeFromSuperview];
+    }];
+    
     [self.tempDAImages removeAllObjects];
     [self.tempImageViews removeAllObjects];
+    [self.tempDATexts removeAllObjects];
+    [self.tempLabels removeAllObjects];
     [self showBackgroundImageViewIfNecesary];
 }
 
@@ -210,7 +263,8 @@
 
 -(UILabel *)viewForText:(DAText *)text firstTime:(BOOL)firstTime {
     
-    UILabel * view = [[UILabel alloc] initWithFrame:text.viewFrame];
+    CGSize size = [text.text sizeWithAttributes:@{NSFontAttributeName : DEFAULT_DATEXT_FONT}];
+    UILabel * view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     view.text = text.text;
     view.numberOfLines = 0;
     view.layer.allowsEdgeAntialiasing = YES;
@@ -221,9 +275,12 @@
     view.layer.zPosition = text.zPosition;
     view.textAlignment = NSTextAlignmentCenter;
     
+    
     if (firstTime) {
         CGSize  superSize = self.view.frame.size;
         view.center = CGPointMake(superSize.width / 2.0, superSize.height / 2.0);
+    } else {
+        view.center = text.viewCenter;
     }
     
     return view;
@@ -258,6 +315,35 @@
     }
 }
 
+-(void)deleteTextForLabel:(UILabel *)view {
+    
+    //Deletion of a saved text
+    NSUInteger index = [self.labels indexOfObject:view];
+    if (index != NSNotFound) {
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            view.transform = CGAffineTransformScale(view.transform, 0.1, 0.1);
+        } completion:^(BOOL finished) {
+            view.transform = CGAffineTransformIdentity;
+            view.alpha = 0;
+        }];
+    }
+    
+    //Deletion of a temporal text
+    index = [self.tempDATexts indexOfObject:view];
+    if (index != NSNotFound) {
+        
+        [self.tempDATexts removeObjectAtIndex:index];
+        [self.tempLabels removeObjectAtIndex:index];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            view.transform = CGAffineTransformScale(view.transform, 0.1, 0.1);
+        } completion:^(BOOL finished) {
+            [view removeFromSuperview];
+        }];
+    }
+}
+
 #pragma mark - Text Maker
 
 -(void)launchTextMaker {
@@ -273,6 +359,9 @@
     UILabel * view = [self viewForText:text firstTime:YES];
     [self.canvas addSubview:view];
     [self setUpEditionImageGestureRecognizersToView:view];
+    
+    [self.tempDATexts addObject:text];
+    [self.tempLabels addObject:view];
     
     [self showBackgroundImageViewIfNecesary];
     
@@ -504,15 +593,26 @@
 
 -(void)launchEditModeLongPressActionSheet:(UIGestureRecognizer *)recon {
     
-    BOOL deletePage = YES;
-    NSString * destructive = @"Delete Page";
+    BOOL deletePage = NO;
+    BOOL deleteImage = NO;
+    BOOL deleteText = NO;
     
+    NSString * destructive = @"";
     CGPoint point = [recon locationInView:self.canvas];
     UIView * view = [self.canvas hitTest:point withEvent:nil];
     if ([view isKindOfClass:[UIImageView class]]) {
-        deletePage = NO;
+        deleteImage = YES;
         destructive = @"Delete Image";
     }
+    else if ([view isKindOfClass:[UILabel class]]) {
+        deleteText = YES;
+        destructive = @"Delete Text";
+    }
+    else {
+        deletePage = YES;
+        destructive = @"Delete Page";
+    }
+    
     
     [UIActionSheet showInView:self.navigationController.view withTitle:nil cancelButtonTitle:@"Cancel" destructiveButtonTitle:destructive otherButtonTitles:@[@"Add New Page", @"Add Images", @"Add Text"] tapBlock:^(UIActionSheet *actionSheet, NSInteger buttonIndex) {
         
@@ -523,9 +623,13 @@
                     if ([self.delegate respondsToSelector:@selector(didSelectDeletePage)]) {
                         [self.delegate didSelectDeletePage];
                     }
-                } else {
+                } else if (deleteImage) {
                     
                     [self deleteImageForImageView:(UIImageView *)view];
+                    
+                } else if (deleteText) {
+                    
+                    [self deleteTextForLabel:(UILabel *)view];
                 }
                 break;
             }
@@ -630,7 +734,7 @@
     [self.labels removeAllObjects];
     [self.tempLabels removeAllObjects];
     [self.tempDAImages removeAllObjects];
-    [self.tempDALabels removeAllObjects];
+    [self.tempDATexts removeAllObjects];
 }
 
 - (void)didReceiveMemoryWarning {
