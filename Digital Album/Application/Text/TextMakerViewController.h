@@ -12,6 +12,7 @@
 
 #define DEFAULT_DATEXT_FONT [UIFont fontWithName:@"Noteworthy-Bold" size:100]
 #define DEFAULT_DATEXT_COLOR [UIColor colorWithRed:73.0/255.0 green:47.0/255.0 blue:14.0/255.0 alpha:1]
+#define DEFAULT_DATEXT_MAX_SIZE CGSizeMake(1300, 9999)
 
 @protocol TextMakerDelegate <NSObject>
 

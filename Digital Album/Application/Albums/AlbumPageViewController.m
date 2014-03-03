@@ -263,7 +263,7 @@
 
 -(UILabel *)viewForText:(DAText *)text firstTime:(BOOL)firstTime {
     
-    CGSize size = [text.text sizeWithAttributes:@{NSFontAttributeName : DEFAULT_DATEXT_FONT}];
+    CGSize size = [text.text boundingRectWithSize:DEFAULT_DATEXT_MAX_SIZE options:NSStringDrawingTruncatesLastVisibleLine|NSStringDrawingUsesLineFragmentOrigin  attributes:@{NSFontAttributeName : DEFAULT_DATEXT_FONT} context:nil].size;
     UILabel * view = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
     view.text = text.text;
     view.numberOfLines = 0;
