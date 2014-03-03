@@ -413,8 +413,7 @@
     CGAffineTransform currentTransform = view.transform;
     CGAffineTransform newTransform = CGAffineTransformScale(currentTransform, scale, scale);
     
-    [view setTransform:newTransform];
-    
+    [view setTransform:newTransform];    
     view.lastScale = [gestureRecognizer scale];
 }
 

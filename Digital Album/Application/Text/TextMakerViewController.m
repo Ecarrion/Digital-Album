@@ -59,8 +59,9 @@
     DAText * text = [[DAText alloc] init];
     text.text = textView.text;
     
-    CGSize size = [text.text sizeWithAttributes:@{NSFontAttributeName:textView.font}];
+    CGSize size = [text.text sizeWithAttributes:@{NSFontAttributeName:DEFAULT_DATEXT_FONT}];
     text.viewFrame = CGRectMake(0, 0, size.width, size.height);
+    text.viewTransform = CGAffineTransformScale(CGAffineTransformIdentity, 0.5, 0.5);
     text.zPosition = 200;
     
     return text;
