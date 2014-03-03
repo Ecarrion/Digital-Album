@@ -180,7 +180,7 @@
 -(void)sharedPressed {
     
     [SVProgressHUD showWithMaskType:SVProgressHUDMaskTypeGradient];
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC));
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
         [SVProgressHUD dismiss];
         
