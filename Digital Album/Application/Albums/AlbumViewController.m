@@ -85,7 +85,8 @@
 
 -(void)setReadOnlyBarButtonItems {
     
-    [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    UIBarButtonItem * item = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sharedPressed)];
+    [self.navigationItem setRightBarButtonItem:item animated:YES];
     
     [self.navigationItem setLeftBarButtonItem:nil animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
@@ -173,6 +174,12 @@
     
     AlbumPageViewController * apvc = self.pageViewController.viewControllers[0];
     [apvc enableEditMode:inEditMode];
+}
+
+-(void)sharedPressed {
+    
+    UIActivityViewController * avc = [[UIActivityViewController alloc] init];
+    [self presentViewController:avc animated:YES completion:nil];
 }
 
 #pragma mark - PageViewController

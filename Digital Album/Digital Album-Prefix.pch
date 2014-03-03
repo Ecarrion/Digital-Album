@@ -11,6 +11,7 @@
 #endif
 
 #define COVERS() @[@"black-cover.png", @"wood-cover.png", @"darkBlue-cover.png", @"lightBlue-cover.png", @"green-cover.png", @"purple-cover.png", @"red-cover.png"]
+#define APP_STORE_URL_STRING @"http://goo.gl/uZhhN4"
 
 #ifdef __OBJC__
     #import <UIKit/UIKit.h>
